@@ -3,5 +3,6 @@
     public class ShowDto
     {
         // Mapping
+        public string Name { get; set; }
     }
 }
