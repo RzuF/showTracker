@@ -1,5 +1,4 @@
-﻿using showTracker.BusinessLayer.ShowService;
-using Unity;
+﻿using Unity;
 
 namespace showTracker.BusinessLayer
 {
@@ -7,7 +6,7 @@ namespace showTracker.BusinessLayer
     {
         public static void Register(UnityContainer unityContainer)
         {            
-            unityContainer.RegisterType<IShowService, ShowService.ShowService>();
+            
         }
     }
 }
