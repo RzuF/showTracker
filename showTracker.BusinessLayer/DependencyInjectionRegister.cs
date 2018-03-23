@@ -5,9 +5,8 @@ namespace showTracker.BusinessLayer
 {
     public static class DependencyInjectionRegister
     {
-        public static void Register()
-        {
-            var unityContainer = new UnityContainer();
+        public static void Register(UnityContainer unityContainer)
+        {            
             unityContainer.RegisterType<IShowService, ShowService.ShowService>();
         }
     }
