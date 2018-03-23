@@ -14,6 +14,10 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using CommonServiceLocator;
+using showTracker.BusinessLayer;
+using Unity;
+using Unity.ServiceLocation;
 
 namespace showTracker.UWP
 {
@@ -27,7 +31,7 @@ namespace showTracker.UWP
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
-        {
+        {            
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }

@@ -1,19 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿using CommonServiceLocator;
+using showTracker.BusinessLayer;
+using showTracker.BusinessLayer.ShowService;
+using showTracker.View;
+using showTracker.ViewModel.MainPage;
+using Unity;
+using Unity.ServiceLocation;
 using Xamarin.Forms;
 
-namespace showTracker
+namespace showTracker.View
 {
 	public partial class App : Application
 	{
 		public App ()
 		{
-			InitializeComponent();
+		    //DependencyInjectionRegister.Register();
+		    var unityContainer = new UnityContainer();
+		    unityContainer.RegisterType<IShowService, BusinessLayer.ShowService.ShowService>();
+            unityContainer.RegisterInstance(typeof(MainViewModel));//optional
 
-			MainPage = new showTracker.MainPage();
+            var unityServiceLocator = new UnityServiceLocator(unityContainer);
+		    ServiceLocator.SetLocatorProvider(() => unityServiceLocator);
+
+            InitializeComponent();
+
+			MainPage = new MainPage();
 		}
 
 		protected override void OnStart ()

@@ -21,7 +21,7 @@ namespace showTracker.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new showTracker.App());
+            LoadApplication(new View.App());
         }
     }
 }
