@@ -155,8 +155,12 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\showTracker.BusinessLayer\showTracker.BusinessLayer.csproj">
+      <Project>{C47814A7-C0AA-4EEA-A8CE-26B96C66F9AB}</Project>
+      <Name>showTracker.BusinessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\showTracker.View\showTracker.View.csproj">
-      <Project>{BD02261E-C69C-4EDC-8602-C1B41D2B71B7}</Project>
+      <Project>{bd02261e-c69c-4edc-8602-c1b41d2b71b7}</Project>
       <Name>showTracker.View</Name>
     </ProjectReference>
   </ItemGroup>
