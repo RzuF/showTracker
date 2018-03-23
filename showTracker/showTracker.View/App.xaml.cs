@@ -1,7 +1,4 @@
 ﻿using CommonServiceLocator;
-using showTracker.BusinessLayer;
-using showTracker.BusinessLayer.ShowService;
-using showTracker.View;
 using showTracker.ViewModel.MainPage;
 using Unity;
 using Unity.ServiceLocation;
@@ -15,8 +12,9 @@ namespace showTracker.View
 		{
 		    //DependencyInjectionRegister.Register();
 		    var unityContainer = new UnityContainer();
-		    unityContainer.RegisterType<IShowService, BusinessLayer.ShowService.ShowService>();
-            unityContainer.RegisterInstance(typeof(MainViewModel));//optional
+
+		    BusinessLayer.DependencyInjectionRegister.Register(unityContainer);
+		    ViewModel.DependencyInjectionRegister.Register(unityContainer);
 
             var unityServiceLocator = new UnityServiceLocator(unityContainer);
 		    ServiceLocator.SetLocatorProvider(() => unityServiceLocator);
