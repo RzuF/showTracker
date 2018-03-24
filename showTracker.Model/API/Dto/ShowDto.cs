@@ -1,14 +1,26 @@
-﻿namespace showTracker.Model.API.Dto
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+
+namespace showTracker.Model.API.Dto
 {
     public class ShowDto
     {
-        // Mapping
+        public int Id { get; set; }
+        public string Url { get; set; }
         public string Name { get; set; }
+        public string Type { get; set; }
+        public string Language { get; set; }
+        public string Status { get; set; }
+        public IEnumerable<string> Genres { get; set; }        
         public int Runtime { get; set; }
+        public DateTime Premiered { get; set; }
+        [JsonProperty("rating.average")]
+        public float Rating { get; set; }
 
-        public override string ToString()
-        {
-            return $"{Name} with {Runtime} minutes";
-        }
+        public string Summary { get; set; }
+        public int Updated { get; set; }
+        [JsonProperty("_links")]
+        public LinksDto Links { get; set; }
     }
 }
