@@ -10,7 +10,6 @@ namespace showTracker.View
 	{
 		public App ()
 		{
-		    //DependencyInjectionRegister.Register();
 		    var unityContainer = new UnityContainer();
 
 		    BusinessLayer.DependencyInjectionRegister.Register(unityContainer);
