@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "showTracker.Android", "show
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "showTracker.UWP", "showTracker\showTracker.UWP\showTracker.UWP.csproj", "{283A57D1-AFE5-48F4-94E5-AEFB55B69435}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "showTracker.View", "showTracker\showTracker.View\showTracker.View.csproj", "{BD02261E-C69C-4EDC-8602-C1B41D2B71B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "showTracker.ViewModel", "showTracker\showTracker.View\showTracker.ViewModel.csproj", "{BD02261E-C69C-4EDC-8602-C1B41D2B71B7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "showTracker.BusinessLayer", "showTracker.BusinessLayer\showTracker.BusinessLayer.csproj", "{C47814A7-C0AA-4EEA-A8CE-26B96C66F9AB}"
 EndProject

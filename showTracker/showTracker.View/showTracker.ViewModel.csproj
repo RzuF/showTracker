@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+    <AssemblyName>showTracker.ViewModel</AssemblyName>
+    <RootNamespace>showTracker.ViewModel</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Heart.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Heart.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp.Extended" Version="1.59.0" />
+    <PackageReference Include="SkiaSharp.Svg" Version="1.59.1" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.60.0" />
+    <PackageReference Include="Unity" Version="5.7.3" />
+    <PackageReference Include="Xamarin.CustomControls.RepeaterView" Version="1.2.2" />
+    <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\showTracker.BusinessLayer\showTracker.BusinessLayer.csproj" />
+    <ProjectReference Include="..\..\showTracker.Model\showTracker.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
+      <DependentUpon>*.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="MainPage\MainPage.xaml.cs">
+      <DependentUpon>*.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="CustomControls\ShowContainer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\ShowContainerItem.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

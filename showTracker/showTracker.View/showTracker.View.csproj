@@ -1,27 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
-    <AssemblyName>showTracker.ViewModel</AssemblyName>
-    <RootNamespace>showTracker.ViewModel</RootNamespace>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Unity" Version="5.7.3" />
-    <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\showTracker.BusinessLayer\showTracker.BusinessLayer.csproj" />
-    <ProjectReference Include="..\..\showTracker.Model\showTracker.Model.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
-      <DependentUpon>*.xaml</DependentUpon>
-    </Compile>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="MainPage\MainPage.xaml.cs">
-      <DependentUpon>*.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
 </Project>

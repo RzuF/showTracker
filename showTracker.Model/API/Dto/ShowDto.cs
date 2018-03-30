@@ -16,11 +16,13 @@ namespace showTracker.Model.API.Dto
         public int Runtime { get; set; }
         public DateTime Premiered { get; set; }
         [JsonProperty("rating.average")]
-        public float Rating { get; set; }
+        public double Rating { get; set; }
 
         public string Summary { get; set; }
         public int Updated { get; set; }
         [JsonProperty("_links")]
         public LinksDto Links { get; set; }
+
+        public ShowDto Self => this;
     }
 }
