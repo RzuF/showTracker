@@ -13,7 +13,6 @@ namespace showTracker.ViewModel.MainPage
 		public MainPage()
 		{
 			InitializeComponent();
-		    BindingContext = ServiceLocator.Current.GetInstance(typeof(MainViewModel));
         }
 	}
 }

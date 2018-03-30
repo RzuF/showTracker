@@ -4,12 +4,13 @@
              xmlns:local="clr-namespace:showTracker.ViewModel.MainPage"
              x:Class="showTracker.ViewModel.MainPage.MainPage"
              xmlns:viewModel="clr-namespace:showTracker.ViewModel;assembly=showTracker.ViewModel"
-             BindingContext="{Binding ProductsViewModel, Source={StaticResource Locator}}">
-    
-    <!--<Label Text="Welcome to Xamarin.Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />-->
-    <ListView ItemsSource="{Binding Shows}"  VerticalOptions="Center" 
-              HorizontalOptions="Center"/>
+             xmlns:control="clr-namespace:showTracker.ViewModel.CustomControls"
+             BindingContext="{Binding MainViewModel, Source={StaticResource Locator}}">
+
+    <ContentPage.Content>
+        <ScrollView IsClippedToBounds="True">
+            <control:ShowContainer ShowsCollection="{Binding Shows}" SingleItemHeight="100"/>
+        </ScrollView>
+    </ContentPage.Content>
 
 </ContentPage>

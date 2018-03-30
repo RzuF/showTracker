@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using showTracker.BusinessLayer.Interfaces;
-using showTracker.Model.API.Dto;
 
 namespace showTracker.BusinessLayer.Services
 {
@@ -18,7 +14,7 @@ namespace showTracker.BusinessLayer.Services
 
         public async Task<string> GetShow(int id)
         {
-            var response = await _httpClientWrapper.HttpClient.GetStringAsync($"{Constants.ApiUrl}shows/{id}");
+            var response = await _httpClientWrapper.HttpClient.GetStringAsync($"{Model.Constants.ApiUrl}shows/{id}");
 
             return response;
         }

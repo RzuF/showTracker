@@ -159,9 +159,9 @@
       <Project>{C47814A7-C0AA-4EEA-A8CE-26B96C66F9AB}</Project>
       <Name>showTracker.BusinessLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\showTracker.View\showTracker.View.csproj">
+    <ProjectReference Include="..\showTracker.View\showTracker.ViewModel.csproj">
       <Project>{bd02261e-c69c-4edc-8602-c1b41d2b71b7}</Project>
-      <Name>showTracker.View</Name>
+      <Name>showTracker.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

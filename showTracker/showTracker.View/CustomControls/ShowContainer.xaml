@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      x:Class="showTracker.ViewModel.CustomControls.ShowContainer"
+      xmlns:control="clr-namespace:showTracker.ViewModel.CustomControls"
+      xmlns:customControl="clr-namespace:Xamarin.CustomControls;assembly=Xamarin.CustomControls.RepeaterView"
+      x:Name="this">
+
+    <customControl:RepeaterView ItemsSource="{Binding ShowsCollection, Source={x:Reference this}}">
+        <customControl:RepeaterView.ItemTemplate>
+            <DataTemplate>
+                <control:ShowContainerItem Show="{Binding Self}" ItemHeight="{Binding SingleItemHeight, Source={x:Reference this}}"/>
+            </DataTemplate>
+        </customControl:RepeaterView.ItemTemplate>
+    </customControl:RepeaterView>
+  
+</Grid>
