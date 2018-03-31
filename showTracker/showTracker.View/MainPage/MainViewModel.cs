@@ -37,6 +37,14 @@ namespace showTracker.ViewModel.MainPage
                 Status = "Running",
                 Type = "Scripted",
                 Premiered = new DateTime(2000, 1, 1)
+            },
+            new ShowDto
+            {
+                Name = "Show_Namw3",
+                Rating = 4,
+                Status = "Stopped",
+                Type = "Scripted",
+                Premiered = new DateTime(2000, 1, 1)
             }
         };
         public MainViewModel()
@@ -50,7 +58,7 @@ namespace showTracker.ViewModel.MainPage
                 Premiered = new DateTime(2017, 1,1)
             };
 
-            Shows = new List<ShowDto>(Enumerable.Repeat(Show, 15));
+            //Shows = new List<ShowDto>(Enumerable.Repeat(Show, 15));
         }
     }
 }

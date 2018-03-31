@@ -1,4 +1,5 @@
-﻿using showTracker.ViewModel.MainPage;
+﻿using showTracker.ViewModel.CustomControls;
+using showTracker.ViewModel.MainPage;
 using Unity;
 
 namespace showTracker.ViewModel
@@ -8,6 +9,7 @@ namespace showTracker.ViewModel
         public static void Register(UnityContainer unityContainer)
         {
             unityContainer.RegisterInstance(typeof(MainViewModel));
+            unityContainer.RegisterInstance(typeof(ShowConatinerViewModel));
         }
     }
 }

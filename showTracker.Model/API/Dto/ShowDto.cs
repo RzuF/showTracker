@@ -23,6 +23,7 @@ namespace showTracker.Model.API.Dto
         [JsonProperty("_links")]
         public LinksDto Links { get; set; }
 
+        [JsonIgnore]
         public ShowDto Self => this;
     }
 }

@@ -9,7 +9,7 @@
 
     <ContentPage.Content>
         <ScrollView IsClippedToBounds="True">
-            <control:ShowContainer ShowsCollection="{Binding Shows}" SingleItemHeight="100"/>
+            <control:ShowContainer ShowsCollection="{Binding Shows}" SingleItemHeight="100" GroupBy="Premiered.Year"/>
         </ScrollView>
     </ContentPage.Content>
 
