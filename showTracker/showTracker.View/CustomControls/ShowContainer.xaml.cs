@@ -44,7 +44,7 @@ namespace showTracker.ViewModel.CustomControls
 	        set => SetValue(SingleItemHeightProperty, value);
 	    }
 
-	    public static readonly BindableProperty GroupNameProperty =
+	    public static readonly BindableProperty GroupByProperty =
 	        BindableProperty.Create(nameof(GroupBy), typeof(string), typeof(ShowContainer),
 	            propertyChanged: (bindable, value, newValue) =>
 	            {
@@ -53,10 +53,10 @@ namespace showTracker.ViewModel.CustomControls
 
 	    public string GroupBy
 	    {
-	        get => (string)GetValue(GroupNameProperty);
+	        get => (string)GetValue(GroupByProperty);
 	        set
 	        {
-	            SetValue(GroupNameProperty, value);
+	            SetValue(GroupByProperty, value);
 	            GroupShowsByProperty();
 	        }
 	    }
