@@ -1,5 +1,7 @@
 ﻿using showTracker.BusinessLayer.Interfaces;
+using showTracker.BusinessLayer.Loggers;
 using showTracker.BusinessLayer.Services;
+using showTracker.BusinessLayer.Wrappers;
 using Unity;
 
 namespace showTracker.BusinessLayer
@@ -11,6 +13,8 @@ namespace showTracker.BusinessLayer
             unityContainer.RegisterType<IJsonSerializeService, JsonSerializeService>();
             unityContainer.RegisterType<IShowService, ShowService>();
             unityContainer.RegisterType<IApiClientService, ApiClientService>();
+            unityContainer.RegisterType<IHttpClientWrapper, HttpClientWrapper>();
+            unityContainer.RegisterType<ISTLogger, STLogger>();
         }
     }
 }

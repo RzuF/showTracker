@@ -19,7 +19,7 @@ namespace showTracker.ViewModel.CustomControls
             set
             {
                 _groupedResults = value;
-                Debug.WriteLine($"_groupedResults: {_jsonSerializeService.SerializeObject(_groupedResults)}");
+                _logger.Log($"_groupedResults: {_jsonSerializeService.SerializeObject(_groupedResults)}");
                 OnPropertyChanged();
             }
         }
@@ -39,10 +39,12 @@ namespace showTracker.ViewModel.CustomControls
         #endregion
 
         private readonly IJsonSerializeService _jsonSerializeService;
+        private readonly ISTLogger _logger;
 
-        public ShowConatinerViewModel(IJsonSerializeService jsonSerializeService)
+        public ShowConatinerViewModel(IJsonSerializeService jsonSerializeService, ISTLogger logger)
         {
             _jsonSerializeService = jsonSerializeService;
+            _logger = logger;
         }
 
         #region INotifyPropertyChanged Implementation
@@ -51,7 +53,7 @@ namespace showTracker.ViewModel.CustomControls
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            Debug.WriteLine($"PropertyChanged: {propertyName}");
+            _logger.Log($"PropertyChanged: {propertyName}");
         }
 
         #endregion

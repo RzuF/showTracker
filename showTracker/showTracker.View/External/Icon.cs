@@ -64,8 +64,7 @@ namespace SvgXF
 
             if (string.IsNullOrEmpty(ResourceId))
                 return;
-
-            System.Diagnostics.Debug.WriteLine(ResourceId);
+            
             using (Stream stream = typeof(ResourceAnchor).GetTypeInfo().Assembly.GetManifestResourceStream(ResourceId))
             {
                 SKSvg svg = new SKSvg();
