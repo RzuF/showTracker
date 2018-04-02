@@ -66,10 +66,12 @@ namespace showTracker.ViewModel.CustomControls
 	    public ShowConatinerViewModel ViewModel { get; }
 
 	    private readonly IJsonSerializeService _jsonSerializeService;
+	    private readonly ISTLogger _logger;
 		public ShowContainer ()
 		{
 		    _jsonSerializeService = ServiceLocator.Current.GetInstance<IJsonSerializeService>();
-            ViewModel = new ShowConatinerViewModel(_jsonSerializeService);
+		    _logger = ServiceLocator.Current.GetInstance<ISTLogger>();
+            ViewModel = new ShowConatinerViewModel(_jsonSerializeService, _logger);
 		    InitializeComponent ();
 		}
 
@@ -78,7 +80,7 @@ namespace showTracker.ViewModel.CustomControls
 	        if (string.IsNullOrEmpty(GroupBy))
 	        {
 	            GenerateGroupedResultWithOneMainGroup();
-                Debug.WriteLine($"GroupBy is empty");
+                _logger.Log($"GroupBy is empty");
 	        }
 	        else
 	        {
@@ -89,11 +91,11 @@ namespace showTracker.ViewModel.CustomControls
 	            catch (Exception exception)
 	            {
 	                GenerateGroupedResultWithOneMainGroup();
-                    Debug.WriteLine($"Msg: {exception.Message}");
-                    Debug.WriteLine($"ST: {exception.StackTrace}");
-                    Debug.WriteLine($"Src: {exception.Source}");
-	                Debug.WriteLine($"HR: {exception.HResult}");
-	                Debug.WriteLine($"Exception: {exception}");
+                    _logger.Log($"Msg: {exception.Message}");
+                    _logger.Log($"ST: {exception.StackTrace}");
+                    _logger.Log($"Src: {exception.Source}");
+	                _logger.Log($"HR: {exception.HResult}");
+	                _logger.Log($"Exception: {exception}");
                 }
             }
 	    }
