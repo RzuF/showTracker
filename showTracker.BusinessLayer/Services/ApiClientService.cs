@@ -38,16 +38,22 @@ namespace showTracker.BusinessLayer.Services
             throw new InvalidEpisodeException($"Show id: {showId}; Include specials: {includeSpecials}");
         }
 
-        public async Task<IEnumerable<EpisodeDto>> GetEpisodes(int showId, int seasonId, int episodeId)
+        public async Task<EpisodeDto> GetEpisode(int showId, int seasonId, int episodeId)
         {
             var json = await _episodeService.GetEpisodes(showId, seasonId, episodeId);
-            var episodes = _jsonSerializeService.TryDeserializeObject<IEnumerable<EpisodeDto>>(json);
+            var episodes = _jsonSerializeService.TryDeserializeObject<EpisodeDto>(json);
             if (episodes.success)
             {
                 return episodes.obj;
             }
 
             throw new InvalidEpisodeException($"Show id: {showId}; Season id: {seasonId}; Episode id: {episodeId}");
+        }
+
+        public async Task<IEnumerable<EpisodeDto>> GetEpisodes(int showId, int seasonId, int episodeId)
+        {
+            var episode = await GetEpisode(showId, seasonId, episodeId);
+            return new List<EpisodeDto>{episode};
         }
 
         public async Task<IEnumerable<EpisodeDto>> GetEpisodes(int showId, DateTime date)

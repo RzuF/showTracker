@@ -8,8 +8,8 @@ namespace showTracker.Model.API.Dto
         public int Id { get; set; }
         public string Url { get; set; }
         public string Name { get; set; }
-        public int Season { get; set; }
-        public int Number { get; set; }
+        public int? Season { get; set; }
+        public int? Number { get; set; }
         public DateTime AirDate { get; set; }
         public DateTime AirTime { get; set; }
         public DateTime AirStamp { get; set; }
