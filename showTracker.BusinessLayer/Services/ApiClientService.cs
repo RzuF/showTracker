@@ -13,12 +13,6 @@ namespace showTracker.BusinessLayer.Services
         private readonly IShowService _showService;
         private readonly IEpisodeService _episodeService;
 
-        public ApiClientService(IJsonSerializeService jsonSerializeService, IShowService showService)
-        {
-            _jsonSerializeService = jsonSerializeService;
-            _showService = showService;
-        }
-
         public ApiClientService(IJsonSerializeService jsonSerializeService, IShowService showService, IEpisodeService episodeService)
         {
             _jsonSerializeService = jsonSerializeService;

@@ -35,23 +35,30 @@ namespace showTracker.BusinessLayer.Tests.Api
         };
 
         private IJsonSerializeService _jsonSerializeService;
+        private IShowService _showService;
+        private IEpisodeService _episodeService;
+        private IApiClientService _apiClientMock;
+        private IApiClientService _apiClientTrue;
+        private readonly HttpClientWrapper _httpClientWrapper = new HttpClientWrapper();
 
         [SetUp]
         public void Init()
         {
             _jsonSerializeService = new JsonSerializeService();
+            _showService = Substitute.For<IShowService>();
+            _episodeService = Substitute.For<IEpisodeService>();
+            _apiClientMock = new ApiClientService(_jsonSerializeService, _showService, _episodeService);
+            _apiClientTrue = new ApiClientService(_jsonSerializeService, new ShowService(_httpClientWrapper), new EpisodeService(_httpClientWrapper));
         }
 
         [Test]
         public void GetShows_ValidId_ReturnsShow()
         {
             //Arrange
-            var showService = Substitute.For<IShowService>();
-            showService.GetShow(Arg.Any<int>()).Returns(_jsonSerializeService.SerializeObject(_mockShowDto));
-            var apiClient = new ApiClientService(_jsonSerializeService, showService);
+            _showService.GetShow(Arg.Any<int>()).Returns(_jsonSerializeService.SerializeObject(_mockShowDto));
 
             //Act
-            var show = apiClient.GetShow(1);
+            var show = _apiClientMock.GetShow(1);
             show.Wait();
 
             //Assert
@@ -62,10 +69,10 @@ namespace showTracker.BusinessLayer.Tests.Api
         public void RealGetShows_ValidId_ReturnsShow()
         {
             //Arrange
-            var apiClient = new ApiClientService(_jsonSerializeService, new ShowService(new HttpClientWrapper()));
+            
 
             //Act
-            var result = apiClient.GetShow(1);
+            var result = _apiClientTrue.GetShow(1);
             result.Wait();
 
             //Arrange
@@ -92,14 +99,10 @@ namespace showTracker.BusinessLayer.Tests.Api
         public void GetEpisodes_ValidId_ReturnEpisodes()
         {
             //Arrange
-            var showService = Substitute.For<IShowService>();
-            showService.GetShow(Arg.Any<int>()).Returns(_jsonSerializeService.SerializeObject(_mockShowDto));
-            var episodeService = Substitute.For<IEpisodeService>();
-            episodeService.GetEpisodes(Arg.Any<int>(), Arg.Any<bool>()).Returns(_jsonSerializeService.SerializeObject(_mockEpisodeDto));
-            var apiClient = new ApiClientService(_jsonSerializeService, showService, episodeService);
+            _episodeService.GetEpisodes(Arg.Any<int>(), Arg.Any<bool>()).Returns(_jsonSerializeService.SerializeObject(_mockEpisodeDto));
 
             //Act
-            var episode = apiClient.GetEpisodes(1, true);
+            var episode = _apiClientMock.GetEpisodes(1, true);
             episode.Wait();
 
             //Assert
@@ -110,10 +113,9 @@ namespace showTracker.BusinessLayer.Tests.Api
         public void RealGetEpisodes_ValidId_ReturnEpisodes()
         {
             //Arrange
-            var apiClient = new ApiClientService(_jsonSerializeService, new ShowService(new HttpClientWrapper()), new EpisodeService(new HttpClientWrapper()));
 
             //Act
-            var result = apiClient.GetEpisodes(1, true);
+            var result = _apiClientTrue.GetEpisodes(1, true);
             result.Wait();
 
             //Arrange
@@ -124,14 +126,10 @@ namespace showTracker.BusinessLayer.Tests.Api
         public void GetEpisodesByDate_ValidId_ReturnEpisodes()
         {
             //Arrange
-            var showService = Substitute.For<IShowService>();
-            showService.GetShow(Arg.Any<int>()).Returns(_jsonSerializeService.SerializeObject(_mockShowDto));
-            var episodeService = Substitute.For<IEpisodeService>();
-            episodeService.GetEpisodes(Arg.Any<int>(), Arg.Any<System.DateTime>()).Returns(_jsonSerializeService.SerializeObject(_mockEpisodeDto));
-            var apiClient = new ApiClientService(_jsonSerializeService, showService, episodeService);
+            _episodeService.GetEpisodes(Arg.Any<int>(), Arg.Any<System.DateTime>()).Returns(_jsonSerializeService.SerializeObject(_mockEpisodeDto));
 
             //Act
-            var episode = apiClient.GetEpisodes(1, new DateTime());
+            var episode = _apiClientMock.GetEpisodes(1, new DateTime());
             episode.Wait();
 
             //Assert
@@ -142,10 +140,9 @@ namespace showTracker.BusinessLayer.Tests.Api
         public void RealGetEpisodesByDate_ValidId_ReturnEpisodes()
         {
             //Arrange
-            var apiClient = new ApiClientService(_jsonSerializeService, new ShowService(new HttpClientWrapper()), new EpisodeService(new HttpClientWrapper()));
 
             //Act
-            var result = apiClient.GetEpisodes(1, new DateTime(2013, 7, 1));
+            var result = _apiClientTrue.GetEpisodes(1, new DateTime(2013, 7, 1));
             result.Wait();
 
             //Arrange
@@ -156,14 +153,10 @@ namespace showTracker.BusinessLayer.Tests.Api
         public void GetEpisodesByNumber_ValidId_ReturnEpisodes()
         {
             //Arrange
-            var showService = Substitute.For<IShowService>();
-            showService.GetShow(Arg.Any<int>()).Returns(_jsonSerializeService.SerializeObject(_mockShowDto));
-            var episodeService = Substitute.For<IEpisodeService>();
-            episodeService.GetEpisodes(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>()).Returns(_jsonSerializeService.SerializeObject(_mockEpisodeDto));
-            var apiClient = new ApiClientService(_jsonSerializeService, showService, episodeService);
+            _episodeService.GetEpisodes(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>()).Returns(_jsonSerializeService.SerializeObject(_mockEpisodeDto));
 
             //Act
-            var episode = apiClient.GetEpisodes(1, 1, 1);
+            var episode = _apiClientMock.GetEpisodes(1, 1, 1);
             episode.Wait();
 
             //Assert
@@ -174,10 +167,9 @@ namespace showTracker.BusinessLayer.Tests.Api
         public void RealGetEpisodesByNumber_ValidId_ReturnEpisodes()
         {
             //Arrange
-            var apiClient = new ApiClientService(_jsonSerializeService, new ShowService(new HttpClientWrapper()), new EpisodeService(new HttpClientWrapper()));
 
             //Act
-            var result = apiClient.GetEpisodes(1, 1, 1);
+            var result = _apiClientTrue.GetEpisodes(1, 1, 1);
             result.Wait();
 
             //Arrange
