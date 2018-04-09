@@ -75,7 +75,7 @@ namespace showTracker.BusinessLayer.Tests.Api
             var result = _apiClientTrue.GetShow(1);
             result.Wait();
 
-            //Arrange
+            //Assert
             Assert.AreNotEqual(null, result.Result);
         }
 
@@ -118,7 +118,7 @@ namespace showTracker.BusinessLayer.Tests.Api
             var result = _apiClientTrue.GetEpisodes(1, true);
             result.Wait();
 
-            //Arrange
+            //Assert
             Assert.AreNotEqual(null, result.Result);
         }
 
@@ -145,7 +145,7 @@ namespace showTracker.BusinessLayer.Tests.Api
             var result = _apiClientTrue.GetEpisodes(1, new DateTime(2013, 7, 1));
             result.Wait();
 
-            //Arrange
+            //Assert
             Assert.AreNotEqual(null, result.Result);
         }
 
@@ -172,7 +172,7 @@ namespace showTracker.BusinessLayer.Tests.Api
             var result = _apiClientTrue.GetEpisodes(1, 1, 1);
             result.Wait();
 
-            //Arrange
+            //Assert
             Assert.AreNotEqual(null, result.Result);
         }
     }
