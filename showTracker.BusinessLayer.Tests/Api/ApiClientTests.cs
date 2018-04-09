@@ -1,4 +1,7 @@
-﻿using NSubstitute;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using NSubstitute;
 using NUnit.Framework;
 using showTracker.BusinessLayer.Interfaces;
 using showTracker.BusinessLayer.Services;
@@ -17,24 +20,45 @@ namespace showTracker.BusinessLayer.Tests.Api
             Runtime = 40
         };
 
+        private readonly IEnumerable<EpisodeDto> _mockEpisodeDto = new EpisodeDto[]
+        {
+            new EpisodeDto
+            {
+                Name = "Ep1",
+                Number = 1
+            },
+            new EpisodeDto
+            {
+                Name = "Ep2",
+                Number = 2
+            }
+        };
+
         private IJsonSerializeService _jsonSerializeService;
+        private IShowService _showService;
+        private IEpisodeService _episodeService;
+        private IApiClientService _apiClientMock;
+        private IApiClientService _apiClientTrue;
+        private readonly HttpClientWrapper _httpClientWrapper = new HttpClientWrapper();
 
         [SetUp]
         public void Init()
         {
             _jsonSerializeService = new JsonSerializeService();
+            _showService = Substitute.For<IShowService>();
+            _episodeService = Substitute.For<IEpisodeService>();
+            _apiClientMock = new ApiClientService(_jsonSerializeService, _showService, _episodeService);
+            _apiClientTrue = new ApiClientService(_jsonSerializeService, new ShowService(_httpClientWrapper), new EpisodeService(_httpClientWrapper));
         }
 
         [Test]
         public void GetShows_ValidId_ReturnsShow()
         {
             //Arrange
-            var showService = Substitute.For<IShowService>();
-            showService.GetShow(Arg.Any<int>()).Returns(_jsonSerializeService.SerializeObject(_mockShowDto));
-            var apiClient = new ApiClientService(_jsonSerializeService, showService);
+            _showService.GetShow(Arg.Any<int>()).Returns(_jsonSerializeService.SerializeObject(_mockShowDto));
 
             //Act
-            var show = apiClient.GetShow(1);
+            var show = _apiClientMock.GetShow(1);
             show.Wait();
 
             //Assert
@@ -45,13 +69,13 @@ namespace showTracker.BusinessLayer.Tests.Api
         public void RealGetShows_ValidId_ReturnsShow()
         {
             //Arrange
-            var apiClient = new ApiClientService(_jsonSerializeService, new ShowService(new HttpClientWrapper()));
+            
 
             //Act
-            var result = apiClient.GetShow(1);
+            var result = _apiClientTrue.GetShow(1);
             result.Wait();
 
-            //Arrange
+            //Assert
             Assert.AreNotEqual(null, result.Result);
         }
 
@@ -68,6 +92,88 @@ namespace showTracker.BusinessLayer.Tests.Api
             var showObj = _jsonSerializeService.DeserializeObject<ShowDto>(show.Result);
 
             Assert.Pass();        
+        }
+
+
+        [Test]
+        public void GetEpisodes_ValidId_ReturnEpisodes()
+        {
+            //Arrange
+            _episodeService.GetEpisodes(Arg.Any<int>(), Arg.Any<bool>()).Returns(_jsonSerializeService.SerializeObject(_mockEpisodeDto));
+
+            //Act
+            var episode = _apiClientMock.GetEpisodes(1, true);
+            episode.Wait();
+
+            //Assert
+            Assert.AreEqual(_jsonSerializeService.SerializeObject(_mockEpisodeDto), _jsonSerializeService.SerializeObject(episode.Result));
+        }
+
+        [Test]
+        public void RealGetEpisodes_ValidId_ReturnEpisodes()
+        {
+            //Arrange
+
+            //Act
+            var result = _apiClientTrue.GetEpisodes(1, true);
+            result.Wait();
+
+            //Assert
+            Assert.AreNotEqual(null, result.Result);
+        }
+
+        [Test]
+        public void GetEpisodesByDate_ValidId_ReturnEpisodes()
+        {
+            //Arrange
+            _episodeService.GetEpisodes(Arg.Any<int>(), Arg.Any<System.DateTime>()).Returns(_jsonSerializeService.SerializeObject(_mockEpisodeDto));
+
+            //Act
+            var episode = _apiClientMock.GetEpisodes(1, new DateTime());
+            episode.Wait();
+
+            //Assert
+            Assert.AreEqual(_jsonSerializeService.SerializeObject(_mockEpisodeDto), _jsonSerializeService.SerializeObject(episode.Result));
+        }
+
+        [Test]
+        public void RealGetEpisodesByDate_ValidId_ReturnEpisodes()
+        {
+            //Arrange
+
+            //Act
+            var result = _apiClientTrue.GetEpisodes(1, new DateTime(2013, 7, 1));
+            result.Wait();
+
+            //Assert
+            Assert.AreNotEqual(null, result.Result);
+        }
+
+        [Test]
+        public void GetEpisodesByNumber_ValidId_ReturnEpisodes()
+        {
+            //Arrange
+            _episodeService.GetEpisodes(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>()).Returns(_jsonSerializeService.SerializeObject(_mockEpisodeDto));
+
+            //Act
+            var episode = _apiClientMock.GetEpisodes(1, 1, 1);
+            episode.Wait();
+
+            //Assert
+            Assert.AreEqual(_jsonSerializeService.SerializeObject(_mockEpisodeDto), _jsonSerializeService.SerializeObject(episode.Result));
+        }
+
+        [Test]
+        public void RealGetEpisodesByNumber_ValidId_ReturnEpisodes()
+        {
+            //Arrange
+
+            //Act
+            var result = _apiClientTrue.GetEpisodes(1, 1, 1);
+            result.Wait();
+
+            //Assert
+            Assert.AreNotEqual(null, result.Result);
         }
     }
 }

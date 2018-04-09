@@ -15,6 +15,7 @@ namespace showTracker.BusinessLayer
             unityContainer.RegisterType<IApiClientService, ApiClientService>();
             unityContainer.RegisterType<IHttpClientWrapper, HttpClientWrapper>();
             unityContainer.RegisterType<ISTLogger, STLogger>();
+            unityContainer.RegisterType<IEpisodeService, EpisodeService>();
         }
     }
 }
