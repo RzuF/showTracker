@@ -20,7 +20,21 @@ namespace showTracker.BusinessLayer.Tests.Api
             Runtime = 40
         };
 
-        private readonly IEnumerable<EpisodeDto> _mockEpisodeDto = new EpisodeDto[]
+        private readonly IEnumerable<ShowDto> _mockShowDtos = new[]
+        {
+            new ShowDto
+            {
+                Name = "Dth",
+                Runtime = 40
+            },
+            new ShowDto
+            {
+                Name = "Fth",
+                Runtime = 40
+            }
+        };
+
+        private readonly IEnumerable<EpisodeDto> _mockEpisodeDto = new[]
         {
             new EpisodeDto
             {
@@ -34,11 +48,26 @@ namespace showTracker.BusinessLayer.Tests.Api
             }
         };
 
+        private readonly IEnumerable<PeopleDto> _mockPeopleDtos = new[]
+        {
+            new PeopleDto
+            {
+                Name = "Lara Smith",
+                Gender = "Female"
+            },
+            new PeopleDto
+            {
+                Name = "Nico Pico",
+                Gender = "Male"
+            }
+        };
+
         private IJsonSerializeService _jsonSerializeService;
         private IShowService _showService;
         private IEpisodeService _episodeService;
         private IApiClientService _apiClientMock;
         private IApiClientService _apiClientTrue;
+        private ISearchService _searchService;
         private readonly HttpClientWrapper _httpClientWrapper = new HttpClientWrapper();
 
         [SetUp]
@@ -47,8 +76,9 @@ namespace showTracker.BusinessLayer.Tests.Api
             _jsonSerializeService = new JsonSerializeService();
             _showService = Substitute.For<IShowService>();
             _episodeService = Substitute.For<IEpisodeService>();
-            _apiClientMock = new ApiClientService(_jsonSerializeService, _showService, _episodeService);
-            _apiClientTrue = new ApiClientService(_jsonSerializeService, new ShowService(_httpClientWrapper), new EpisodeService(_httpClientWrapper));
+            _searchService = Substitute.For<ISearchService>();
+            _apiClientMock = new ApiClientService(_jsonSerializeService, _showService, _episodeService, _searchService);
+            _apiClientTrue = new ApiClientService(_jsonSerializeService, new ShowService(_httpClientWrapper), new EpisodeService(_httpClientWrapper), new SearchService(_httpClientWrapper));
         }
 
         [Test]
@@ -94,6 +124,7 @@ namespace showTracker.BusinessLayer.Tests.Api
             Assert.Pass();        
         }
 
+        //EpisodeService Tests
 
         [Test]
         public void GetEpisodes_ValidId_ReturnEpisodes()
@@ -126,7 +157,7 @@ namespace showTracker.BusinessLayer.Tests.Api
         public void GetEpisodesByDate_ValidId_ReturnEpisodes()
         {
             //Arrange
-            _episodeService.GetEpisodes(Arg.Any<int>(), Arg.Any<System.DateTime>()).Returns(_jsonSerializeService.SerializeObject(_mockEpisodeDto));
+            _episodeService.GetEpisodes(Arg.Any<int>(), Arg.Any<DateTime>()).Returns(_jsonSerializeService.SerializeObject(_mockEpisodeDto));
 
             //Act
             var episode = _apiClientMock.GetEpisodes(1, new DateTime());
@@ -170,6 +201,91 @@ namespace showTracker.BusinessLayer.Tests.Api
 
             //Act
             var result = _apiClientTrue.GetEpisodes(1, 1, 1);
+            result.Wait();
+
+            //Assert
+            Assert.AreNotEqual(null, result.Result);
+        }
+
+        //SearchService Tests
+
+        [Test]
+        public void SearchSingleShow_ValidQuery_ReturnShows()
+        {
+            //Arrange
+            _searchService.SearchShows(Arg.Any<string>(), true)
+                .Returns(_jsonSerializeService.SerializeObject(_mockShowDto));
+
+            //Act
+            var show = _apiClientMock.SearchShow("sample text");
+            show.Wait();
+
+            //Assert
+            Assert.AreEqual(_jsonSerializeService.SerializeObject(_mockShowDto), _jsonSerializeService.SerializeObject(show.Result));
+        }
+
+        [Test]
+        public void RealSearchSingleShow_ValidQuery_ReturnShows()
+        {
+            //Arrange
+
+            //Act
+            var result = _apiClientTrue.SearchShow("girls");
+            result.Wait();
+
+            //Assert
+            Assert.AreNotEqual(null, result.Result);
+        }
+
+        [Test]
+        public void SearchShows_ValidQuery_ReturnShows()
+        {
+            //Arrange
+            _searchService.SearchShows(Arg.Any<string>(), false)
+                .Returns(_jsonSerializeService.SerializeObject(_mockShowDtos));
+
+            //Act
+            var shows = _apiClientMock.SearchShows("sample text", false);
+            shows.Wait();
+
+            //Assert
+            Assert.AreEqual(_jsonSerializeService.SerializeObject(_mockShowDtos), _jsonSerializeService.SerializeObject(shows.Result));
+        }
+
+        [Test]
+        public void RealSearchShows_ValidQuery_ReturnShows()
+        {
+            //Arrange
+
+            //Act
+            var result = _apiClientTrue.SearchShows("girls", false);
+            result.Wait();
+
+            //Assert
+            Assert.AreNotEqual(null, result.Result);
+        }
+
+        [Test]
+        public void SearchPeople_ValidQuery_ReturnPeople()
+        {
+            //Arrange
+            _searchService.SearchPeople(Arg.Any<string>()).Returns(_jsonSerializeService.SerializeObject(_mockPeopleDtos));
+
+            //Act
+            var shows = _apiClientMock.SearchPeople("sample text");
+            shows.Wait();
+
+            //Assert
+            Assert.AreEqual(_jsonSerializeService.SerializeObject(_mockPeopleDtos), _jsonSerializeService.SerializeObject(shows.Result));
+        }
+
+        [Test]
+        public void RealSearchPeople_ValidQuery_ReturnPeople()
+        {
+            //Arrange
+
+            //Act
+            var result = _apiClientTrue.SearchPeople("lauren");
             result.Wait();
 
             //Assert
