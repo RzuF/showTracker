@@ -12,12 +12,14 @@ namespace showTracker.BusinessLayer.Services
         private readonly IJsonSerializeService _jsonSerializeService;
         private readonly IShowService _showService;
         private readonly IEpisodeService _episodeService;
+        private readonly ISearchService _searchService;
 
-        public ApiClientService(IJsonSerializeService jsonSerializeService, IShowService showService, IEpisodeService episodeService)
+        public ApiClientService(IJsonSerializeService jsonSerializeService, IShowService showService, IEpisodeService episodeService, ISearchService searchService)
         {
             _jsonSerializeService = jsonSerializeService;
             _showService = showService;
             _episodeService = episodeService;
+            _searchService = searchService;
         }
 
         public async Task<IEnumerable<EpisodeDto>> GetEpisodes(int showId, bool includeSpecials = true)
@@ -75,6 +77,51 @@ namespace showTracker.BusinessLayer.Services
             throw new InvalidShowException($"Show id: {id}");
         }
 
-        
+        public async Task<ShowDto> SearchShow(string query)
+        {
+            var json = await _searchService.SearchShows(query, true);
+            var show = _jsonSerializeService.TryDeserializeObject<ShowDto>(json);
+
+            if (show.success)
+            {
+                return show.obj;
+            }
+
+            throw new InvalidShowException($"Show search query: {query}, singlesearch");
+        }
+
+        public async Task<IEnumerable<ShowDto>> SearchShows(string query, bool singlesearch = false)
+        {
+            if (singlesearch)
+            {
+                var show = await SearchShow(query);
+                return new List < ShowDto >{ show };
+            }
+            else
+            {
+                var json = await _searchService.SearchShows(query);
+                var shows = _jsonSerializeService.TryDeserializeObject<IEnumerable<ShowDto>>(json);
+
+                if (shows.success)
+                {
+                    return shows.obj;
+                }
+
+                throw new InvalidShowException($"Show search query: {query}, search");
+            }
+        }
+
+        public async Task<IEnumerable<PeopleDto>> SearchPeople(string query)
+        {
+            var json = await _searchService.SearchPeople(query);
+            var people = _jsonSerializeService.TryDeserializeObject<IEnumerable<PeopleDto>>(json);
+
+            if (people.success)
+            {
+                return people.obj;
+            }
+
+            throw new InvalidPersonException($"Person search query: {query}");
+        }
     }
 }
