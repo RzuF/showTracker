@@ -1,5 +1,6 @@
 ﻿using showTracker.BusinessLayer.Interfaces;
 using showTracker.BusinessLayer.Loggers;
+using showTracker.BusinessLayer.Resolvers;
 using showTracker.BusinessLayer.Services;
 using showTracker.BusinessLayer.Wrappers;
 using Unity;
@@ -16,6 +17,7 @@ namespace showTracker.BusinessLayer
             unityContainer.RegisterType<IHttpClientWrapper, HttpClientWrapper>();
             unityContainer.RegisterType<ISTLogger, STLogger>();
             unityContainer.RegisterType<IEpisodeService, EpisodeService>();
+            unityContainer.RegisterType<ITileIconStrategyResolver, TileIconStrategyResolver>();
         }
     }
 }

@@ -8,13 +8,44 @@
              BindingContext="{Binding MainViewModel, Source={StaticResource Locator}}">
 
     <ContentPage.Content>
-        <StackLayout>
-            <control:SearchControl SearchPhrase="{Binding SearchPhrase}" SearchRequested="{Binding OnSearchRequestCommand}"></control:SearchControl>
-            <ScrollView IsClippedToBounds="True">
-                <control:ShowContainer ShowsCollection="{Binding Shows}" SingleItemHeight="100" GroupBy="Premiered.Year"/>
-            </ScrollView>
-        </StackLayout>
-        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <control:TileControl Grid.Row="0" 
+                                 Grid.Column="0" 
+                                 TileIconEnum="Search"
+                                 TileClicked="{Binding OnSearchNavigateCommand}"
+                                 HorizontalOptions="FillAndExpand"
+                                 VerticalOptions="FillAndExpand"/>
+
+            <control:TileControl Grid.Row="0" 
+                                 Grid.Column="1" 
+                                 TileIconEnum="Today"
+                                 TileClicked="{Binding OnTodayNavigateCommand}"
+                                 HorizontalOptions="FillAndExpand"
+                                 VerticalOptions="FillAndExpand"/>
+
+            <control:TileControl Grid.Row="1" 
+                                 Grid.Column="0" 
+                                 TileIconEnum="Favourities"
+                                 TileClicked="{Binding OnFavouritiesCommand}"
+                                 HorizontalOptions="FillAndExpand"
+                                 VerticalOptions="FillAndExpand"/>
+
+            <control:TileControl Grid.Row="1" 
+                                 Grid.Column="1" 
+                                 TileIconEnum="About"
+                                 TileClicked="{Binding OnAboutNavigateCommand}"
+                                 HorizontalOptions="FillAndExpand"
+                                 VerticalOptions="FillAndExpand"/>
+        </Grid>
     </ContentPage.Content>
 
 </ContentPage>
