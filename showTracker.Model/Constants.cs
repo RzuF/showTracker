@@ -7,5 +7,6 @@
 
         public const double DefaultShowContainerItemHeight = 100;
         public const string FavouriteIconResourceId = "showTracker.ViewModel.Resources.Heart.svg";
+        public const string SearchIconResourceId = "showTracker.ViewModel.Resources.Search.svg";
     }
 }
