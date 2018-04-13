@@ -8,9 +8,13 @@
              BindingContext="{Binding MainViewModel, Source={StaticResource Locator}}">
 
     <ContentPage.Content>
-        <ScrollView IsClippedToBounds="True">
-            <control:ShowContainer ShowsCollection="{Binding Shows}" SingleItemHeight="100" GroupBy="Premiered.Year"/>
-        </ScrollView>
+        <StackLayout>
+            <control:SearchControl SearchPhrase="{Binding SearchPhrase}" SearchRequested="{Binding OnSearchRequestCommand}"></control:SearchControl>
+            <ScrollView IsClippedToBounds="True">
+                <control:ShowContainer ShowsCollection="{Binding Shows}" SingleItemHeight="100" GroupBy="Premiered.Year"/>
+            </ScrollView>
+        </StackLayout>
+        
     </ContentPage.Content>
 
 </ContentPage>
