@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Windows.Input;
 using CommonServiceLocator;
 using showTracker.BusinessLayer.Interfaces;
 using showTracker.Model.API.Dto;
@@ -19,15 +20,15 @@ namespace showTracker.ViewModel.CustomControls
         #region BindeableProperties
 
 	    public static readonly BindableProperty ShowsCollectionProperty =
-	        BindableProperty.Create(nameof(ShowsCollection), typeof(IEnumerable<ShowDto>), typeof(ShowContainer),
+	        BindableProperty.Create(nameof(ShowsCollection), typeof(IList<ShowDto>), typeof(ShowContainer),
 	            propertyChanged: (bindable, value, newValue) =>
 	            {
 	                ((ShowContainer)bindable).GroupShowsByProperty();
 	            });
 
-	    public IEnumerable<ShowDto> ShowsCollection
+	    public IList<ShowDto> ShowsCollection
 	    {
-	        get => (IEnumerable<ShowDto>)GetValue(ShowsCollectionProperty);
+	        get => (IList<ShowDto>)GetValue(ShowsCollectionProperty);
 	        set
 	        {
 	            SetValue(ShowsCollectionProperty, value);
@@ -61,6 +62,15 @@ namespace showTracker.ViewModel.CustomControls
 	        }
 	    }
 
+	    public static readonly BindableProperty AllItemsLoadedProperty =
+	        BindableProperty.Create(nameof(AllItemsLoaded), typeof(ICommand), typeof(ShowContainer));
+
+	    public ICommand AllItemsLoaded
+	    {
+	        get => (ICommand) GetValue(AllItemsLoadedProperty);
+	        set => SetValue(AllItemsLoadedProperty, value);
+	    }
+
         #endregion
 
 	    public bool AnyShowsInCollection
@@ -71,6 +81,8 @@ namespace showTracker.ViewModel.CustomControls
 
 	    public string NoItemsString => Constants.NoItemsInCollection;
         public ShowConatinerViewModel ViewModel { get; }
+
+	    private ShowDto _lastShow = null;
 
 	    private readonly IJsonSerializeService _jsonSerializeService;
 	    private readonly ISTLogger _logger;
@@ -88,6 +100,7 @@ namespace showTracker.ViewModel.CustomControls
 	        {
 	            AnyShowsInCollection = false;
                 ViewModel.GroupedResults = new List<GroupedResult<ShowDto>>();
+                AllItemsLoaded?.Execute(null);
                 return;
 	        }
 
@@ -113,6 +126,8 @@ namespace showTracker.ViewModel.CustomControls
 	                _logger.Log($"Exception: {exception}");
                 }
             }
+
+	        _lastShow = ViewModel.GroupedResults.Last().Results.Last();
 	    }
 
 	    private void GenerateGroupedResultWithOneMainGroup()
@@ -141,5 +156,25 @@ namespace showTracker.ViewModel.CustomControls
 
 	        ViewModel.IsGroupNameVisible = true;
 	    }
+
+	    private void ListView_OnItemAppearing(object sender, ItemVisibilityEventArgs e)
+	    {
+	        var show = (ShowDto) e.Item;
+            _logger.Log(show.Name);
+
+	        if (show == _lastShow)
+	        {
+                AllItemsLoaded?.Execute(null);
+	        }
+	    }
+
+	    private void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
+	    {
+	        if (e.Item == null)
+	        {
+	            return;
+	        }
+	        ((ListView)sender).SelectedItem = null;
+        }
 	}
 }

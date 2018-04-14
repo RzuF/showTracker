@@ -11,5 +11,6 @@ namespace showTracker.BusinessLayer.Interfaces
         Task<string> GetEpisodes(int showId, int seasonId, int episodeId);
         Task<string> GetEpisodes(int showId, DateTime date);
 
+        Task<string> GetEpisodes(DateTime date);
     }
 }

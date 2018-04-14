@@ -30,6 +30,14 @@ namespace showTracker.BusinessLayer.Services
             return response;
         }
 
+        public async Task<string> GetEpisodes(DateTime date)
+        {
+            var iso8601Date = date.ToString("yyyy-MM-dd");
+            var response = await _httpClientWrapper.HttpClient.GetStringAsync($"{Constants.ApiUrl}schedule?date={iso8601Date}");
+
+            return response;
+        }
+
         public async Task<string> GetEpisodes(int showId, int seasonId, int episodeId)
         {
             var response = await _httpClientWrapper.HttpClient.GetStringAsync($"{Constants.ApiUrl}shows/{showId}/episodebynumber?season={seasonId}&number={episodeId}");
