@@ -2,6 +2,8 @@
 {
     public static class Constants
     {
+        public const string ApplicationName = "showTracker";
+
         public const string ApiUrl = "http://api.tvmaze.com/";
 
         public const double DefaultShowContainerItemHeight = 100;
@@ -15,5 +17,7 @@
         public const string SearchTileLabel = "Search";
         public const string AboutTileLabel = "About";
         public const string TodayTileLabel = "Today";
+
+        public const string NoItemsInCollection = "No items to display";
     }
 }

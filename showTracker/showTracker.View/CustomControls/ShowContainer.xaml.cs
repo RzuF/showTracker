@@ -63,7 +63,10 @@ namespace showTracker.ViewModel.CustomControls
 
         #endregion
 
-	    public ShowConatinerViewModel ViewModel { get; }
+	    public bool AnyShowsInCollection { get; private set; } = true;
+
+	    public string NoItemsString => Constants.NoItemsInCollection;
+        public ShowConatinerViewModel ViewModel { get; }
 
 	    private readonly IJsonSerializeService _jsonSerializeService;
 	    private readonly ISTLogger _logger;
@@ -77,6 +80,13 @@ namespace showTracker.ViewModel.CustomControls
 
 	    private void GroupShowsByProperty()
 	    {
+	        if (!ShowsCollection.Any())
+	        {
+	            AnyShowsInCollection = false;
+                return;
+	        }
+
+	        AnyShowsInCollection = true;
 	        if (string.IsNullOrEmpty(GroupBy))
 	        {
 	            GenerateGroupedResultWithOneMainGroup();
