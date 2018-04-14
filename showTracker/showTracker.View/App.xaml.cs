@@ -1,4 +1,5 @@
 ﻿using CommonServiceLocator;
+using showTracker.ViewModel;
 using showTracker.ViewModel.MainPage;
 using Unity;
 using Unity.ServiceLocation;
@@ -20,7 +21,9 @@ namespace showTracker.View
 
             InitializeComponent();
 
-			MainPage = new MainPage();
+		    NavigationPageRegister.RegisterPages();
+
+            MainPage = new NavigationPage(new MainPage());
 		}
 
 		protected override void OnStart ()

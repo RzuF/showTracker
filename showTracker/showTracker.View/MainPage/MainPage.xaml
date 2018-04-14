@@ -5,7 +5,8 @@
              x:Class="showTracker.ViewModel.MainPage.MainPage"
              xmlns:viewModel="clr-namespace:showTracker.ViewModel;assembly=showTracker.ViewModel"
              xmlns:control="clr-namespace:showTracker.ViewModel.CustomControls"
-             BindingContext="{Binding MainViewModel, Source={StaticResource Locator}}">
+             BindingContext="{Binding MainViewModel, Source={StaticResource Locator}}"
+             Title="{Binding PageTitle}">
 
     <ContentPage.Content>
         <Grid>

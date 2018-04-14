@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using NSubstitute;
 using NUnit.Framework;
 using showTracker.BusinessLayer.Interfaces;
@@ -184,14 +185,14 @@ namespace showTracker.BusinessLayer.Tests.Api
         public void GetEpisodesByNumber_ValidId_ReturnEpisodes()
         {
             //Arrange
-            _episodeService.GetEpisodes(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>()).Returns(_jsonSerializeService.SerializeObject(_mockEpisodeDto));
+            _episodeService.GetEpisodes(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>()).Returns(_jsonSerializeService.SerializeObject(_mockEpisodeDto.First()));
 
             //Act
             var episode = _apiClientMock.GetEpisodes(1, 1, 1);
             episode.Wait();
 
             //Assert
-            Assert.AreEqual(_jsonSerializeService.SerializeObject(_mockEpisodeDto), _jsonSerializeService.SerializeObject(episode.Result));
+            Assert.AreEqual(_jsonSerializeService.SerializeObject(new [] {_mockEpisodeDto.First()}), _jsonSerializeService.SerializeObject(episode.Result));
         }
 
         [Test]
