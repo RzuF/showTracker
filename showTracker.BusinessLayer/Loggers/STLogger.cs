@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Newtonsoft.Json;
 using showTracker.BusinessLayer.Interfaces;
 
 namespace showTracker.BusinessLayer.Loggers
@@ -27,6 +28,12 @@ namespace showTracker.BusinessLayer.Loggers
             {
                 Debug.WriteLine(message);
             }
+        }
+
+        public void LogWithSerialization(object obj, bool doNotBreakLine = false)
+        {
+            var serializedObject = JsonConvert.SerializeObject(obj);
+            Log(serializedObject, doNotBreakLine);
         }
     }
 }

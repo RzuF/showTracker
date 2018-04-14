@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using showTracker.BusinessLayer.Exceptions;
 using showTracker.BusinessLayer.Interfaces;
@@ -100,11 +101,11 @@ namespace showTracker.BusinessLayer.Services
             else
             {
                 var json = await _searchService.SearchShows(query);
-                var shows = _jsonSerializeService.TryDeserializeObject<IEnumerable<ShowDto>>(json);
+                var shows = _jsonSerializeService.TryDeserializeObject<IEnumerable<SearchShowResultDto>>(json);
 
                 if (shows.success)
                 {
-                    return shows.obj;
+                    return shows.obj.Select(x => x.Show);
                 }
 
                 throw new InvalidShowException($"Show search query: {query}, search");

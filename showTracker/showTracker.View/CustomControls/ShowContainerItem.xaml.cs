@@ -1,7 +1,10 @@
-﻿using showTracker.Model;
+﻿using System;
+using CommonServiceLocator;
+using showTracker.BusinessLayer.Interfaces;
 using showTracker.Model.API.Dto;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Constants = showTracker.Model.Constants;
 
 namespace showTracker.ViewModel.CustomControls
 {
@@ -9,7 +12,13 @@ namespace showTracker.ViewModel.CustomControls
     public partial class ShowContainerItem : Grid
     {
         public static readonly BindableProperty ShowProperty =
-            BindableProperty.Create(nameof(Show), typeof(ShowDto), typeof(ShowContainerItem));
+            BindableProperty.Create(nameof(Show), typeof(ShowDto), typeof(ShowContainerItem),
+                propertyChanged: (bindable, value, newValue) =>
+                {
+                    var logger = ServiceLocator.Current.GetInstance<ISTLogger>();
+                    logger.Log("Show set: ");
+                    logger.LogWithSerialization(newValue);
+                });
 
         public ShowDto Show
         {
@@ -27,10 +36,12 @@ namespace showTracker.ViewModel.CustomControls
         }
 
         public string FavouriteIcon => Constants.FavouriteIconResourceId;
+        public string Rating => Show?.Rating != null ? $"{Show?.Rating}/10" : "??/10";
+        public DateTime Premiered => Show?.Premiered ?? DateTime.MinValue;
 
         public ShowContainerItem ()
 		{
 			InitializeComponent ();
-		}
+        }
 	}
 }

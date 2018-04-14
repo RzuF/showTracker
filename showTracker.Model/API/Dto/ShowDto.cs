@@ -13,13 +13,13 @@ namespace showTracker.Model.API.Dto
         public string Language { get; set; }
         public string Status { get; set; }
         public IEnumerable<string> Genres { get; set; }        
-        public int Runtime { get; set; }
-        public DateTime Premiered { get; set; }
+        public int? Runtime { get; set; }
+        public DateTime? Premiered { get; set; }
         [JsonProperty("rating.average")]
-        public double Rating { get; set; }
+        public double? Rating { get; set; }
 
         public string Summary { get; set; }
-        public int Updated { get; set; }
+        public int? Updated { get; set; }
         [JsonProperty("_links")]
         public LinksDto Links { get; set; }
 

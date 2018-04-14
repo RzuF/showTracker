@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using showTracker.BusinessLayer.Interfaces;
 using showTracker.Model.API.Dto;
@@ -32,6 +31,18 @@ namespace showTracker.ViewModel.CustomControls
             set
             {
                 _isGroupNameVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _anyShowsInCollection;
+
+        public bool AnyShowsInCollection
+        {
+            get => _anyShowsInCollection;
+            set
+            {
+                _anyShowsInCollection = value;
                 OnPropertyChanged();
             }
         }

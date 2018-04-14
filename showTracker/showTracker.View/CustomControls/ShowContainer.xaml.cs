@@ -63,7 +63,11 @@ namespace showTracker.ViewModel.CustomControls
 
         #endregion
 
-	    public bool AnyShowsInCollection { get; private set; } = true;
+	    public bool AnyShowsInCollection
+	    {
+	        get => false;
+	        private set => ViewModel.AnyShowsInCollection = value;
+	    }
 
 	    public string NoItemsString => Constants.NoItemsInCollection;
         public ShowConatinerViewModel ViewModel { get; }
@@ -83,6 +87,7 @@ namespace showTracker.ViewModel.CustomControls
 	        if (!ShowsCollection.Any())
 	        {
 	            AnyShowsInCollection = false;
+                ViewModel.GroupedResults = new List<GroupedResult<ShowDto>>();
                 return;
 	        }
 
