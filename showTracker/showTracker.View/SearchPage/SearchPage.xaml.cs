@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace showTracker.ViewModel.SearchPage
@@ -15,6 +9,14 @@ namespace showTracker.ViewModel.SearchPage
 		public SearchPage ()
 		{
 			InitializeComponent ();
-		}
+        }
+
+	    protected override void OnAppearing()
+	    {
+	        base.OnAppearing();
+
+	        SearchControl.FocusEntry();
+	        SearchControl.MinimumHeightRequest = SearchControl.Height;
+	    }
 	}
 }

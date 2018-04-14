@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CommonServiceLocator;
+﻿using CommonServiceLocator;
 using showTracker.ViewModel.CustomControls;
 using showTracker.ViewModel.MainPage;
+using showTracker.ViewModel.SearchPage;
 
 namespace showTracker.ViewModel
 {
@@ -11,5 +9,6 @@ namespace showTracker.ViewModel
     {
         public MainViewModel MainViewModel => (MainViewModel) ServiceLocator.Current.GetInstance(typeof(MainViewModel));
         public ShowConatinerViewModel ShowConatinerViewModel => (ShowConatinerViewModel) ServiceLocator.Current.GetInstance(typeof(ShowConatinerViewModel));
+        public SearchViewModel SearchViewModel => (SearchViewModel) ServiceLocator.Current.GetInstance(typeof(SearchViewModel));
     }
 }

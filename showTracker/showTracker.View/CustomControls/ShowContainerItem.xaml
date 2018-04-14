@@ -32,15 +32,14 @@
                    Grid.Column="1"/>
         </Grid>
         <StackLayout Orientation="Horizontal" VerticalOptions="End" Grid.Row="1">
-            <Label Text="{Binding Show.Premiered.Year, Source={x:Reference this}}"></Label>
+            <Label Text="{Binding Premiered.Year, Source={x:Reference this}}"></Label>
             <Label Text=", "/>
             <Label Text="{Binding Show.Type, Source={x:Reference this}}"></Label>
             <Label Text=", "/>
-            <Label Text="{Binding Show.Rating, Source={x:Reference this}}"></Label>
-            <Label Text="/10"/>
+            <Label Text="{Binding Rating, Source={x:Reference this}}" />
         </StackLayout>
     </Grid>
-    <Grid Grid.Column="1" Padding="5" BackgroundColor="Aqua">
+    <Grid Grid.Column="1" Padding="5">
         <svg:Icon ResourceId="{Binding FavouriteIcon, Source={x:Reference this}}" 
                   HorizontalOptions="Center" 
                   VerticalOptions="Center"/>

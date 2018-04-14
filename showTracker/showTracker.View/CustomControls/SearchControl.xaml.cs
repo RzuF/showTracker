@@ -53,5 +53,11 @@ namespace showTracker.ViewModel.CustomControls
 		{
 			InitializeComponent ();
 		}
+
+	    public void FocusEntry()
+	    {
+            SearchEntry.Unfocus();
+	        SearchEntry.Focus();
+	    }
 	}
 }
