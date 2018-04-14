@@ -154,7 +154,7 @@ namespace showTracker.BusinessLayer.Services
 
         public async Task<IEnumerable<CrewDto>> GetCrew(int showId)
         {
-            var json = await _showExtendedService.GetCast(showId);
+            var json = await _showExtendedService.GetCrew(showId);
             var crew = _jsonSerializeService.TryDeserializeObject<IEnumerable<CrewDto>>(json);
 
             if (crew.success)
