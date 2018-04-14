@@ -13,6 +13,7 @@ namespace showTracker.BusinessLayer.Interfaces
         Task<IEnumerable<EpisodeDto>> GetEpisodes(int showId, bool includeSpecials = true);
         Task<IEnumerable<EpisodeDto>> GetEpisodes(int showId, int seasonId, int episodeId);
         Task<IEnumerable<EpisodeDto>> GetEpisodes(int showId, DateTime date);
+        Task<IEnumerable<EpisodeDto>> GetEpisodes(DateTime date);
         Task<IEnumerable<ShowDto>> SearchShows(string query, bool singlesearch = false);
         Task<IEnumerable<PeopleDto>> SearchPeople(string query);
     }

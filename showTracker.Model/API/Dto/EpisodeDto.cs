@@ -13,10 +13,12 @@ namespace showTracker.Model.API.Dto
         public DateTime AirDate { get; set; }
         public DateTime AirTime { get; set; }
         public DateTime AirStamp { get; set; }
-        public int Runtime { get; set; }
+        public int? Runtime { get; set; }
         public ImageDto Image { get; set; }
         public string Summary { get; set; }
         [JsonProperty("_links")]
         public LinksDto Links { get; set; }
+
+        public ShowDto Show { get; set; }
     }
 }

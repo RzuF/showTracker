@@ -18,15 +18,21 @@
                         IsVisible="{Binding ViewModel.IsGroupNameVisible, Source={x:Reference this}}"
                         BackgroundColor="Black" 
                         HorizontalOptions="FillAndExpand" />
-                    <customControl:RepeaterView ItemsSource="{Binding Results}">
-                        <customControl:RepeaterView.ItemTemplate>
+                    <ListView ItemsSource="{Binding Results}" 
+                              RowHeight="{Binding SingleItemHeight, Source={x:Reference this}}"
+                              CachingStrategy="RecycleElementAndDataTemplate"
+                              ItemAppearing="ListView_OnItemAppearing"
+                              ItemTapped="ListView_OnItemTapped">
+                        <ListView.ItemTemplate>
                             <DataTemplate>
-                                <control:ShowContainerItem 
-                                    Show="{Binding Self}" 
-                                    ItemHeight="{Binding SingleItemHeight, Source={x:Reference this}}"/>
+                                <ViewCell>
+                                    <control:ShowContainerItem 
+                                        Show="{Binding Self}" 
+                                        ItemHeight="{Binding SingleItemHeight, Source={x:Reference this}}"/>
+                                </ViewCell>
                             </DataTemplate>
-                        </customControl:RepeaterView.ItemTemplate>
-                    </customControl:RepeaterView>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </StackLayout>
             </DataTemplate>
         </customControl:RepeaterView.ItemTemplate>

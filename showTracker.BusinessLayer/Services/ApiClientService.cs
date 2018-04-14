@@ -65,6 +65,18 @@ namespace showTracker.BusinessLayer.Services
             throw new InvalidEpisodeException($"Show id: {showId}; Date: {date.ToString($"yyyy-MM-dd")}");
         }
 
+        public async Task<IEnumerable<EpisodeDto>> GetEpisodes(DateTime date)
+        {
+            var json = await _episodeService.GetEpisodes(date);
+            var episodes = _jsonSerializeService.TryDeserializeObject<IEnumerable<EpisodeDto>>(json);
+            if (episodes.success)
+            {
+                return episodes.obj;
+            }
+
+            throw new InvalidEpisodeException($"Date: {date.ToString($"yyyy-MM-dd")}");
+        }
+
         public async Task<ShowDto> GetShow(int id)
         {
             var json = await _showService.GetShow(id);
