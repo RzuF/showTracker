@@ -7,6 +7,7 @@
         public const string ApiUrl = "http://api.tvmaze.com/";
 
         public const double DefaultShowContainerItemHeight = 100;
+        public const double DefaultEpisodeContainerItemHeight = 100;
 
         public const string FavouriteIconResourceId = "showTracker.ViewModel.Resources.Heart.svg";
         public const string SearchIconResourceId = "showTracker.ViewModel.Resources.Search.svg";
@@ -19,5 +20,6 @@
         public const string TodayTileLabel = "Today";
 
         public const string NoItemsInCollection = "No items to display";
+        public const string LoadMoreItems = "Load more items";
     }
 }

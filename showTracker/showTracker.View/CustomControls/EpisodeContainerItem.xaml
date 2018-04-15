@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      x:Class="showTracker.ViewModel.CustomControls.EpisodeContainerItem"
+      x:Name="this"
+      xmlns:svg="clr-namespace:SvgXF">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="8*" />
+        <ColumnDefinition Width="2*" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="{Binding ItemHeight, Source={x:Reference this}}"/>
+    </Grid.RowDefinitions>
+
+    <Grid Grid.Column="0" Padding="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              HorizontalOptions="Start" 
+              VerticalOptions="Start">
+            <StackLayout>
+                <Label Text="{Binding EpisodeName, Source={x:Reference this}}"/>
+                <Label Text="{Binding ShowName, Source={x:Reference this}}"/>
+            </StackLayout>
+        </Grid>
+        <StackLayout Orientation="Horizontal" VerticalOptions="End" Grid.Row="1">
+            <Label Text="{Binding NumberOfEpisode, Source={x:Reference this}}"></Label>
+            <Label Text=", "/>
+            <Label Text="{Binding Episode.AirTime, Source={x:Reference this}}"></Label>
+            <Label Text=", "/>
+            <Label Text="{Binding Runtime, Source={x:Reference this}}"></Label>
+        </StackLayout>
+    </Grid>
+    <Grid Grid.Column="1" Padding="5">
+        <svg:Icon ResourceId="{Binding FavouriteIcon, Source={x:Reference this}}" 
+                  HorizontalOptions="Center" 
+                  VerticalOptions="Center"/>
+    </Grid>
+</Grid>
