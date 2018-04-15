@@ -12,11 +12,12 @@ namespace showTracker.ViewModel.TodayPage
     public class TodayViewModel : BaseViewModel
     {
         public ICommand OnSearchRequested { get; }
-        public ICommand OnShowConatinerLoaded { get; }
+        public ICommand OnEpisodeConatinerLoaded { get; }
+        public ICommand OnEpisodeConatinerLoadingStarted { get; }
 
         public DateTime SearchDate { get; set; }
 
-        private bool _isLoading;
+        private bool _isLoading = true;
         public bool IsLoading
         {
             get => _isLoading;
@@ -27,13 +28,13 @@ namespace showTracker.ViewModel.TodayPage
             }
         }
 
-        private List<ShowDto> _shows;
-        public List<ShowDto> Shows
+        private List<EpisodeDto> _episodes;
+        public List<EpisodeDto> Episodes
         {
-            get => _shows;
+            get => _episodes;
             set
             {
-                _shows = value;
+                _episodes = value;
                 OnPropertyChanged();
             }
         }
@@ -47,10 +48,11 @@ namespace showTracker.ViewModel.TodayPage
             _stLogger = stLogger;
 
             OnSearchRequested = new Command(SearchRequested);
-            OnShowConatinerLoaded = new Command(ShowContainerLoaded);
+            OnEpisodeConatinerLoaded = new Command(EpisodeContainerLoaded);
+            OnEpisodeConatinerLoadingStarted = new Command(EpisodeContainerLoadingStarted);
 
             PageTitle = "Episodes for selected date";
-            Shows = new List<ShowDto>();
+            Episodes = new List<EpisodeDto>();
         }
 
         private async void SearchRequested()
@@ -59,12 +61,17 @@ namespace showTracker.ViewModel.TodayPage
             var episodes = await _apiClientService.GetEpisodes(SearchDate);
             _stLogger.LogWithSerialization(episodes);
 
-            Shows = episodes.Select(x => x.Show).ToList();            
+            Episodes = episodes.ToList();            
         }
 
-        private void ShowContainerLoaded()
+        private void EpisodeContainerLoaded()
         {
             IsLoading = false;
+        }
+
+        private void EpisodeContainerLoadingStarted()
+        {
+            IsLoading = true;
         }
     }
 }

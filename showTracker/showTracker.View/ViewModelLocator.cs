@@ -12,5 +12,6 @@ namespace showTracker.ViewModel
         public ShowConatinerViewModel ShowConatinerViewModel => (ShowConatinerViewModel) ServiceLocator.Current.GetInstance(typeof(ShowConatinerViewModel));
         public SearchViewModel SearchViewModel => (SearchViewModel) ServiceLocator.Current.GetInstance(typeof(SearchViewModel));
         public TodayViewModel TodayViewModel => (TodayViewModel) ServiceLocator.Current.GetInstance(typeof(TodayViewModel));
+        public EpisodeContainerViewModel EpisodeContainerViewModel => (EpisodeContainerViewModel) ServiceLocator.Current.GetInstance(typeof(EpisodeContainerViewModel));
     }
 }

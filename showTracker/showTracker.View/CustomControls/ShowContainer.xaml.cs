@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Dynamic.Core;
@@ -138,7 +139,7 @@ namespace showTracker.ViewModel.CustomControls
 	            new GroupedResult<ShowDto>
                 {
 	                GroupName = "All",
-	                Results = ShowsCollection
+	                Results = new ObservableCollection<ShowDto>(ShowsCollection)
 	            }
 	        };
 	        ViewModel.IsGroupNameVisible = false;

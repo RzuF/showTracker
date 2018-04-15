@@ -23,7 +23,8 @@
                 </Grid>
                 <Grid>
                     <ScrollView IsClippedToBounds="True">
-                        <control:ShowContainer ShowsCollection="{Binding Shows}" AllItemsLoaded="{Binding OnShowConatinerLoaded}"></control:ShowContainer>
+                        <control:EpisodeContainer EpisodeCollection="{Binding Episodes}" 
+                                                  AllItemsLoaded="{Binding OnEpisodeConatinerLoaded}"/>
                     </ScrollView>
                 </Grid>
             </StackLayout>

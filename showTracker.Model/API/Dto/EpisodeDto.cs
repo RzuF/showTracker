@@ -20,5 +20,8 @@ namespace showTracker.Model.API.Dto
         public LinksDto Links { get; set; }
 
         public ShowDto Show { get; set; }
+
+        [JsonIgnore]
+        public EpisodeDto Self => this;
     }
 }

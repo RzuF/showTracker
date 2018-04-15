@@ -14,6 +14,7 @@ namespace showTracker.ViewModel
             unityContainer.RegisterInstance(typeof(ShowConatinerViewModel));
             unityContainer.RegisterInstance(typeof(SearchViewModel));
             unityContainer.RegisterInstance(typeof(TodayViewModel));
+            unityContainer.RegisterInstance(typeof(EpisodeContainerViewModel));
         }
     }
 }
