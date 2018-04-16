@@ -18,6 +18,8 @@ namespace showTracker.BusinessLayer
             unityContainer.RegisterType<ISTLogger, STLogger>();
             unityContainer.RegisterType<IEpisodeService, EpisodeService>();
             unityContainer.RegisterType<ITileIconStrategyResolver, TileIconStrategyResolver>();
+            unityContainer.RegisterType<ISearchService, SearchService>();
+            unityContainer.RegisterType<IShowExtendedService, ShowExtendedService>();
         }
     }
 }
