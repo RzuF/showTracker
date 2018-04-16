@@ -102,12 +102,61 @@ namespace showTracker.BusinessLayer.Tests.Api
             }
         };
 
+        private readonly IEnumerable<SeasonDto> _mockSeasonDtos = new[]
+        {
+            new SeasonDto
+            {
+                Number = 1
+            },
+            new SeasonDto
+            {
+                Number = 2
+            }
+        };
+
+        private readonly IEnumerable<CrewDto> _mockCrewDtos = new[]
+        {
+            new CrewDto
+            {
+                Type = "Director"
+            },
+            new CrewDto
+            {
+                Type = "Creator"
+            }
+        };
+
+        private readonly IEnumerable<CastDto> _mockCastDtos = new[]
+        {
+            new CastDto
+            {
+                Person = new PeopleDto {Id = 1}
+            },
+            new CastDto
+            {
+                Person = new PeopleDto {Id = 2}
+            }
+        };
+
+        private readonly IEnumerable<AkaDto> _mockAkaDtos = new[]
+        {
+            new AkaDto
+            {
+                Name = "Sth"
+            },
+            new AkaDto
+            {
+                Name = "Sth in other language"
+            }
+        };
+
         private IJsonSerializeService _jsonSerializeService;
         private IShowService _showService;
         private IEpisodeService _episodeService;
         private IApiClientService _apiClientMock;
         private IApiClientService _apiClientTrue;
         private ISearchService _searchService;
+        private IShowExtendedService _showExtendedService;
         private readonly HttpClientWrapper _httpClientWrapper = new HttpClientWrapper();
 
         [SetUp]
@@ -117,8 +166,13 @@ namespace showTracker.BusinessLayer.Tests.Api
             _showService = Substitute.For<IShowService>();
             _episodeService = Substitute.For<IEpisodeService>();
             _searchService = Substitute.For<ISearchService>();
-            _apiClientMock = new ApiClientService(_jsonSerializeService, _showService, _episodeService, _searchService);
-            _apiClientTrue = new ApiClientService(_jsonSerializeService, new ShowService(_httpClientWrapper), new EpisodeService(_httpClientWrapper), new SearchService(_httpClientWrapper));
+            _showExtendedService = Substitute.For<IShowExtendedService>();
+            _apiClientMock = new ApiClientService(_jsonSerializeService, _showService, _episodeService, _searchService, _showExtendedService);
+            _apiClientTrue = new ApiClientService(_jsonSerializeService,
+                new ShowService(_httpClientWrapper),
+                new EpisodeService(_httpClientWrapper),
+                new SearchService(_httpClientWrapper),
+                new ShowExtendedService(_httpClientWrapper));
         }
 
         [Test]
@@ -326,6 +380,116 @@ namespace showTracker.BusinessLayer.Tests.Api
 
             //Act
             var result = _apiClientTrue.SearchPeople("lauren");
+            result.Wait();
+
+            //Assert
+            Assert.AreNotEqual(null, result.Result);
+        }
+
+        //ShowExtendedService
+
+        [Test]
+        public void ShowExtendedSeasons_ValidId_ReturnSeasons()
+        {
+            //Arrange
+            _showExtendedService.GetSeasons(Arg.Any<int>())
+                .Returns(_jsonSerializeService.SerializeObject(_mockSeasonDtos));
+
+            //Act
+            var seasons = _apiClientMock.GetSeasons(1);
+
+            //Assert
+            Assert.AreEqual(_jsonSerializeService.SerializeObject(_mockSeasonDtos), _jsonSerializeService.SerializeObject(seasons.Result));
+        }
+
+        [Test]
+        public void RealShowExtendedSeasons_ValidId_ReturnSeasons()
+        {
+            //Arrange
+
+            //Act
+            var result = _apiClientTrue.GetSeasons(1);
+            result.Wait();
+
+            //Assert
+            Assert.AreNotEqual(null, result.Result);
+        }
+
+        [Test]
+        public void ShowExtendedCast_ValidId_ReturnCast()
+        {
+            //Arrange
+            _showExtendedService.GetCast(Arg.Any<int>())
+                .Returns(_jsonSerializeService.SerializeObject(_mockCastDtos));
+
+            //Act
+            var cast = _apiClientMock.GetCast(1);
+
+            //Assert
+            Assert.AreEqual(_jsonSerializeService.SerializeObject(_mockCastDtos), _jsonSerializeService.SerializeObject(cast.Result));
+        }
+
+        [Test]
+        public void RealShowExtendedCast_ValidId_ReturnCast()
+        {
+            //Arrange
+
+            //Act
+            var result = _apiClientTrue.GetCast(1);
+            result.Wait();
+
+            //Assert
+            Assert.AreNotEqual(null, result.Result);
+        }
+
+        [Test]
+        public void ShowExtendedCrew_ValidId_ReturnCrew()
+        {
+            //Arrange
+            _showExtendedService.GetCrew(Arg.Any<int>())
+                .Returns(_jsonSerializeService.SerializeObject(_mockCrewDtos));
+
+            //Act
+            var crew = _apiClientMock.GetCrew(1);
+
+            //Assert
+            Assert.AreEqual(_jsonSerializeService.SerializeObject(_mockCrewDtos), _jsonSerializeService.SerializeObject(crew.Result));
+        }
+
+        [Test]
+        public void RealShowExtendedCrew_ValidId_ReturnCrew()
+        {
+            //Arrange
+
+            //Act
+            var result = _apiClientTrue.GetCrew(1);
+            result.Wait();
+
+            //Assert
+            Assert.AreNotEqual(null, result.Result);
+        }
+
+        [Test]
+        public void ShowExtendedAkas_ValidId_ReturnAkas()
+        {
+            //Arrange
+            _showExtendedService.GetAkas(Arg.Any<int>())
+                .Returns(_jsonSerializeService.SerializeObject(_mockAkaDtos));
+
+            //Act
+            var akas = _apiClientMock.GetAkas(1);
+
+            //Assert
+            Assert.AreEqual(_jsonSerializeService.SerializeObject(_mockAkaDtos), _jsonSerializeService.SerializeObject(akas.Result));
+        }
+
+        [Test]
+        public void RealShowExtendedAkas_ValidId_ReturnAkas()
+        {
+            //Arrange
+
+            //Act
+            var result = _apiClientTrue.GetAkas(1);
             result.Wait();
 
             //Assert
