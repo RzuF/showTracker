@@ -14,13 +14,15 @@ namespace showTracker.BusinessLayer.Services
         private readonly IShowService _showService;
         private readonly IEpisodeService _episodeService;
         private readonly ISearchService _searchService;
+        private readonly IShowExtendedService _showExtendedService;
 
-        public ApiClientService(IJsonSerializeService jsonSerializeService, IShowService showService, IEpisodeService episodeService, ISearchService searchService)
+        public ApiClientService(IJsonSerializeService jsonSerializeService, IShowService showService, IEpisodeService episodeService, ISearchService searchService, IShowExtendedService showExtendedService)
         {
             _jsonSerializeService = jsonSerializeService;
             _showService = showService;
             _episodeService = episodeService;
             _searchService = searchService;
+            _showExtendedService = showExtendedService;
         }
 
         public async Task<IEnumerable<EpisodeDto>> GetEpisodes(int showId, bool includeSpecials = true)
@@ -135,6 +137,58 @@ namespace showTracker.BusinessLayer.Services
             }
 
             throw new InvalidPersonException($"Person search query: {query}");
+        }
+
+        public async Task<IEnumerable<SeasonDto>> GetSeasons(int showId)
+        {
+            var json = await _showExtendedService.GetSeasons(showId);
+            var seasons = _jsonSerializeService.TryDeserializeObject<IEnumerable<SeasonDto>>(json);
+
+            if (seasons.success)
+            {
+                return seasons.obj;
+            }
+
+            throw new InvalidSeasonException($"Get season for showId: {showId}");
+        }
+
+        public async Task<IEnumerable<CastDto>> GetCast(int showId)
+        {
+            var json = await _showExtendedService.GetCast(showId);
+            var cast = _jsonSerializeService.TryDeserializeObject<IEnumerable<CastDto>>(json);
+
+            if (cast.success)
+            {
+                return cast.obj;
+            }
+
+            throw new Exceptions.InvalidCastException($"Get cast for showId: {showId}");
+        }
+
+        public async Task<IEnumerable<CrewDto>> GetCrew(int showId)
+        {
+            var json = await _showExtendedService.GetCrew(showId);
+            var crew = _jsonSerializeService.TryDeserializeObject<IEnumerable<CrewDto>>(json);
+
+            if (crew.success)
+            {
+                return crew.obj;
+            }
+
+            throw new InvalidCrewException($"Get crew for showId: {showId}");
+        }
+
+        public async Task<IEnumerable<AkaDto>> GetAkas(int showId)
+        {
+            var json = await _showExtendedService.GetAkas(showId);
+            var akas = _jsonSerializeService.TryDeserializeObject<IEnumerable<AkaDto>>(json);
+
+            if (akas.success)
+            {
+                return akas.obj;
+            }
+
+            throw new InvalidAkaException($"Get show name alias' for showId: {showId}");
         }
     }
 }
