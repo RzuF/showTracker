@@ -127,11 +127,11 @@ namespace showTracker.BusinessLayer.Services
         public async Task<IEnumerable<PeopleDto>> SearchPeople(string query)
         {
             var json = await _searchService.SearchPeople(query);
-            var people = _jsonSerializeService.TryDeserializeObject<IEnumerable<PeopleDto>>(json);
+            var people = _jsonSerializeService.TryDeserializeObject<IEnumerable<SearchPeopleResultDto>>(json);
 
             if (people.success)
             {
-                return people.obj;
+                return people.obj.Select(x => x.Person);
             }
 
             throw new InvalidPersonException($"Person search query: {query}");
