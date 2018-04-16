@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using NSubstitute;
 using NUnit.Framework;
@@ -35,6 +34,26 @@ namespace showTracker.BusinessLayer.Tests.Api
             }
         };
 
+        private readonly IEnumerable<SearchShowResultDto> _mockSearchShowResultDtos = new[]
+        {
+            new SearchShowResultDto()
+            {
+                Show = new ShowDto
+                {
+                    Name = "Dth",
+                    Runtime = 40
+                }
+            },
+            new SearchShowResultDto()
+            {
+            Show = new ShowDto
+            {
+                Name = "Fth",
+                Runtime = 40
+            }
+            }
+        };
+
         private readonly IEnumerable<EpisodeDto> _mockEpisodeDto = new[]
         {
             new EpisodeDto
@@ -60,6 +79,26 @@ namespace showTracker.BusinessLayer.Tests.Api
             {
                 Name = "Nico Pico",
                 Gender = "Male"
+            }
+        };
+
+        private readonly IEnumerable<SearchPeopleResultDto> _mockSearchPeopleResultDtos = new[]
+        {
+            new SearchPeopleResultDto
+            {
+                Person = new PeopleDto
+                {
+                    Name = "Lara Smith",
+                    Gender = "Female"
+                }
+            },
+            new SearchPeopleResultDto
+            {
+                Person = new PeopleDto
+                {
+                    Name = "Nico Pico",
+                    Gender = "Male"
+                }
             }
         };
 
@@ -243,7 +282,7 @@ namespace showTracker.BusinessLayer.Tests.Api
         {
             //Arrange
             _searchService.SearchShows(Arg.Any<string>(), false)
-                .Returns(_jsonSerializeService.SerializeObject(_mockShowDtos));
+                .Returns(_jsonSerializeService.SerializeObject(_mockSearchShowResultDtos));
 
             //Act
             var shows = _apiClientMock.SearchShows("sample text", false);
@@ -270,7 +309,7 @@ namespace showTracker.BusinessLayer.Tests.Api
         public void SearchPeople_ValidQuery_ReturnPeople()
         {
             //Arrange
-            _searchService.SearchPeople(Arg.Any<string>()).Returns(_jsonSerializeService.SerializeObject(_mockPeopleDtos));
+            _searchService.SearchPeople(Arg.Any<string>()).Returns(_jsonSerializeService.SerializeObject(_mockSearchPeopleResultDtos));
 
             //Act
             var shows = _apiClientMock.SearchPeople("sample text");
