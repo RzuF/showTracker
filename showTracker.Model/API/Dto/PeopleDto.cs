@@ -13,7 +13,7 @@ namespace showTracker.Model.API.Dto
         public DateTime? Birthday { get; set; }
         public DateTime? Deathday { get; set; }
         public string Gender { get; set; }
-        [CanBeNull] public ImageDto Image { get; set; }
+        public ImageDto Image { get; set; }
         [JsonProperty("_links")]
         public LinksDto Links { get; set; }
     }
