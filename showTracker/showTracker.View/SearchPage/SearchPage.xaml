@@ -8,14 +8,21 @@
     <ContentPage.Content>
         <Grid>
             <StackLayout>
-                <control:SearchControl SearchRequested="{Binding OnSearchRequested}" 
-                                       SearchPhrase="{Binding SearchPhrase}"
-                                       x:Name="SearchControl"/>
                 <Grid>
-                    <ScrollView IsClippedToBounds="True">
-                        <control:ShowContainer ShowsCollection="{Binding Shows}"></control:ShowContainer>
-                    </ScrollView>
+                    <Grid.RowDefinitions>
+                        <RowDefinition>
+                            <RowDefinition.Height>
+                                <OnPlatform x:TypeArguments="GridLength" WinPhone="50" Android="Auto"/>
+                            </RowDefinition.Height>
+                        </RowDefinition>
+                    </Grid.RowDefinitions>
+                    <control:SearchControl SearchRequested="{Binding OnSearchRequested}" 
+                                           SearchPhrase="{Binding SearchPhrase}"
+                                           x:Name="SearchControl"/>
                 </Grid>
+                <control:ShowContainer ShowsCollection="{Binding Shows}"
+                                       VerticalOptions="FillAndExpand"
+                                       GroupBy="PremieredNotNull.Year"/>
             </StackLayout>
             <Grid IsVisible="{Binding IsLoading}">
                 <Grid BackgroundColor="Black" Opacity="0.5"/>

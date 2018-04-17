@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Windows.Input;
 using CommonServiceLocator;
+using showTracker.BusinessLayer.Extensions;
 using showTracker.BusinessLayer.Interfaces;
 using showTracker.Model.API.Dto;
-using showTracker.Model.View;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Constants = showTracker.Model.Constants;
@@ -63,27 +61,16 @@ namespace showTracker.ViewModel.CustomControls
 	        }
 	    }
 
-	    public static readonly BindableProperty AllItemsLoadedProperty =
-	        BindableProperty.Create(nameof(AllItemsLoaded), typeof(ICommand), typeof(ShowContainer));
-
-	    public ICommand AllItemsLoaded
-	    {
-	        get => (ICommand) GetValue(AllItemsLoadedProperty);
-	        set => SetValue(AllItemsLoadedProperty, value);
-	    }
-
         #endregion
 
 	    public bool AnyShowsInCollection
 	    {
 	        get => false;
-	        private set => ViewModel.AnyShowsInCollection = value;
+	        private set => ViewModel.AnyEntityInCollection = value;
 	    }
 
 	    public string NoItemsString => Constants.NoItemsInCollection;
-        public ShowConatinerViewModel ViewModel { get; }
-
-	    private ShowDto _lastShow = null;
+        public EntityContainerViewModel ViewModel { get; }
 
 	    private readonly IJsonSerializeService _jsonSerializeService;
 	    private readonly ISTLogger _logger;
@@ -91,17 +78,16 @@ namespace showTracker.ViewModel.CustomControls
 		{
 		    _jsonSerializeService = ServiceLocator.Current.GetInstance<IJsonSerializeService>();
 		    _logger = ServiceLocator.Current.GetInstance<ISTLogger>();
-            ViewModel = new ShowConatinerViewModel(_jsonSerializeService, _logger);
+            ViewModel = new EntityContainerViewModel(_jsonSerializeService, _logger);
 		    InitializeComponent ();
 		}
 
 	    private void GroupShowsByProperty()
 	    {
-	        if (!ShowsCollection.Any())
+	        if (ShowsCollection.IsNullOrEmpty())
 	        {
 	            AnyShowsInCollection = false;
-                ViewModel.GroupedResults = new List<GroupedResult<ShowDto>>();
-                AllItemsLoaded?.Execute(null);
+                ViewModel.GroupedResults = new List<ObservableCollection<ShowDto>>().AsQueryable();
                 return;
 	        }
 
@@ -127,55 +113,23 @@ namespace showTracker.ViewModel.CustomControls
 	                _logger.Log($"Exception: {exception}");
                 }
             }
-
-	        _lastShow = ViewModel.GroupedResults.Last().Results.Last();
 	    }
 
 	    private void GenerateGroupedResultWithOneMainGroup()
 	    {
-            
-	        ViewModel.GroupedResults = new List<GroupedResult<ShowDto>>
-	        {
-	            new GroupedResult<ShowDto>
-                {
-	                GroupName = "All",
-	                Results = new ObservableCollection<ShowDto>(ShowsCollection)
-	            }
-	        };
+
+	        ViewModel.GroupedResults = ShowsCollection.AsQueryable();
+
 	        ViewModel.IsGroupNameVisible = false;
         }
 
         private void GenerateGroupedResultUsingGroupProperty()
 	    {
-	        var groupedShows = ShowsCollection
-                .AsQueryable()
-                .GroupBy(GroupBy, "it")
-                .Select<GroupedResult<ShowDto>>($"new (it.Key.ToString() as {GroupedResult<ShowDto>.GroupNameString}, it as {GroupedResult<ShowDto>.ResultsString})");
-
-	        var jsonSerializedGroupedShows = _jsonSerializeService.SerializeObject(groupedShows);
-	        ViewModel.GroupedResults = _jsonSerializeService.DeserializeObject<IEnumerable<GroupedResult<ShowDto>>>(jsonSerializedGroupedShows).ToList();
+	        ViewModel.GroupedResults = ShowsCollection
+	            .AsQueryable()
+	            .GroupBy(GroupBy, "it");
 
 	        ViewModel.IsGroupNameVisible = true;
-	    }
-
-	    private void ListView_OnItemAppearing(object sender, ItemVisibilityEventArgs e)
-	    {
-	        var show = (ShowDto) e.Item;
-            _logger.Log(show.Name);
-
-	        if (show == _lastShow)
-	        {
-                AllItemsLoaded?.Execute(null);
-	        }
-	    }
-
-	    private void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
-	    {
-	        if (e.Item == null)
-	        {
-	            return;
-	        }
-	        ((ListView)sender).SelectedItem = null;
         }
-	}
+    }
 }

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using CommonServiceLocator;
 using showTracker.BusinessLayer.Interfaces;
 using showTracker.Model.Enum;
 using showTracker.Model.View;
@@ -9,9 +11,9 @@ namespace showTracker.BusinessLayer.Services
 {
     public class NavigationService : INavigationService
     {
-        private Dictionary<ApplicationPageEnum, Page> _pageDictionary;
+        private Dictionary<ApplicationPageEnum, Type> _pageDictionary;
 
-        public Dictionary<ApplicationPageEnum, Page> PageDictionary
+        public Dictionary<ApplicationPageEnum, Type> PageDictionary
         {
             get => _pageDictionary;
             set
@@ -25,13 +27,15 @@ namespace showTracker.BusinessLayer.Services
 
         public async Task Navigate(ApplicationPageEnum pageType, object message = null)
         {
-            var page = PageDictionary[pageType];
-            if (page.BindingContext is BaseViewModel viewModel)
+            var page = ServiceLocator.Current.GetInstance(PageDictionary[pageType]);
+            if (page is Page validPage)
             {
-                viewModel.NavigationMessage = message;
+                if (validPage.BindingContext is BaseViewModel viewModel)
+                {
+                    viewModel.NavigationMessage = message;
+                }                
+                await Application.Current.MainPage.Navigation.PushAsync(validPage);
             }
-
-            await Application.Current.MainPage.Navigation.PushAsync(page);
         }
     }
 }

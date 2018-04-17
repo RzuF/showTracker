@@ -9,7 +9,7 @@ using Constants = showTracker.Model.Constants;
 namespace showTracker.ViewModel.CustomControls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ShowContainerItem : Grid
+    public partial class ShowContainerItem : ViewCell
     {
         public static readonly BindableProperty ShowProperty =
             BindableProperty.Create(nameof(Show), typeof(ShowDto), typeof(ShowContainerItem),
@@ -36,8 +36,8 @@ namespace showTracker.ViewModel.CustomControls
         }
 
         public string FavouriteIcon => Constants.FavouriteIconResourceId;
-        public string Rating => Show?.Rating != null ? $"{Show?.Rating}/10" : "??/10";
-        public DateTime Premiered => Show?.Premiered ?? DateTime.MinValue;
+        public string Rating => $"{Show?.Rating?.ToString() ?? "??"}/10";
+        public string Premiered => Show?.Premiered?.Year.ToString() ?? "Unknown";
 
         public ShowContainerItem ()
 		{

@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
 namespace showTracker.ViewModel.CustomControls
 {
@@ -6,11 +7,12 @@ namespace showTracker.ViewModel.CustomControls
     {
         public ColoredListView() : base(ListViewCachingStrategy.RecycleElementAndDataTemplate)
         {
-
+            ItemTapped += OnItemTapped;
         }
+
         public ColoredListView(ListViewCachingStrategy listViewCachingStrategy) : base(listViewCachingStrategy)
         {
-
+            ItemTapped += OnItemTapped;
         }
 
         public static readonly BindableProperty EvenColorProperty =
@@ -35,10 +37,18 @@ namespace showTracker.ViewModel.CustomControls
         {
             base.SetupContent(content, index);
 
-            if (content is ViewCell viewCell)
+            if (content is EpisodeContainerItem episodeContainerItem)
             {
-                viewCell.View.BackgroundColor = index % 2 == 0 ? EvenColor : OddColor;
+                episodeContainerItem.View.BackgroundColor = index % 2 == 0 ? EvenColor : OddColor;
             }
+        }
+        private void OnItemTapped(object sender, ItemTappedEventArgs itemTappedEventArgs)
+        {
+            if (itemTappedEventArgs.Item == null)
+            {
+                return;
+            }
+            ((ListView)sender).SelectedItem = null;
         }
     }
 }

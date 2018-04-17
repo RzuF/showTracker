@@ -1,47 +1,50 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
-      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-      x:Class="showTracker.ViewModel.CustomControls.ShowContainerItem"
-      x:Name="this"
-      xmlns:svg="clr-namespace:SvgXF">
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="8*" />
-        <ColumnDefinition Width="2*" />
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-        <RowDefinition Height="{Binding ItemHeight, Source={x:Reference this}}"/>
-    </Grid.RowDefinitions>
-
-    <Grid Grid.Column="0" Padding="5">
+<ViewCell
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="showTracker.ViewModel.CustomControls.ShowContainerItem"
+    x:Name="this"
+    xmlns:svg="clr-namespace:SvgXF">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="{Binding ItemHeight, Source={x:Reference this}}"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label Text="{Binding Show.Name, Source={x:Reference this}}" 
+
+        <Grid Grid.Column="0" Padding="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Text="{Binding Show.Name, Source={x:Reference this}}" 
                    HorizontalOptions="Start" 
                    VerticalOptions="Start" 
                    Grid.Column="0"/>
-            <Label Text="{Binding Show.Status, Source={x:Reference this}}" 
+                <Label Text="{Binding Show.Status, Source={x:Reference this}}" 
                    HorizontalOptions="End" 
                    VerticalOptions="Start" 
                    Grid.Column="1"/>
+            </Grid>
+            <StackLayout Orientation="Horizontal" VerticalOptions="End" Grid.Row="1">
+                <Label Text="{Binding Premiered, Source={x:Reference this}}"></Label>
+                <Label Text=", "/>
+                <Label Text="{Binding Show.Type, Source={x:Reference this}}"></Label>
+                <Label Text=", "/>
+                <Label Text="{Binding Rating, Source={x:Reference this}}" />
+            </StackLayout>
         </Grid>
-        <StackLayout Orientation="Horizontal" VerticalOptions="End" Grid.Row="1">
-            <Label Text="{Binding Premiered.Year, Source={x:Reference this}}"></Label>
-            <Label Text=", "/>
-            <Label Text="{Binding Show.Type, Source={x:Reference this}}"></Label>
-            <Label Text=", "/>
-            <Label Text="{Binding Rating, Source={x:Reference this}}" />
-        </StackLayout>
-    </Grid>
-    <Grid Grid.Column="1" Padding="5">
-        <svg:Icon ResourceId="{Binding FavouriteIcon, Source={x:Reference this}}" 
+        <Grid Grid.Column="1" Padding="5">
+            <svg:Icon ResourceId="{Binding FavouriteIcon, Source={x:Reference this}}" 
                   HorizontalOptions="Center" 
                   VerticalOptions="Center"/>
+        </Grid>
     </Grid>
-</Grid>
+</ViewCell>

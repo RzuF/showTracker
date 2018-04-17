@@ -15,6 +15,8 @@ namespace showTracker.Model.API.Dto
         public IEnumerable<string> Genres { get; set; }        
         public int? Runtime { get; set; }
         public DateTime? Premiered { get; set; }
+        [JsonIgnore]
+        public DateTime PremieredNotNull => Premiered ?? DateTime.MinValue;
         [JsonProperty("rating.average")]
         public double? Rating { get; set; }
 
