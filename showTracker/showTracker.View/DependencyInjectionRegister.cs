@@ -11,10 +11,15 @@ namespace showTracker.ViewModel
         public static void Register(UnityContainer unityContainer)
         {
             unityContainer.RegisterInstance(typeof(MainViewModel));
-            unityContainer.RegisterInstance(typeof(ShowConatinerViewModel));
             unityContainer.RegisterInstance(typeof(SearchViewModel));
             unityContainer.RegisterInstance(typeof(TodayViewModel));
-            unityContainer.RegisterInstance(typeof(EpisodeContainerViewModel));
+            unityContainer.RegisterInstance(typeof(EntityContainerViewModel));
+
+            unityContainer.RegisterInstance(typeof(MainPage.MainPage));
+            unityContainer.RegisterInstance(typeof(AboutPage.AboutPage));
+            unityContainer.RegisterInstance(typeof(FavouritiesPage.FavouritiesPage));
+            unityContainer.RegisterInstance(typeof(SearchPage.SearchPage));
+            unityContainer.RegisterInstance(typeof(TodayPage.TodayPage));
         }
     }
 }

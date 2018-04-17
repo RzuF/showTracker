@@ -8,7 +8,7 @@ namespace showTracker.BusinessLayer.Interfaces
 {
     public interface INavigationService
     {
-        Dictionary<ApplicationPageEnum, Page> PageDictionary { get; set; }
+        Dictionary<ApplicationPageEnum, Type> PageDictionary { get; set; }
         Task Navigate(ApplicationPageEnum pageType, object message = null);
     }
 }

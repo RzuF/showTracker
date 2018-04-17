@@ -21,12 +21,9 @@
                                                x:Name="DateSearchControl">
                     </control:DateSearchControl>
                 </Grid>
-                <Grid>
-                    <ScrollView IsClippedToBounds="True">
-                        <control:EpisodeContainer EpisodeCollection="{Binding Episodes}" 
-                                                  AllItemsLoaded="{Binding OnEpisodeConatinerLoaded}"/>
-                    </ScrollView>
-                </Grid>
+                <control:EpisodeContainer EpisodeCollection="{Binding Episodes}"
+                                          VerticalOptions="FillAndExpand"
+                                          GroupBy="Runtime"/>
             </StackLayout>
             <Grid IsVisible="{Binding IsLoading}">
                 <Grid BackgroundColor="Black" Opacity="0.5"/>

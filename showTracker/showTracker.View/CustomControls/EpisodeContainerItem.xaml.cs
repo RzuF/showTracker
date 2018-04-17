@@ -13,7 +13,7 @@ using Constants = showTracker.Model.Constants;
 namespace showTracker.ViewModel.CustomControls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EpisodeContainerItem : Grid
+    public partial class EpisodeContainerItem : ViewCell
     {
         public static readonly BindableProperty EpisodeProperty =
             BindableProperty.Create(nameof(Episode), typeof(EpisodeDto), typeof(EpisodeContainerItem));

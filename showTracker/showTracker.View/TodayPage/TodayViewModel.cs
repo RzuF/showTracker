@@ -12,8 +12,6 @@ namespace showTracker.ViewModel.TodayPage
     public class TodayViewModel : BaseViewModel
     {
         public ICommand OnSearchRequested { get; }
-        public ICommand OnEpisodeConatinerLoaded { get; }
-        public ICommand OnEpisodeConatinerLoadingStarted { get; }
 
         public DateTime SearchDate { get; set; }
 
@@ -48,8 +46,6 @@ namespace showTracker.ViewModel.TodayPage
             _stLogger = stLogger;
 
             OnSearchRequested = new Command(SearchRequested);
-            OnEpisodeConatinerLoaded = new Command(EpisodeContainerLoaded);
-            OnEpisodeConatinerLoadingStarted = new Command(EpisodeContainerLoadingStarted);
 
             PageTitle = "Episodes for selected date";
             Episodes = new List<EpisodeDto>();
@@ -61,17 +57,8 @@ namespace showTracker.ViewModel.TodayPage
             var episodes = await _apiClientService.GetEpisodes(SearchDate);
             _stLogger.LogWithSerialization(episodes);
 
-            Episodes = episodes.ToList();            
-        }
-
-        private void EpisodeContainerLoaded()
-        {
+            Episodes = episodes.ToList();
             IsLoading = false;
-        }
-
-        private void EpisodeContainerLoadingStarted()
-        {
-            IsLoading = true;
         }
     }
 }
