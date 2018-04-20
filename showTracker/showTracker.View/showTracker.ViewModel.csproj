@@ -9,8 +9,15 @@
   <ItemGroup>
     <None Remove="Resources\About.svg" />
     <None Remove="Resources\Heart.svg" />
+    <None Remove="Resources\Ok.svg" />
     <None Remove="Resources\Search.svg" />
     <None Remove="Resources\Today.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Ok.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +41,7 @@
     <PackageReference Include="SkiaSharp.Views.Forms" Version="1.60.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.3" />
     <PackageReference Include="Unity" Version="5.7.3" />
+    <PackageReference Include="Xam.Plugins.Settings" Version="3.0.1" />
     <PackageReference Include="Xamarin.CustomControls.RepeaterView" Version="1.2.2" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
   </ItemGroup>

@@ -5,10 +5,15 @@
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;NETSTANDARD1_4;NETSTANDARD1_4</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
     <PackageReference Include="System.ValueTuple" Version="4.4.0" />
     <PackageReference Include="Unity" Version="5.7.3" />
+    <PackageReference Include="Xam.Plugins.Settings" Version="3.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
   </ItemGroup>
 
@@ -17,6 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Plugin.Settings">
+      <HintPath>..\..\..\.nuget\packages\xam.plugins.settings\3.1.1\lib\MonoAndroid10\Plugin.Settings.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core">
       <HintPath>..\..\..\.nuget\packages\xamarin.forms\2.5.0.280555\lib\MonoAndroid10\Xamarin.Forms.Core.dll</HintPath>
     </Reference>

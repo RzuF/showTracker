@@ -13,6 +13,7 @@
         public const string SearchIconResourceId = "showTracker.ViewModel.Resources.Search.svg";
         public const string AboutIconResourceId = "showTracker.ViewModel.Resources.About.svg";
         public const string TodayIconResourceId = "showTracker.ViewModel.Resources.Today.svg";
+        public const string OkIconResourceId = "showTracker.ViewModel.Resources.Ok.svg";
 
         public const string FavouritiesTileLabel = "Favourities";
         public const string SearchTileLabel = "Search";
@@ -21,5 +22,7 @@
 
         public const string NoItemsInCollection = "No items to display";
         public const string LoadMoreItems = "Load more items";
+
+        public const string SettingsFavouritiesCollectionName = "FavouritiesShowCollection";
     }
 }

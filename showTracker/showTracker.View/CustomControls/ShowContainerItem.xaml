@@ -43,8 +43,17 @@
         </Grid>
         <Grid Grid.Column="1" Padding="5">
             <svg:Icon ResourceId="{Binding FavouriteIcon, Source={x:Reference this}}" 
-                  HorizontalOptions="Center" 
-                  VerticalOptions="Center"/>
+                      HorizontalOptions="Center" 
+                      VerticalOptions="Center"/>
+            <svg:Icon ResourceId="{Binding OkIcon, Source={x:Reference this}}" 
+                      IsVisible="{Binding IsFavourite, Source={x:Reference this}}"
+                      HorizontalOptions="Center" 
+                      VerticalOptions="Center"
+                      Padding="20"/>
+            <Button Clicked="Favourite_Clicked"
+                    HorizontalOptions="FillAndExpand" 
+                    VerticalOptions="FillAndExpand" 
+                    Opacity="0"/>
         </Grid>
     </Grid>
 </ViewCell>

@@ -20,6 +20,7 @@ namespace showTracker.BusinessLayer
             unityContainer.RegisterType<IEpisodeService, EpisodeService>();
             unityContainer.RegisterType<ITileIconStrategyResolver, TileIconStrategyResolver>();
             unityContainer.RegisterType<IShowExtendedService, ShowExtendedService>();
+            unityContainer.RegisterSingleton<IFavouritiesService, FavouritiesService>();
             unityContainer.RegisterSingleton<INavigationService, NavigationService>();
 
 #if DEBUG
