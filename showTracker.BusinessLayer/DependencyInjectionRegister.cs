@@ -16,12 +16,17 @@ namespace showTracker.BusinessLayer
             unityContainer.RegisterType<ISearchService, SearchService>();
             unityContainer.RegisterType<IEpisodeService, EpisodeService>();
             unityContainer.RegisterType<IApiClientService, ApiClientService>();
-            unityContainer.RegisterType<IHttpClientWrapper, HttpClientWrapper>();
-            unityContainer.RegisterType<ISTLogger, STLogger>();
+            unityContainer.RegisterType<IHttpClientWrapper, HttpClientWrapper>();            
             unityContainer.RegisterType<IEpisodeService, EpisodeService>();
             unityContainer.RegisterType<ITileIconStrategyResolver, TileIconStrategyResolver>();
             unityContainer.RegisterType<IShowExtendedService, ShowExtendedService>();
             unityContainer.RegisterSingleton<INavigationService, NavigationService>();
+
+#if DEBUG
+            unityContainer.RegisterType<ISTLogger, STLogger>();
+#else
+            unityContainer.RegisterType<ISTLogger, ReleaseLogger>();
+#endif
         }
     }
 }
