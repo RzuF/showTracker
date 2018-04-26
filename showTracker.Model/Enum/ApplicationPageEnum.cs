@@ -8,6 +8,7 @@
         TodayPage,
         FavouritiesPage,
         AboutPage,
-        ShowPage
+        ShowPage,
+        FavouritiesSchedulePage
     }
 }

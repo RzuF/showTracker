@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="showTracker.ViewModel.CustomControls.DateRangeControl"
+             xmlns:control="clr-namespace:showTracker.ViewModel.CustomControls"
+             x:Name="this">
+    <StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="{Binding StartText, Source={x:Reference this}}"/>
+            <DatePicker Date="{Binding StartDate, Source={x:Reference this}}"
+                    Format="{Binding DateFormat, Source={x:Reference this}}"
+                    x:Name="DatePickerStart"
+                    HorizontalOptions="FillAndExpand"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="{Binding EndText, Source={x:Reference this}}"/>
+            <DatePicker Date="{Binding EndDate, Source={x:Reference this}}"
+                        Format="{Binding DateFormat, Source={x:Reference this}}"
+                        x:Name="DatePickerEnd"
+                        HorizontalOptions="FillAndExpand"/>
+        </StackLayout>
+        <Button Text="{Binding StartText, Source={x:Reference this}}"
+                Command="{Binding GenerateRequest, Source={x:Reference this}}"/>
+    </StackLayout>
+</Grid>
