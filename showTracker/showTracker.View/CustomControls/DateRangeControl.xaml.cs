@@ -9,7 +9,7 @@ namespace showTracker.ViewModel.CustomControls
 	public partial class DateRangeControl : Grid
 	{
 	    public static readonly BindableProperty StartDateProperty =
-	        BindableProperty.Create(nameof(StartDate), typeof(DateTime), typeof(DateRangeControl), DateTime.Today);
+	        BindableProperty.Create(nameof(StartDate), typeof(DateTime), typeof(DateRangeControl), DateTime.Today, BindingMode.TwoWay);
 
 	    public DateTime StartDate
 	    {
@@ -18,7 +18,7 @@ namespace showTracker.ViewModel.CustomControls
 	    }
 
 	    public static readonly BindableProperty EndDateProperty =
-	        BindableProperty.Create(nameof(EndDate), typeof(DateTime), typeof(DateRangeControl), DateTime.Today.AddDays(7));
+	        BindableProperty.Create(nameof(EndDate), typeof(DateTime), typeof(DateRangeControl), DateTime.Today.AddDays(7), BindingMode.TwoWay);
 
 	    public DateTime EndDate
 	    {
@@ -37,7 +37,7 @@ namespace showTracker.ViewModel.CustomControls
 
 	    public string GenerateLabel => "Generate";
 	    public string StartText => "Start:";
-	    public string EndTest => "End:";
+	    public string EndText => "End:";
 	    public string DateFormat => "D";
         public DateRangeControl ()
 		{

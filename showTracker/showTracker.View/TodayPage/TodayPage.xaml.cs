@@ -15,6 +15,9 @@ namespace showTracker.ViewModel.TodayPage
 	    {
 	        base.OnAppearing();
 
+	        MessagingCenter.Subscribe<TodayViewModel>(this, "PopupAlert",
+	            model => DisplayAlert(model.PopupAlertTitle, model.PopupAlertMessage, "Ok"));
+
             DateSearchControl.SetDateToToday();
 	        DateSearchControl.MinimumHeightRequest = DateSearchControl.Height;
 	    }

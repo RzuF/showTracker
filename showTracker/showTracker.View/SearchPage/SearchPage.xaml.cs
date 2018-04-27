@@ -15,7 +15,10 @@ namespace showTracker.ViewModel.SearchPage
 	    {
 	        base.OnAppearing();
 
-	        SearchControl.FocusEntry();
+	        MessagingCenter.Subscribe<SearchViewModel>(this, "PopupAlert",
+	            model => DisplayAlert(model.PopupAlertTitle, model.PopupAlertMessage, "Ok"));
+
+            SearchControl.FocusEntry();
 	        SearchControl.MinimumHeightRequest = SearchControl.Height;
 	    }
 	}

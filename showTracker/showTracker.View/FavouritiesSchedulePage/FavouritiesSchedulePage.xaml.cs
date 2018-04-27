@@ -16,8 +16,18 @@ namespace showTracker.ViewModel.FavouritiesSchedulePage
 		{
 			InitializeComponent ();
 
-		    DateRangeControl.SetValuesToDefault();
+		    MessagingCenter.Subscribe<FavouritiesScheduleViewModel>(this, "PopupAlert",
+		        model => DisplayAlert(model.PopupAlertTitle, model.PopupAlertMessage, "Ok"));
+
+
+            DateRangeControl.SetValuesToDefault();
 		    DateRangeControl.MinimumHeightRequest = DateRangeControl.Height;
+
+		    Task.Run(() =>
+		    {
+		        Task.Delay(10);
+		        ((FavouritiesScheduleViewModel)BindingContext)?.OnGenerateRequested?.Execute(null);
+            });		    
         }
 	}
 }

@@ -27,10 +27,10 @@ namespace showTracker.ViewModel.FavouritiesSchedulePage
 
         public ICommand OnGenerateRequested { get; }
 
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Today;
+        public DateTime EndDate { get; set; } = DateTime.Today.AddDays(7);
 
-        private bool _isLoading = true;
+        private bool _isLoading;
         public bool IsLoading
         {
             get => _isLoading;
@@ -55,11 +55,22 @@ namespace showTracker.ViewModel.FavouritiesSchedulePage
         private async void GenerateRequested()
         {
             IsLoading = true;
-            var episodes = await _favouritiesSchedulingService.GetScheduleForFavourities(StartDate, EndDate);
-            _logger.LogWithSerialization(episodes);
+            try
+            {
+                var episodes = await _favouritiesSchedulingService.GetScheduleForFavourities(StartDate, EndDate);
+                _logger.LogWithSerialization(episodes);
 
-            Episodes = episodes.ToList();
-            IsLoading = false;
+                Episodes = episodes.ToList();
+            }
+            catch (Exception e)
+            {
+                PopupAlertMessage = "No internet";
+                MessagingCenter.Send(this, "PopupAlert");
+            }
+            finally
+            {
+                IsLoading = false;
+            }                       
         }
     }
 }

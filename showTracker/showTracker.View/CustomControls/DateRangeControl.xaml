@@ -6,20 +6,20 @@
              x:Name="this">
     <StackLayout>
         <StackLayout Orientation="Horizontal">
-            <Label Text="{Binding StartText, Source={x:Reference this}}"/>
+            <Label Text="{Binding StartText, Source={x:Reference this}}" VerticalTextAlignment="Center"/>
             <DatePicker Date="{Binding StartDate, Source={x:Reference this}}"
                     Format="{Binding DateFormat, Source={x:Reference this}}"
                     x:Name="DatePickerStart"
                     HorizontalOptions="FillAndExpand"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
-            <Label Text="{Binding EndText, Source={x:Reference this}}"/>
+            <Label Text="{Binding EndText, Source={x:Reference this}}" VerticalTextAlignment="Center"/>
             <DatePicker Date="{Binding EndDate, Source={x:Reference this}}"
                         Format="{Binding DateFormat, Source={x:Reference this}}"
                         x:Name="DatePickerEnd"
                         HorizontalOptions="FillAndExpand"/>
         </StackLayout>
-        <Button Text="{Binding StartText, Source={x:Reference this}}"
+        <Button Text="{Binding GenerateLabel, Source={x:Reference this}}"
                 Command="{Binding GenerateRequest, Source={x:Reference this}}"/>
     </StackLayout>
 </Grid>

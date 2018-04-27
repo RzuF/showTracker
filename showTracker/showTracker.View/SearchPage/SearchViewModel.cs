@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using showTracker.BusinessLayer.Interfaces;
@@ -53,11 +54,22 @@ namespace showTracker.ViewModel.SearchPage
         private async void SearchRequested()
         {
             IsLoading = true;
-            var shows = await _apiClientService.SearchShows(SearchPhrase);
-            _stLogger.LogWithSerialization(shows);
+            try
+            {
+                var shows = await _apiClientService.SearchShows(SearchPhrase);
+                _stLogger.LogWithSerialization(shows);
 
-            Shows = shows.ToList();
-            IsLoading = false;
+                Shows = shows.ToList();
+            }
+            catch (Exception e)
+            {
+                PopupAlertMessage = "No internet";
+                MessagingCenter.Send(this, "PopupAlert");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
     }
 }
