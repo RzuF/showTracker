@@ -16,9 +16,10 @@ namespace showTracker.ViewModel
                 {ApplicationPageEnum.Unknown, null },
                 {ApplicationPageEnum.MainPage, typeof(MainPage.MainPage) },
                 {ApplicationPageEnum.AboutPage, typeof(AboutPage.AboutPage) },
-                {ApplicationPageEnum.FavouritiesPage, typeof(FavouritiesPage.FavouritiesPage) },
+                //{ApplicationPageEnum.FavouritiesPage, typeof(FavouritiesPage.FavouritiesPage) },
                 {ApplicationPageEnum.SearchPage, typeof(SearchPage.SearchPage) },
-                {ApplicationPageEnum.TodayPage, typeof(TodayPage.TodayPage) }
+                {ApplicationPageEnum.TodayPage, typeof(TodayPage.TodayPage) },
+                {ApplicationPageEnum.FavouritiesPage, typeof(FavouritiesSchedulePage.FavouritiesSchedulePage) },
             };
         }
     }

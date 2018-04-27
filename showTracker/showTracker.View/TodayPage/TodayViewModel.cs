@@ -54,11 +54,22 @@ namespace showTracker.ViewModel.TodayPage
         private async void SearchRequested()
         {
             IsLoading = true;
-            var episodes = await _apiClientService.GetEpisodes(SearchDate);
-            _stLogger.LogWithSerialization(episodes);
+            try
+            {
+                var episodes = await _apiClientService.GetEpisodes(SearchDate);
+                _stLogger.LogWithSerialization(episodes);
 
-            Episodes = episodes.ToList();
-            IsLoading = false;
+                Episodes = episodes.ToList();
+            }
+            catch (Exception e)
+            {
+                PopupAlertMessage = "No internet";
+                MessagingCenter.Send(this, "PopupAlert");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
     }
 }

@@ -8,6 +8,8 @@ namespace showTracker.Model.View
     {
         public virtual object NavigationMessage { get; set; }
         public string PageTitle { get; set; }
+        public string PopupAlertTitle { get; set; }
+        public string PopupAlertMessage { get; set; }
 
         #region Notify Property Changed Implementation
 
