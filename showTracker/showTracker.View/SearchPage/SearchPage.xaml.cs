@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using showTracker.Model;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace showTracker.ViewModel.SearchPage
@@ -15,8 +16,8 @@ namespace showTracker.ViewModel.SearchPage
 	    {
 	        base.OnAppearing();
 
-	        MessagingCenter.Subscribe<SearchViewModel>(this, "PopupAlert",
-	            model => DisplayAlert(model.PopupAlertTitle, model.PopupAlertMessage, "Ok"));
+	        MessagingCenter.Subscribe<SearchViewModel>(this, Constants.PopupAlertKey,
+	            model => DisplayAlert(model.PopupAlertTitle, model.PopupAlertMessage, Constants.OkButtonText));
 
             SearchControl.FocusEntry();
 	        SearchControl.MinimumHeightRequest = SearchControl.Height;

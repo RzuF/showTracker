@@ -24,5 +24,16 @@
         public const string LoadMoreItems = "Load more items";
 
         public const string SettingsFavouritiesCollectionName = "FavouritiesShowCollection";
+
+        public const string PopupAlertKey = "PopupAlert";
+        public const string OkButtonText = "Ok";
+
+        public const string NoInternetConnection = "No internet connection";
+        public const string CheckYourInternetConnection = "Check our internet connection and try again";
+        public const string UndefinedError = "Something went bad";
+        public const string PleaseContactDeveloper = "Please contact developer if you encounter this message";
+        public const string WrongQuery = "Wrong query";
+        public const string ErrorDuringFetchingShow = "Error during fetching shows";
+        public const string ErrorDuringFetchingEpisode = "Error during fetching episodes";
     }
 }

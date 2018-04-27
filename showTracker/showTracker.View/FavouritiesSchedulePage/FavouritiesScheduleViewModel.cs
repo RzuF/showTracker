@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Windows.Input;
 using showTracker.BusinessLayer.Interfaces;
+using showTracker.Model;
 using showTracker.Model.API.Dto;
 using showTracker.Model.View;
 using Xamarin.Forms;
@@ -21,7 +23,7 @@ namespace showTracker.ViewModel.FavouritiesSchedulePage
 
             OnGenerateRequested = new Command(GenerateRequested);
 
-            PageTitle = "Schedule of your favourities shows";
+            PageTitle = "Schedule of your shows";
             Episodes = new List<EpisodeDto>();
         }
 
@@ -62,10 +64,21 @@ namespace showTracker.ViewModel.FavouritiesSchedulePage
 
                 Episodes = episodes.ToList();
             }
+            catch (HttpRequestException e)
+            {
+                _logger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+
+                PopupAlertTitle = Constants.NoInternetConnection;
+                PopupAlertMessage = Constants.CheckYourInternetConnection;
+                MessagingCenter.Send(this, Constants.PopupAlertKey);
+            }
             catch (Exception e)
             {
-                PopupAlertMessage = "No internet";
-                MessagingCenter.Send(this, "PopupAlert");
+                _logger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+
+                PopupAlertTitle = Constants.UndefinedError;
+                PopupAlertMessage = Constants.PleaseContactDeveloper;
+                MessagingCenter.Send(this, Constants.PopupAlertKey);
             }
             finally
             {
