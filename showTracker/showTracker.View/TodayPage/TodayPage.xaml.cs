@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using showTracker.Model;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace showTracker.ViewModel.TodayPage
@@ -15,8 +16,8 @@ namespace showTracker.ViewModel.TodayPage
 	    {
 	        base.OnAppearing();
 
-	        MessagingCenter.Subscribe<TodayViewModel>(this, "PopupAlert",
-	            model => DisplayAlert(model.PopupAlertTitle, model.PopupAlertMessage, "Ok"));
+	        MessagingCenter.Subscribe<TodayViewModel>(this, Constants.PopupAlertKey,
+	            model => DisplayAlert(model.PopupAlertTitle, model.PopupAlertMessage, Constants.OkButtonText));
 
             DateSearchControl.SetDateToToday();
 	        DateSearchControl.MinimumHeightRequest = DateSearchControl.Height;

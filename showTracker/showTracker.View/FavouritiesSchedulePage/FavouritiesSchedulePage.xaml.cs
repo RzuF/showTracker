@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using showTracker.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,8 +16,8 @@ namespace showTracker.ViewModel.FavouritiesSchedulePage
 		{
 			InitializeComponent ();
 
-		    MessagingCenter.Subscribe<FavouritiesScheduleViewModel>(this, "PopupAlert",
-		        model => DisplayAlert(model.PopupAlertTitle, model.PopupAlertMessage, "Ok"));
+		    MessagingCenter.Subscribe<FavouritiesScheduleViewModel>(this, Constants.PopupAlertKey,
+		        model => DisplayAlert(model.PopupAlertTitle, model.PopupAlertMessage, Constants.OkButtonText));
 
 
             DateRangeControl.SetValuesToDefault();

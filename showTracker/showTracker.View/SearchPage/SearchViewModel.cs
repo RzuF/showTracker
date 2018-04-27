@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Windows.Input;
+using showTracker.BusinessLayer.Exceptions;
 using showTracker.BusinessLayer.Interfaces;
+using showTracker.Model;
 using showTracker.Model.API.Dto;
 using showTracker.Model.View;
 using Xamarin.Forms;
@@ -61,10 +64,30 @@ namespace showTracker.ViewModel.SearchPage
 
                 Shows = shows.ToList();
             }
+            catch (InvalidShowException e)
+            {
+                _stLogger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+
+                PopupAlertTitle = Constants.WrongQuery;
+                PopupAlertMessage = Constants.ErrorDuringFetchingShow;
+                MessagingCenter.Send(this, Constants.PopupAlertKey);
+            }
+            catch (HttpRequestException e)
+            {
+                _stLogger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+
+                PopupAlertTitle = Constants.NoInternetConnection;
+                PopupAlertMessage = Constants.CheckYourInternetConnection;
+                MessagingCenter.Send(this, Constants.PopupAlertKey);
+            }
+
             catch (Exception e)
             {
-                PopupAlertMessage = "No internet";
-                MessagingCenter.Send(this, "PopupAlert");
+                _stLogger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+
+                PopupAlertTitle = Constants.UndefinedError;
+                PopupAlertMessage = Constants.PleaseContactDeveloper;
+                MessagingCenter.Send(this, Constants.PopupAlertKey);
             }
             finally
             {
