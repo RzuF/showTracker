@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Windows.Input;
 using showTracker.BusinessLayer.Interfaces;
 using showTracker.Model;
 using showTracker.Model.API.Dto;
+using showTracker.Model.Enum;
 using showTracker.Model.View;
 using Xamarin.Forms;
 
@@ -12,8 +14,12 @@ namespace showTracker.ViewModel.FavouritiesPage
 {
     public class FavouritiesViewModel : BaseViewModel
     {
+        public ICommand ButtonClick { get; }
+        public string ButtonTitle { get; set; }
+
         private readonly IFavouritiesService _favouritiesService;
         private readonly ISTLogger _logger;
+        private readonly INavigationService _navigationService;
 
         private bool _isLoading;
         public bool IsLoading
@@ -37,12 +43,15 @@ namespace showTracker.ViewModel.FavouritiesPage
             }
         }
 
-        public FavouritiesViewModel(IFavouritiesService favouritiesService, ISTLogger logger)
+        public FavouritiesViewModel(IFavouritiesService favouritiesService, ISTLogger logger, INavigationService navigationService)
         {
             _favouritiesService = favouritiesService;
             _logger = logger;
+            _navigationService = navigationService;
 
+            ButtonClick = new Command(FavouritiesScheduleNavigate);
             PageTitle = "List of your favourite shows";
+            ButtonTitle = $"Go to the Scheduler";
             Shows = new List<ShowDto>();
             
             Load();
@@ -79,6 +88,13 @@ namespace showTracker.ViewModel.FavouritiesPage
             {
                 IsLoading = false;
             }
+        }
+
+
+        private void FavouritiesScheduleNavigate()
+        {
+            _navigationService.Navigate(ApplicationPageEnum.FavouritiesSchedulePage);
+            _logger.Log($"FavScheduleButton clicked");
         }
 
     }
