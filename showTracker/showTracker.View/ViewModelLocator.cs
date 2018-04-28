@@ -1,5 +1,6 @@
 ﻿using CommonServiceLocator;
 using showTracker.ViewModel.CustomControls;
+using showTracker.ViewModel.FavouritiesPage;
 using showTracker.ViewModel.FavouritiesSchedulePage;
 using showTracker.ViewModel.MainPage;
 using showTracker.ViewModel.SearchPage;
@@ -14,5 +15,6 @@ namespace showTracker.ViewModel
         public TodayViewModel TodayViewModel => (TodayViewModel) ServiceLocator.Current.GetInstance(typeof(TodayViewModel));
         public EntityContainerViewModel EntityContainerViewModel => (EntityContainerViewModel) ServiceLocator.Current.GetInstance(typeof(EntityContainerViewModel));
         public FavouritiesScheduleViewModel FavouritiesScheduleViewModel => (FavouritiesScheduleViewModel)ServiceLocator.Current.GetInstance(typeof(FavouritiesScheduleViewModel));
+        public FavouritiesViewModel FavouritiesViewModel =>(FavouritiesViewModel) ServiceLocator.Current.GetInstance(typeof(FavouritiesViewModel));
     }
 }
