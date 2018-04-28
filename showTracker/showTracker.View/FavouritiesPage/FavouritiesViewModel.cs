@@ -15,7 +15,7 @@ namespace showTracker.ViewModel.FavouritiesPage
     public class FavouritiesViewModel : BaseViewModel
     {
         public ICommand ButtonClick { get; }
-        public string ButtonTitle { get; set; }
+        public string ButtonTitle => "Go to the Scheduler";
 
         private readonly IFavouritiesService _favouritiesService;
         private readonly ISTLogger _logger;
@@ -51,7 +51,6 @@ namespace showTracker.ViewModel.FavouritiesPage
 
             ButtonClick = new Command(FavouritiesScheduleNavigate);
             PageTitle = "List of your favourite shows";
-            ButtonTitle = $"Go to the Scheduler";
             Shows = new List<ShowDto>();
             
             Load();

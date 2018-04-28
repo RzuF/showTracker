@@ -10,11 +10,9 @@
             <StackLayout>
                 <Button Command="{Binding ButtonClick}"
                         Text="{Binding ButtonTitle}"/>
-                <StackLayout>
-                    <customControls:ShowContainer ShowsCollection="{Binding Shows}"
+                <customControls:ShowContainer ShowsCollection="{Binding Shows}"
                                               VerticalOptions="FillAndExpand"
                                               GroupBy="Year"/>
-                </StackLayout>
             </StackLayout>
             <Grid IsVisible="{Binding IsLoading}">
                 <Grid BackgroundColor="Black" Opacity="0.5"/>
