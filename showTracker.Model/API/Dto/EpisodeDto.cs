@@ -10,9 +10,9 @@ namespace showTracker.Model.API.Dto
         public string Name { get; set; }
         public int? Season { get; set; }
         public int? Number { get; set; }
-        public DateTime AirDate { get; set; }
-        public DateTime AirTime { get; set; }
-        public DateTime AirStamp { get; set; }
+        public DateTime? AirDate { get; set; }
+        public string AirTime { get; set; }
+        public DateTime? AirStamp { get; set; }
         public int? Runtime { get; set; }
         public ImageDto Image { get; set; }
         public string Summary { get; set; }

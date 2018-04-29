@@ -23,7 +23,7 @@
                 </Grid>
                 <control:EpisodeContainer EpisodeCollection="{Binding Episodes}"
                                           VerticalOptions="FillAndExpand"
-                                          GroupBy="AirDate.Date"/>
+                                          GroupBy="AirDate"/>
             </StackLayout>
             <Grid IsVisible="{Binding IsLoading}">
                 <Grid BackgroundColor="Black" Opacity="0.5"/>
