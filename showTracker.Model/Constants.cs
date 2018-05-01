@@ -14,6 +14,11 @@
         public const string AboutIconResourceId = "showTracker.ViewModel.Resources.About.svg";
         public const string TodayIconResourceId = "showTracker.ViewModel.Resources.Today.svg";
         public const string OkIconResourceId = "showTracker.ViewModel.Resources.Ok.svg";
+        public const string FilterIconResourceId = "showTracker.ViewModel.Resources.Filter.svg";
+        public const string FilterColoredIconResourceId = "showTracker.ViewModel.Resources.FilterColored.svg";
+        public const string ClearIconResourceId = "showTracker.ViewModel.Resources.Clear.svg";
+        public const string AscendingIconResourceId = "showTracker.ViewModel.Resources.Ascending.svg";
+        public const string DescendingIconResourceId = "showTracker.ViewModel.Resources.Descending.svg";
 
         public const string FavouritiesTileLabel = "Favourities";
         public const string SearchTileLabel = "Search";
@@ -35,5 +40,12 @@
         public const string WrongQuery = "Wrong query";
         public const string ErrorDuringFetchingShow = "Error during fetching shows";
         public const string ErrorDuringFetchingEpisode = "Error during fetching episodes";
+
+        public const string OrderByLabel = "Order By:";
+        public const string MinRatingLabel = "Min. Rating:";
+        public const string MinRuntimeLabel = "Min. Runtime:";
+        public const string StatusLabel = "Status:";
+        public const string GenreLabel = "Genre:";
+        public const string GroupByLabel = "Group By:";
     }
 }

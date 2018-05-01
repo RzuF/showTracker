@@ -28,7 +28,7 @@ namespace showTracker.BusinessLayer.Services
             foreach (var show in favoutitiesCollection)
             {
                 var episodes = (await _apiClientService.GetEpisodes(show.Id)).Where(
-                    x => x.AirDate.Date >= startDate.Date && x.AirDate.Date <= endDate.Date).ToList();
+                    x => x.AirDate.HasValue && x.AirDate.Value.Date >= startDate.Date && x.AirDate.Value.Date <= endDate.Date).ToList();
                 foreach (var episode in episodes)
                 {
                     episode.Show = show;

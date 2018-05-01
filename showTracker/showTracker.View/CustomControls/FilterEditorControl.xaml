@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      x:Class="showTracker.ViewModel.CustomControls.FilterEditorControl"
+      xmlns:svg="clr-namespace:SvgXF"
+      x:Name="this">
+
+    <Grid BackgroundColor="Black" Opacity="0.5"/>
+    <Button HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            Command="{Binding FiltersDiscarded, Source={x:Reference this}}"
+            Opacity="0"/>
+
+    <Grid HorizontalOptions="FillAndExpand" 
+          VerticalOptions="Center" 
+          BackgroundColor="WhiteSmoke" 
+          Margin="30, 0"
+          Padding="20">
+        <StackLayout BindingContext="{Binding Filters, Source={x:Reference this}}">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding OrderByLabel, Source={x:Reference this}}" VerticalOptions="Center"/>
+                <Picker ItemsSource="{Binding OrderByList, Source={x:Reference this}}" 
+                        SelectedIndex="{Binding OrderBy, Converter={StaticResource IntEnumConverter}}"
+                        HorizontalOptions="FillAndExpand"/>
+                <Grid>
+                    <svg:Icon ResourceId="{Binding AscendingIcon, Source={x:Reference this}}" IsVisible="{Binding IsOrderByAscending}"/>
+                    <svg:Icon ResourceId="{Binding DescendingIcon, Source={x:Reference this}}" IsVisible="{Binding IsOrderByAscending, Converter={StaticResource NegateBooleanConverter}}" />
+                    <Button Clicked="ChangeOrderDirection" Opacity="0"/>
+                </Grid>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding StatusLabel, Source={x:Reference this}}" VerticalOptions="Center"/>
+                <Picker ItemsSource="{Binding StatusList, Source={x:Reference this}}" 
+                        SelectedIndex="{Binding Status, Converter={StaticResource IntEnumConverter}}"
+                        HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding MinRatingLabel, Source={x:Reference this}}" VerticalOptions="Center"/>
+                <Entry Text="{Binding MinRating}" 
+                       Keyboard="Numeric"
+                       HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding MinRuntimeLabel, Source={x:Reference this}}" VerticalOptions="Center"/>
+                <Entry Text="{Binding MinRuntime}" 
+                       Keyboard="Numeric"
+                       HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding GenreLabel, Source={x:Reference this}}" VerticalOptions="Center"/>
+                <Entry Text="{Binding Genre}"
+                       HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding GroupByLabel, Source={x:Reference this}}" VerticalOptions="Center"/>
+                <Picker ItemsSource="{Binding GroupByList, Source={x:Reference this}}" 
+                        SelectedIndex="{Binding GroupBy, Converter={StaticResource IntEnumConverter}}"
+                        HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <svg:Icon ResourceId="{Binding OkIcon, Source={x:Reference this}}"
+                      Grid.Column="0"/>
+                <Button Grid.Column="0"
+                    Opacity="0"
+                    Command="{Binding FiltersAccepted, Source={x:Reference this}}"/>
+
+                <svg:Icon ResourceId="{Binding ClearIcon, Source={x:Reference this}}"
+                      Grid.Column="1"/>
+                <Button Grid.Column="1"
+                    Opacity="0"
+                    Clicked="ClearRequested"/>
+            </Grid>
+        </StackLayout>
+    </Grid>
+</Grid>

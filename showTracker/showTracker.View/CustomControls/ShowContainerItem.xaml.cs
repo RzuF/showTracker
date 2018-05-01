@@ -16,14 +16,14 @@ namespace showTracker.ViewModel.CustomControls
             BindableProperty.Create(nameof(Show), typeof(ShowDto), typeof(ShowContainerItem),
                 propertyChanged: (bindable, value, newValue) =>
                 {
-                    var logger = ((ShowContainerItem) bindable)._logger;
-                    logger.Log("Show set: ");
-                    logger.LogWithSerialization(newValue);
+                    //var logger = ((ShowContainerItem) bindable)._logger;
+                    //logger.Log("Show set: ");
+                    //logger.LogWithSerialization(newValue);
 
                     var show = (ShowDto) newValue;
 
                     ((ShowContainerItem)bindable).IsFavourite = ((ShowContainerItem)bindable)._favouritiesService.IsFavourite(show?.Id ?? -1);
-                    logger.Log($"Show: {show?.Name} ({show?.Id}) - {((ShowContainerItem)bindable).IsFavourite}");
+                    //logger.Log($"Show: {show?.Name} ({show?.Id}) - {((ShowContainerItem)bindable).IsFavourite}");
                 });
 
         public ShowDto Show

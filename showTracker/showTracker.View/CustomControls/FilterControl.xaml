@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="showTracker.ViewModel.CustomControls.FilterControl"
+             x:Name="this"
+             xmlns:svg="clr-namespace:SvgXF">
+    <Grid HorizontalOptions="{Binding FilterOption, Source={x:Reference this}}"
+          VerticalOptions="{Binding FilterOption, Source={x:Reference this}}"
+          Padding="5">
+
+        <Grid Grid.Row="0" 
+              HorizontalOptions="{Binding FilterOption, Source={x:Reference this}}"
+              VerticalOptions="{Binding FilterOption, Source={x:Reference this}}">
+            <svg:Icon ResourceId="{Binding FilterIconResourceId, Source={x:Reference this}}" 
+                      HorizontalOptions="{Binding FilterOption, Source={x:Reference this}}" 
+                      VerticalOptions="{Binding FilterOption, Source={x:Reference this}}"
+                      IsVisible="{Binding ViewModel.IsIconFilterColored, Converter={StaticResource NegateBooleanConverter}, Source={x:Reference this}}"/>
+
+            <svg:Icon ResourceId="{Binding FilterColoredIconResourceId, Source={x:Reference this}}" 
+                      HorizontalOptions="{Binding FilterOption, Source={x:Reference this}}" 
+                      VerticalOptions="{Binding FilterOption, Source={x:Reference this}}"
+                      IsVisible="{Binding ViewModel.IsIconFilterColored, Source={x:Reference this}}"/>
+
+            <Button Command="{Binding FiltersModifyRequested, Source={x:Reference this}}"
+                    HorizontalOptions="{Binding FilterOption, Source={x:Reference this}}" 
+                    VerticalOptions="{Binding FilterOption, Source={x:Reference this}}" 
+                    Opacity="0"/>
+        </Grid>
+    </Grid>
+</Grid>

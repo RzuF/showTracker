@@ -13,7 +13,7 @@
         <control:ColoredListView.GroupHeaderTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <Label Text="{Binding Key}" BackgroundColor="{Binding ViewModel.GroupColor, Source={x:Reference this}}"/>
+                    <Label Text="{Binding Key, Converter={StaticResource DateTimeConverter}}" BackgroundColor="{Binding ViewModel.GroupColor, Source={x:Reference this}}"/>
                 </ViewCell>
             </DataTemplate>
         </control:ColoredListView.GroupHeaderTemplate>

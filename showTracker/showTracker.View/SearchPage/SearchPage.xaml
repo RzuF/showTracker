@@ -16,18 +16,29 @@
                             </RowDefinition.Height>
                         </RowDefinition>
                     </Grid.RowDefinitions>
-                    <control:SearchControl SearchRequested="{Binding OnSearchRequested}" 
-                                           SearchPhrase="{Binding SearchPhrase}"
-                                           x:Name="SearchControl"/>
+                    <StackLayout Orientation="Horizontal">
+                        <control:SearchControl SearchRequested="{Binding OnSearchRequested}" 
+                                               SearchPhrase="{Binding SearchPhrase}"
+                                               x:Name="SearchControl"/>
+                        <control:FilterControl Filters="{Binding Filters}"
+                                               FiltersModifyRequested="{Binding OnFiltersToggle}"
+                                               x:Name="FilterControl"/>
+                    </StackLayout>
                 </Grid>
-                <control:ShowContainer ShowsCollection="{Binding Shows}"
+                <control:ShowContainer ShowsCollection="{Binding FilteredShows}"
                                        VerticalOptions="FillAndExpand"
-                                       GroupBy="PremieredNotNull.Year"/>
+                                       GroupBy="{Binding GroupBy}"/>
             </StackLayout>
             <Grid IsVisible="{Binding IsLoading}">
                 <Grid BackgroundColor="Black" Opacity="0.5"/>
                 <ActivityIndicator HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" IsRunning="{Binding IsLoading}"/>
             </Grid>
+            <control:FilterEditorControl Filters="{Binding Filters}"
+                                         IsVisible="{Binding IsFilterEditorVisible}"
+                                         FiltersAccepted="{Binding OnFiltersChanged}"
+                                         FiltersDiscarded="{Binding OnFiltersToggle}"
+                                         DefaultFilters="{Binding DefaultFilters}"
+                                         IsShow="True"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
