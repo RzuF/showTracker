@@ -8,16 +8,29 @@
     <ContentPage.Content>
         <Grid>
             <StackLayout>
-                <Button Command="{Binding ButtonClick}"
-                        Text="{Binding ButtonTitle}"/>
+
+                <StackLayout Orientation="Horizontal">
+                    <Button Command="{Binding ButtonClick}"
+                            Text="{Binding ButtonTitle}"
+                            HorizontalOptions="FillAndExpand"/>
+                    <customControls:FilterControl Filters="{Binding Filters}"
+                                           FiltersModifyRequested="{Binding OnFiltersToggle}"
+                                           x:Name="FilterControl"/>
+                </StackLayout>
                 <customControls:ShowContainer ShowsCollection="{Binding Shows}"
                                               VerticalOptions="FillAndExpand"
-                                              GroupBy="Year"/>
+                                              GroupBy="{Binding GroupBy}"/>
             </StackLayout>
             <Grid IsVisible="{Binding IsLoading}">
                 <Grid BackgroundColor="Black" Opacity="0.5"/>
                 <ActivityIndicator HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" IsRunning="{Binding IsLoading}"/>
             </Grid>
+            <customControls:FilterEditorControl Filters="{Binding Filters}"
+                                                IsVisible="{Binding IsFilterEditorVisible}"
+                                                FiltersAccepted="{Binding OnFiltersChanged}"
+                                                FiltersDiscarded="{Binding OnFiltersToggle}"
+                                                DefaultFilters="{Binding DefaultFilters}"
+                                                IsShow="True"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

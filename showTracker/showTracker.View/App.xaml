@@ -8,6 +8,8 @@
         <ResourceDictionary>
             <viewModel:ViewModelLocator x:Key="Locator"/>
             <converters:NegateBooleanConverter x:Key="NegateBooleanConverter" />
+            <converters:IntEnumConverter x:Key="IntEnumConverter"></converters:IntEnumConverter>
+            <converters:DateTimeConverter x:Key="DateTimeConverter"></converters:DateTimeConverter>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

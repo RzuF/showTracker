@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Net.Http;
 using System.Windows.Input;
 using showTracker.BusinessLayer.Interfaces;
@@ -62,7 +63,7 @@ namespace showTracker.ViewModel.FavouritiesSchedulePage
                 var episodes = await _favouritiesSchedulingService.GetScheduleForFavourities(StartDate, EndDate);
                 _logger.LogWithSerialization(episodes);
 
-                Episodes = episodes.ToList();
+                Episodes = episodes.AsQueryable().OrderBy("AirDate, AirTime").ToList();
             }
             catch (HttpRequestException e)
             {
