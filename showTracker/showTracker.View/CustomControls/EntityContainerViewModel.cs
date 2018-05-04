@@ -18,7 +18,7 @@ namespace showTracker.ViewModel.CustomControls
             {
                 _groupedResults = value;
                 _logger.Log($"_groupedResults: ", true);
-                _logger.LogWithSerialization(_groupedResults);
+                //_logger.LogWithSerialization(_groupedResults);
                 OnPropertyChanged();
             }
         }

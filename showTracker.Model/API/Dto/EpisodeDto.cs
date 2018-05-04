@@ -23,5 +23,10 @@ namespace showTracker.Model.API.Dto
 
         [JsonIgnore]
         public EpisodeDto Self => this;
+
+        public EpisodeDto Clone()
+        {
+            return (EpisodeDto) MemberwiseClone();
+        }
     }
 }

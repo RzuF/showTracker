@@ -19,5 +19,12 @@ namespace showTracker.BusinessLayer.Services
 
             return response;
         }
+
+        public async Task<string> GetFullShow(int id)
+        {
+            var response = await _httpClientWrapper.HttpClient.GetStringAsync($"{Constants.ApiUrl}shows/{id}?embed[]=episodes&embed[]=cast&embed[]=akas&embed[]=seasons");
+
+            return response;
+        }
     }
 }

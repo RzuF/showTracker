@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using CommonServiceLocator;
 using showTracker.BusinessLayer.Interfaces;
 using showTracker.Model.API.Dto;
@@ -20,7 +21,7 @@ namespace showTracker.ViewModel.CustomControls
                     var episode = (EpisodeDto)newValue;
 
                     ((EpisodeContainerItem)bindable).IsFavourite = ((EpisodeContainerItem)bindable)._favouritiesService.IsFavourite(episode?.Show?.Id ?? -1);
-                    logger.Log($"Show: {episode?.Show?.Name} ({episode?.Show?.Id}) - {((EpisodeContainerItem)bindable).IsFavourite}");
+                    //logger.Log($"Show: {episode?.Show?.Name} ({episode?.Show?.Id}) - {((EpisodeContainerItem)bindable).IsFavourite}");
                 });
 
         public EpisodeDto Episode
@@ -49,6 +50,36 @@ namespace showTracker.ViewModel.CustomControls
             }
         }
 
+        public static readonly BindableProperty CanNavigateToShowProperty =
+            BindableProperty.Create(nameof(CanNavigateToShow), typeof(bool), typeof(EpisodeContainerItem), false,
+                propertyChanged: (bindable, value, newValue) =>
+                {
+                    if ((bool)newValue)
+                    {
+                        ((EpisodeContainerItem)bindable).OnNavigateRequested = new Command(((EpisodeContainerItem)bindable).NavigateToShow);
+                    }
+                    else
+                    {
+                        ((EpisodeContainerItem)bindable).OnNavigateRequested = null;
+                    }
+                });
+
+        public bool CanNavigateToShow
+        {
+            get => (bool) GetValue(CanNavigateToShowProperty);
+            set => SetValue(CanNavigateToShowProperty, value);
+        }
+
+        public ICommand OnNavigateRequested
+        {
+            get => _onNavigateRequested;
+            set
+            {
+                _onNavigateRequested = value;
+                OnPropertyChanged(nameof(OnNavigateRequested));
+            }
+        }
+
         public string FavouriteIcon => Constants.FavouriteIconResourceId;
         public string OkIcon => Constants.OkIconResourceId;
         public string EpisodeName => $"Title: {Episode?.Name ?? "Unknown"}";
@@ -57,6 +88,7 @@ namespace showTracker.ViewModel.CustomControls
 
         private readonly IFavouritiesService _favouritiesService;
         private readonly ISTLogger _logger;
+        private ICommand _onNavigateRequested;
 
         public string Runtime => $"{Episode?.Runtime?.ToString() ?? "??"} min";
 
@@ -65,6 +97,11 @@ namespace showTracker.ViewModel.CustomControls
             _favouritiesService = ServiceLocator.Current.GetInstance<IFavouritiesService>();
             _logger = ServiceLocator.Current.GetInstance<ISTLogger>();
             InitializeComponent();
+        }
+
+        private void NavigateToShow()
+        {
+            ServiceLocator.Current.GetInstance<INavigationService>().Navigate(ApplicationPageEnum.ShowPage, Episode.Show.Id);
         }
 
         private void Favourite_Clicked(object sender, EventArgs e)

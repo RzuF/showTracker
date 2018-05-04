@@ -8,6 +8,7 @@ namespace showTracker.BusinessLayer.Interfaces
     public interface IApiClientService
     {
         Task<ShowDto> GetShow(int id);
+        Task<FullShowDto> GetFullShow(int id);
         Task<EpisodeDto> GetEpisode(int showId, int seasonId, int episodeId);
         Task<ShowDto> SearchShow(string query);
         Task<IEnumerable<EpisodeDto>> GetEpisodes(int showId, bool includeSpecials = true);

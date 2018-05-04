@@ -92,6 +92,19 @@ namespace showTracker.BusinessLayer.Services
             throw new InvalidShowException($"Show id: {id}");
         }
 
+        public async Task<FullShowDto> GetFullShow(int id)
+        {
+            var json = await _showService.GetFullShow(id);
+            var show = _jsonSerializeService.TryDeserializeObject<FullShowDto>(json);
+
+            if (show.success)
+            {
+                return show.obj;
+            }
+
+            throw new InvalidShowException($"Full Show id: {id}");
+        }
+
         public async Task<ShowDto> SearchShow(string query)
         {
             var json = await _searchService.SearchShows(query, true);

@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:customControls="clr-namespace:showTracker.ViewModel.CustomControls;assembly=showTracker.ViewModel"
+            xmlns:svgXf="clr-namespace:SvgXF;assembly=showTracker.ViewModel"
+            x:Class="showTracker.ViewModel.ShowPage.ShowPage"   
+            x:Name="TabbedPage"
+            BindingContext="{Binding ViewModel, Source={x:Reference TabbedPage}}"
+            Title="{Binding PageTitle}">
+
+    <ContentPage Title="{Binding SummaryTabLabel}" x:Name="SummaryPage" BindingContext="{Binding ViewModel, Source={x:Reference TabbedPage}}">
+        <Grid>
+            <ScrollView>
+                <StackLayout>
+                    <Label Text="{Binding Show.Name}" FontSize="20" HorizontalTextAlignment="Center"/>
+                    <Grid VerticalOptions="Start">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Margin="20" 
+                                   Source="{Binding UriImageSource}" 
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Start"/>
+                            <Grid Grid.Column="1">
+                                    <svgXf:Icon ResourceId="{Binding FavouriteIcon}" 
+                                                HorizontalOptions="FillAndExpand" 
+                                                VerticalOptions="FillAndExpand"/>
+
+                                    <svgXf:Icon ResourceId="{Binding OkIcon}" 
+                                                IsVisible="{Binding IsFavourite}"
+                                                HorizontalOptions="FillAndExpand" 
+                                                VerticalOptions="FillAndExpand"
+                                                Padding="40"/>
+                                    <Button Command="{Binding OnFavouriteToggled}"
+                                            HorizontalOptions="FillAndExpand" 
+                                            VerticalOptions="FillAndExpand" 
+                                            Opacity="0"/>
+                                </Grid>
+                        </Grid>
+                        <StackLayout Grid.Row="1">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Type:"/>
+                                <Label Text="{Binding Show.Type}"></Label>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Language:"/>
+                                <Label Text="{Binding Show.Language}"></Label>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Genres:"/>
+                                <Label Text="{Binding Show.Genres, Converter={StaticResource StringArrayConverter}}"></Label>
+                            </StackLayout>
+                        </StackLayout>
+                    </Grid>
+                    <WebView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <WebView.Source>
+                            <HtmlWebViewSource Html="{Binding Show.Summary}"/>
+                        </WebView.Source>
+                    </WebView>
+                </StackLayout>
+            </ScrollView>
+            <Grid IsVisible="{Binding IsLoading}">
+                <Grid BackgroundColor="Black" Opacity="0.5"/>
+                <ActivityIndicator HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" IsRunning="{Binding IsLoading}"/>
+            </Grid>
+        </Grid>
+    </ContentPage>
+    <ContentPage Title="{Binding CastTabLabel}" x:Name="CastPage" BindingContext="{Binding ViewModel, Source={x:Reference TabbedPage}}">
+        <Grid>
+            <ListView ItemsSource="{Binding Show.Cast}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell ImageSource="{Binding Character.Image.MediumImgUrl}"
+                                   Text="{Binding Person.Name}"
+                                   Detail="{Binding Character.Name, Converter={StaticResource PersonToCastConverter}}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid IsVisible="{Binding IsLoading}">
+                <Grid BackgroundColor="Black" Opacity="0.5"/>
+                <ActivityIndicator HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" IsRunning="{Binding IsLoading}"/>
+            </Grid>
+        </Grid>
+    </ContentPage>
+    <CarouselPage Title="{Binding EpisodesTabLabel}" x:Name="EpisodesPage" ItemsSource="{Binding Seasons}">
+        <CarouselPage.ItemTemplate>
+            <DataTemplate>
+                <ContentPage>
+                    <ScrollView>
+                        <StackLayout>
+                            <Label Text="{Binding CarouselPageTitle}" FontSize="24" HorizontalTextAlignment="Center"/>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Number of Episodes:"/>
+                                <Label Text="{Binding Season.EpisodeOrder}"></Label>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Premiered:"/>
+                                <Label Text="{Binding Season.PremiereDate, Converter={StaticResource DateConverter}}"></Label>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Ended:"/>
+                                <Label Text="{Binding Season.EndDate, Converter={StaticResource DateConverter}}"></Label>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Network:"/>
+                                <Label Text="{Binding Season.Network.Name}"></Label>
+                            </StackLayout>
+                            <customControls:EpisodeContainer EpisodeCollection="{Binding Episodes}"
+                                                             VerticalOptions="FillAndExpand"/>
+                        </StackLayout>
+                    </ScrollView>
+                </ContentPage>
+            </DataTemplate>
+        </CarouselPage.ItemTemplate>
+    </CarouselPage>
+
+</TabbedPage>

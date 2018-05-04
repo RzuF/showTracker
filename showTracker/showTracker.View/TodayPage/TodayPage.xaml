@@ -28,6 +28,7 @@
                 </Grid>
                 <control:EpisodeContainer EpisodeCollection="{Binding FilteredEpisodes}"
                                           VerticalOptions="FillAndExpand"
+                                          CanNavigateToShow="True"
                                           GroupBy="{Binding GroupBy}"/>
             </StackLayout>
             <Grid IsVisible="{Binding IsLoading}">

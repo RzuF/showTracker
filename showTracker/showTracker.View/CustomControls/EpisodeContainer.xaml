@@ -21,7 +21,8 @@
             <DataTemplate>
                 <control:EpisodeContainerItem 
                     Episode="{Binding Self}" 
-                    ItemHeight="{Binding SingleItemHeight, Source={x:Reference this}}"/>
+                    ItemHeight="{Binding SingleItemHeight, Source={x:Reference this}}"
+                    CanNavigateToShow="{Binding CanNavigateToShow, Source={x:Reference this}}"/>
             </DataTemplate>
         </control:ColoredListView.ItemTemplate>
     </control:ColoredListView>

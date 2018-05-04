@@ -20,6 +20,7 @@ namespace showTracker.ViewModel
                 {ApplicationPageEnum.SearchPage, typeof(SearchPage.SearchPage) },
                 {ApplicationPageEnum.TodayPage, typeof(TodayPage.TodayPage) },
                 {ApplicationPageEnum.FavouritiesSchedulePage, typeof(FavouritiesSchedulePage.FavouritiesSchedulePage) },
+                {ApplicationPageEnum.ShowPage, typeof(ShowPage.ShowPage) }
             };
         }
     }
