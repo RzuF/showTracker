@@ -218,6 +218,16 @@ namespace showTracker.BusinessLayer.Tests.Api
             Assert.Pass();        
         }
 
+        [Test]
+        public void TestRealFullShow()
+        {
+            var show = new ShowService(new HttpClientWrapper()).GetFullShow(1);
+            show.Wait();
+            var showObj = _jsonSerializeService.DeserializeObject<FullShowDto>(show.Result);
+
+            Assert.Pass();
+        }
+
         //EpisodeService Tests
 
         [Test]

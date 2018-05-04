@@ -59,11 +59,13 @@ namespace showTracker.ViewModel.CustomControls
 
         private readonly IFavouritiesService _favouritiesService;
         private readonly ISTLogger _logger;
+        private readonly INavigationService _navigationService;
 
         public ShowContainerItem ()
 		{
 		    _favouritiesService = ServiceLocator.Current.GetInstance<IFavouritiesService>();
             _logger = ServiceLocator.Current.GetInstance<ISTLogger>();
+            _navigationService = ServiceLocator.Current.GetInstance<INavigationService>();
             InitializeComponent ();
 		}
 
@@ -72,6 +74,12 @@ namespace showTracker.ViewModel.CustomControls
             var action = _favouritiesService.AddOrDelete(Show);
             _logger.Log($"{Show?.Name}: {action}");
             IsFavourite = action == FavouritiesAction.Add;
+        }
+
+        private void ShowClicked(object sender, EventArgs e)
+        {
+            _logger.Log($"{Show.Name} clicked, requested: ID -> {Show.Id}");
+            _navigationService.Navigate(ApplicationPageEnum.ShowPage, Show?.Id);
         }
     }
 }

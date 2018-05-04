@@ -41,6 +41,10 @@
                 <Label Text="{Binding Rating, Source={x:Reference this}}" />
             </StackLayout>
         </Grid>
+        <Button Opacity="0"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                Clicked="ShowClicked"/>
         <Grid Grid.Column="1" Padding="5">
             <svg:Icon ResourceId="{Binding FavouriteIcon, Source={x:Reference this}}" 
                       HorizontalOptions="Center" 

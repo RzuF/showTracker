@@ -10,6 +10,9 @@
             <converters:NegateBooleanConverter x:Key="NegateBooleanConverter" />
             <converters:IntEnumConverter x:Key="IntEnumConverter"></converters:IntEnumConverter>
             <converters:DateTimeConverter x:Key="DateTimeConverter"></converters:DateTimeConverter>
+            <converters:PersonToCastConverter x:Key="PersonToCastConverter"></converters:PersonToCastConverter>
+            <converters:DateConverter x:Key="DateConverter"></converters:DateConverter>
+            <converters:StringArrayConverter x:Key="StringArrayConverter"></converters:StringArrayConverter>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

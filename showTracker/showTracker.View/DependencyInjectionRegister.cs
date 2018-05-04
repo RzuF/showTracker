@@ -2,6 +2,7 @@
 using showTracker.ViewModel.FavouritiesSchedulePage;
 using showTracker.ViewModel.MainPage;
 using showTracker.ViewModel.SearchPage;
+using showTracker.ViewModel.ShowPage;
 using showTracker.ViewModel.TodayPage;
 using Unity;
 
@@ -16,6 +17,7 @@ namespace showTracker.ViewModel
             unityContainer.RegisterInstance(typeof(TodayViewModel));
             unityContainer.RegisterInstance(typeof(EntityContainerViewModel));
             unityContainer.RegisterInstance(typeof(FavouritiesScheduleViewModel));
+            unityContainer.RegisterInstance(typeof(ShowViewModel));
 
             unityContainer.RegisterInstance(typeof(MainPage.MainPage));
             unityContainer.RegisterInstance(typeof(AboutPage.AboutPage));
@@ -23,6 +25,7 @@ namespace showTracker.ViewModel
             unityContainer.RegisterInstance(typeof(SearchPage.SearchPage));
             unityContainer.RegisterInstance(typeof(TodayPage.TodayPage));
             unityContainer.RegisterInstance(typeof(FavouritiesSchedulePage.FavouritiesSchedulePage));
+            unityContainer.RegisterInstance(typeof(ShowPage.ShowPage));
         }
     }
 }

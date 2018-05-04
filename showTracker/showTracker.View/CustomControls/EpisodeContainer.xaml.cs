@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Windows.Input;
 using CommonServiceLocator;
 using showTracker.BusinessLayer.Extensions;
 using showTracker.BusinessLayer.Interfaces;
 using showTracker.Model.API.Dto;
+using showTracker.Model.Enum;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Constants = showTracker.Model.Constants;
@@ -61,6 +63,15 @@ namespace showTracker.ViewModel.CustomControls
             }
         }
 
+	    public static readonly BindableProperty CanNavigateToShowProperty =
+	        BindableProperty.Create(nameof(CanNavigateToShow), typeof(bool), typeof(EpisodeContainer), false);
+
+	    public bool CanNavigateToShow
+	    {
+	        get => (bool) GetValue(CanNavigateToShowProperty);
+	        set => SetValue(CanNavigateToShowProperty, value);
+	    }
+
         #endregion
 
         public bool AnyEpisodesInCollection
@@ -79,6 +90,7 @@ namespace showTracker.ViewModel.CustomControls
             _jsonSerializeService = ServiceLocator.Current.GetInstance<IJsonSerializeService>();
             _logger = ServiceLocator.Current.GetInstance<ISTLogger>();
             ViewModel = new EntityContainerViewModel(_jsonSerializeService, _logger);
+
             InitializeComponent();
         }
 

@@ -6,5 +6,6 @@ namespace showTracker.BusinessLayer.Interfaces
     public interface IShowService
     {
         Task<string> GetShow(int id);
+        Task<string> GetFullShow(int id);
     }
 }
