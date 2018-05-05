@@ -19,7 +19,8 @@
                     <StackLayout Orientation="Horizontal">
                         <control:SearchControl SearchRequested="{Binding OnSearchRequested}" 
                                                SearchPhrase="{Binding SearchPhrase}"
-                                               x:Name="SearchControl"/>
+                                               x:Name="SearchControl"
+                                               HorizontalOptions="FillAndExpand"/>
                         <control:FilterControl Filters="{Binding Filters}"
                                                FiltersModifyRequested="{Binding OnFiltersToggle}"
                                                x:Name="FilterControl"/>

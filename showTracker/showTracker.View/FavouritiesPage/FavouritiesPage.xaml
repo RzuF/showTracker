@@ -14,10 +14,10 @@
                             Text="{Binding ButtonTitle}"
                             HorizontalOptions="FillAndExpand"/>
                     <customControls:FilterControl Filters="{Binding Filters}"
-                                           FiltersModifyRequested="{Binding OnFiltersToggle}"
-                                           x:Name="FilterControl"/>
+                                                  FiltersModifyRequested="{Binding OnFiltersToggle}"
+                                                  x:Name="FilterControl"/>
                 </StackLayout>
-                <customControls:ShowContainer ShowsCollection="{Binding Shows}"
+                <customControls:ShowContainer ShowsCollection="{Binding FilteredShows}"
                                               VerticalOptions="FillAndExpand"
                                               GroupBy="{Binding GroupBy}"/>
             </StackLayout>

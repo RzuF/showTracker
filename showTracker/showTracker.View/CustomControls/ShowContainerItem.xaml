@@ -35,9 +35,7 @@
             </Grid>
             <StackLayout Orientation="Horizontal" VerticalOptions="End" Grid.Row="1">
                 <Label Text="{Binding Premiered, Source={x:Reference this}}"></Label>
-                <Label Text=", "/>
                 <Label Text="{Binding Show.Type, Source={x:Reference this}}"></Label>
-                <Label Text=", "/>
                 <Label Text="{Binding Rating, Source={x:Reference this}}" />
             </StackLayout>
         </Grid>
@@ -45,14 +43,14 @@
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand"
                 Clicked="ShowClicked"/>
-        <Grid Grid.Column="1" Padding="5">
+        <Grid Grid.Column="1" Padding="10">
             <svg:Icon ResourceId="{Binding FavouriteIcon, Source={x:Reference this}}" 
-                      HorizontalOptions="Center" 
-                      VerticalOptions="Center"/>
+                      HorizontalOptions="FillAndExpand" 
+                      VerticalOptions="FillAndExpand"/>
             <svg:Icon ResourceId="{Binding OkIcon, Source={x:Reference this}}" 
                       IsVisible="{Binding IsFavourite, Source={x:Reference this}}"
-                      HorizontalOptions="Center" 
-                      VerticalOptions="Center"
+                      HorizontalOptions="FillAndExpand" 
+                      VerticalOptions="FillAndExpand"
                       Padding="20"/>
             <Button Clicked="Favourite_Clicked"
                     HorizontalOptions="FillAndExpand" 
