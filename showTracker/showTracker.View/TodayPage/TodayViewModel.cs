@@ -161,8 +161,12 @@ namespace showTracker.ViewModel.TodayPage
 
             if (Filters.OrderBy != OrderByEnum.None)
             {
+                var orderByString =
+                    $"{(GroupBy == null ? "" : GroupBy + ",")} {Enum.GetName(typeof(OrderByEnum), Filters.OrderBy)} {(Filters.IsOrderByAscending ? "asc" : "desc")}"
+                        .Replace(" Year", " Show.PremieredNotNull.Year")
+                        .Replace(" Rating", "Show.Rating");
                 FilteredEpisodes = FilteredEpisodes.AsQueryable()
-                    .OrderBy($"{(GroupBy == null ? "" : GroupBy + ",")} {Enum.GetName(typeof(OrderByEnum), Filters.OrderBy)} {(Filters.IsOrderByAscending ? "asc" : "desc")}").ToList();
+                    .OrderBy(orderByString).ToList();
             }
         }
 

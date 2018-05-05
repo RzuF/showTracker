@@ -18,8 +18,9 @@
                     </Grid.RowDefinitions>
                     <StackLayout Orientation="Horizontal">
                         <control:DateSearchControl CurrentDateSelected="{Binding SearchDate}"
-                                               SearchRequested="{Binding OnSearchRequested}"
-                                               x:Name="DateSearchControl">
+                                                   SearchRequested="{Binding OnSearchRequested}"
+                                                   x:Name="DateSearchControl"
+                                                   HorizontalOptions="FillAndExpand">
                         </control:DateSearchControl>
                         <control:FilterControl Filters="{Binding Filters}"
                                                FiltersModifyRequested="{Binding OnFiltersToggle}"

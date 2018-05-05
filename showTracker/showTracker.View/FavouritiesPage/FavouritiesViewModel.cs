@@ -161,8 +161,11 @@ namespace showTracker.ViewModel.FavouritiesPage
 
             if (Filters.OrderBy != OrderByEnum.None)
             {
+                var orderByString =
+                    $"{(GroupBy == null ? "" : GroupBy + ",")} {Enum.GetName(typeof(OrderByEnum), Filters.OrderBy)} {(Filters.IsOrderByAscending ? "asc" : "desc")}"
+                        .Replace(" Year", " PremieredNotNull.Year");
                 FilteredShows = FilteredShows.AsQueryable()
-                    .OrderBy($"{GroupBy ?? ""}, {Enum.GetName(typeof(OrderByEnum), Filters.OrderBy)} {(Filters.IsOrderByAscending ? "asc" : "desc")}").ToList();
+                    .OrderBy(orderByString).ToList();
             }
         }
 
