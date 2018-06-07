@@ -185,26 +185,26 @@ namespace showTracker.ViewModel.TodayPage
 
                 Episodes = episodes.ToList();
             }
-            catch (InvalidEpisodeException e)
+            catch (InvalidEpisodeException invalidEpisodeException)
             {
-                _stLogger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+                _stLogger.Log($"Exception: {invalidEpisodeException.Message}\n\nStackTrace: {invalidEpisodeException.StackTrace}");
 
                 PopupAlertTitle = Constants.WrongQuery;
                 PopupAlertMessage = Constants.ErrorDuringFetchingEpisode;
                 MessagingCenter.Send(this, Constants.PopupAlertKey);
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException httpRequestException)
             {
-                _stLogger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+                _stLogger.Log($"Exception: {httpRequestException.Message}\n\nStackTrace: {httpRequestException.StackTrace}");
 
                 PopupAlertTitle = Constants.NoInternetConnection;
                 PopupAlertMessage = Constants.CheckYourInternetConnection;
                 MessagingCenter.Send(this, Constants.PopupAlertKey);
             }
 
-            catch (Exception e)
+            catch (Exception exception)
             {
-                _stLogger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+                _stLogger.Log($"Exception: {exception.Message}\n\nStackTrace: {exception.StackTrace}");
 
                 PopupAlertTitle = Constants.UndefinedError;
                 PopupAlertMessage = Constants.PleaseContactDeveloper;
