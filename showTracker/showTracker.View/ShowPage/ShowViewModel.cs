@@ -129,7 +129,7 @@ namespace showTracker.ViewModel.ShowPage
 
                 Show = show;
                 PageTitle = show.Name;
-                UriImageSource = new UriImageSource
+                UriImageSource = show.Image?.MediumImgUrl == null ? null : new UriImageSource
                 {
                     CachingEnabled = true,
                     Uri = new Uri(show.Image.MediumImgUrl)
