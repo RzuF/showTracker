@@ -13,7 +13,7 @@ namespace showTracker.Model.API.Dto
         public DateTime? PremiereDate { get; set; }
         public DateTime? EndDate { get; set; }
         public NetworkDto Network { get; set; }
-        public string WebChannel { get; set; }
+        public NetworkDto WebChannel { get; set; }
         public ImageDto Image { get; set; }
         public string Summary { get; set; }
         [JsonProperty("_links")]
