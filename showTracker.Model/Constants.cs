@@ -9,6 +9,8 @@
         public const double DefaultShowContainerItemHeight = 100;
         public const double DefaultEpisodeContainerItemHeight = 100;
 
+        public const int MaxRating = 10;
+
         public const string FavouriteIconResourceId = "showTracker.ViewModel.Resources.Heart.svg";
         public const string SearchIconResourceId = "showTracker.ViewModel.Resources.Search.svg";
         public const string AboutIconResourceId = "showTracker.ViewModel.Resources.About.svg";
