@@ -41,7 +41,7 @@ namespace showTracker.Model.Filters
             get => _minRating;
             set
             {
-                _minRating = value;
+                _minRating = value > Constants.MaxRating ? Constants.MaxRating : value;
                 OnPropertyChanged();
             }
         }

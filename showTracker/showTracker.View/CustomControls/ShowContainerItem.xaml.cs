@@ -54,7 +54,7 @@ namespace showTracker.ViewModel.CustomControls
 
         public string FavouriteIcon => Constants.FavouriteIconResourceId;
         public string OkIcon => Constants.OkIconResourceId;
-        public string Rating => $"{Show?.Rating?.ToString() ?? "??"}/10";
+        public string Rating => $"{Show?.Rating?.ToString() ?? "??"}/{Constants.MaxRating}";
         public string Premiered => Show?.Premiered?.Year.ToString() ?? "Unknown";
 
         private readonly IFavouritiesService _favouritiesService;

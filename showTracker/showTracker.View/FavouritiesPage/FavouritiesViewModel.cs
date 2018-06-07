@@ -184,17 +184,17 @@ namespace showTracker.ViewModel.FavouritiesPage
 
                 Shows = shows.ToList();
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException httpRequestException)
             {
-                _logger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+                _logger.Log($"Exception: {httpRequestException.Message}\n\nStackTrace: {httpRequestException.StackTrace}");
 
                 PopupAlertTitle = Constants.NoInternetConnection;
                 PopupAlertMessage = Constants.CheckYourInternetConnection;
                 MessagingCenter.Send(this, Constants.PopupAlertKey);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                _logger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+                _logger.Log($"Exception: {exception.Message}\n\nStackTrace: {exception.StackTrace}");
 
                 PopupAlertTitle = Constants.UndefinedError;
                 PopupAlertMessage = Constants.PleaseContactDeveloper;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Net.Http;
@@ -57,25 +58,43 @@ namespace showTracker.ViewModel.FavouritiesSchedulePage
 
         private async void GenerateRequested()
         {
-            IsLoading = true;
+            IsLoading = true;            
             try
             {
+                if (StartDate > EndDate)
+                {
+                    PopupAlertTitle = "Invalid date range";
+                    PopupAlertMessage = "Selected date range cannot start after end date!";
+                    MessagingCenter.Send(this, Constants.PopupAlertKey);
+
+                    return;
+                }
+
                 var episodes = await _favouritiesSchedulingService.GetScheduleForFavourities(StartDate, EndDate);
                 _logger.LogWithSerialization(episodes);
 
                 Episodes = episodes.AsQueryable().OrderBy("AirDate, AirTime").ToList();
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException httpRequestException)
             {
-                _logger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+                _logger.Log($"Exception: {httpRequestException.Message}\n\nStackTrace: {httpRequestException.StackTrace}");
 
                 PopupAlertTitle = Constants.NoInternetConnection;
                 PopupAlertMessage = Constants.CheckYourInternetConnection;
                 MessagingCenter.Send(this, Constants.PopupAlertKey);
             }
-            catch (Exception e)
+            catch (IOException ioException)
             {
-                _logger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+                _logger.Log($"Exception: {ioException.Message}\n\nStackTrace: {ioException.StackTrace}");
+
+                PopupAlertTitle = Constants.NoInternetConnection;
+                PopupAlertMessage = Constants.CheckYourInternetConnection;
+                MessagingCenter.Send(this, Constants.PopupAlertKey);
+            }
+
+            catch (Exception exception)
+            {
+                _logger.Log($"Exception: {exception.Message}\n\nStackTrace: {exception.StackTrace}");
 
                 PopupAlertTitle = Constants.UndefinedError;
                 PopupAlertMessage = Constants.PleaseContactDeveloper;

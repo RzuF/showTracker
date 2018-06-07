@@ -129,7 +129,7 @@ namespace showTracker.ViewModel.ShowPage
 
                 Show = show;
                 PageTitle = show.Name;
-                UriImageSource = new UriImageSource
+                UriImageSource = show.Image?.MediumImgUrl == null ? null : new UriImageSource
                 {
                     CachingEnabled = true,
                     Uri = new Uri(show.Image.MediumImgUrl)
@@ -157,18 +157,18 @@ namespace showTracker.ViewModel.ShowPage
                     Seasons = seasons;
                 });
             }
-            catch (InvalidShowException e)
+            catch (InvalidShowException invalidShowException)
             {
-                _stLogger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+                _stLogger.Log($"Exception: {invalidShowException.Message}\n\nStackTrace: {invalidShowException.StackTrace}");
 
                 PopupAlertTitle = Constants.WrongQuery;
                 PopupAlertMessage = Constants.ErrorDuringFetchingShow;
                 MessagingCenter.Send(this, Constants.PopupAlertKey);
                 LoadFailed = true;
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException httpRequestException)
             {
-                _stLogger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+                _stLogger.Log($"Exception: {httpRequestException.Message}\n\nStackTrace: {httpRequestException.StackTrace}");
 
                 PopupAlertTitle = Constants.NoInternetConnection;
                 PopupAlertMessage = Constants.CheckYourInternetConnection;
@@ -176,9 +176,9 @@ namespace showTracker.ViewModel.ShowPage
                 LoadFailed = true;
             }
 
-            catch (Exception e)
+            catch (Exception exception)
             {
-                _stLogger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+                _stLogger.Log($"Exception: {exception.Message}\n\nStackTrace: {exception.StackTrace}");
 
                 PopupAlertTitle = Constants.UndefinedError;
                 PopupAlertMessage = Constants.PleaseContactDeveloper;

@@ -178,26 +178,26 @@ namespace showTracker.ViewModel.SearchPage
 
                 Shows = shows.ToList();
             }
-            catch (InvalidShowException e)
+            catch (InvalidShowException invalidShowException)
             {
-                _stLogger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+                _stLogger.Log($"Exception: {invalidShowException.Message}\n\nStackTrace: {invalidShowException.StackTrace}");
 
                 PopupAlertTitle = Constants.WrongQuery;
                 PopupAlertMessage = Constants.ErrorDuringFetchingShow;
                 MessagingCenter.Send(this, Constants.PopupAlertKey);
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException httpRequestException)
             {
-                _stLogger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+                _stLogger.Log($"Exception: {httpRequestException.Message}\n\nStackTrace: {httpRequestException.StackTrace}");
 
                 PopupAlertTitle = Constants.NoInternetConnection;
                 PopupAlertMessage = Constants.CheckYourInternetConnection;
                 MessagingCenter.Send(this, Constants.PopupAlertKey);
             }
 
-            catch (Exception e)
+            catch (Exception exception)
             {
-                _stLogger.Log($"Exception: {e.Message}\n\nStackTrace: {e.StackTrace}");
+                _stLogger.Log($"Exception: {exception.Message}\n\nStackTrace: {exception.StackTrace}");
 
                 PopupAlertTitle = Constants.UndefinedError;
                 PopupAlertMessage = Constants.PleaseContactDeveloper;
