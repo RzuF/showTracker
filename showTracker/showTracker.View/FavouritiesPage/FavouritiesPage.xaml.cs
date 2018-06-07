@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using showTracker.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,5 +16,13 @@ namespace showTracker.ViewModel.FavouritiesPage
 		{
 			InitializeComponent ();
 		}
+
+	    protected override void OnAppearing()
+	    {
+	        base.OnAppearing();
+
+	        MessagingCenter.Subscribe<FavouritiesViewModel>(this, Constants.PopupAlertKey,
+	            model => DisplayAlert(model.PopupAlertTitle, model.PopupAlertMessage, Constants.OkButtonText));
+        }
 	}
 }
