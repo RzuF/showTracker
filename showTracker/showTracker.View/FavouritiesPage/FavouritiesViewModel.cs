@@ -130,7 +130,7 @@ namespace showTracker.ViewModel.FavouritiesPage
 
             if (Filters.Genre != "")
             {
-                FilteredShows = FilteredShows.Where(x => x.Genres.Contains(Filters.Genre)).ToList();
+                FilteredShows = FilteredShows.Where(x => x.Genres.Select(y => y.ToLower()).Contains(Filters.Genre.ToLower())).ToList();
             }
 
             if (Filters.Status != StatusEnum.None)

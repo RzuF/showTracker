@@ -124,7 +124,7 @@ namespace showTracker.ViewModel.TodayPage
 
             if (Filters.Genre != "")
             {
-                FilteredEpisodes = FilteredEpisodes.Where(x => x.Show.Genres.Contains(Filters.Genre)).ToList();
+                FilteredEpisodes = FilteredEpisodes.Where(x => x.Show.Genres.Select(y => y.ToLower()).Contains(Filters.Genre.ToLower())).ToList();
             }
 
             if (Filters.Status != StatusEnum.None)
