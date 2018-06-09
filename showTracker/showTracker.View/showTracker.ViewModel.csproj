@@ -82,6 +82,9 @@
     <Compile Update="FavouritesPage\FavouritesPage.xaml.cs">
       <DependentUpon>FavouritesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="FavouritesSchedulePage\FavouritesSchedulePage.xaml.cs">
+      <DependentUpon>FavouritesSchedulePage.xaml</DependentUpon>
+    </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="MainPage\MainPage.xaml.cs">
       <DependentUpon>*.xaml</DependentUpon>
     </Compile>
@@ -124,7 +127,7 @@
     <EmbeddedResource Update="FavouritesPage\FavouritesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="FavouritiesSchedulePage\FavouritiesSchedulePage.xaml">
+    <EmbeddedResource Update="FavouritesSchedulePage\FavouritesSchedulePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="SearchPage\SearchPage.xaml">

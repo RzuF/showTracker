@@ -1,6 +1,8 @@
 ﻿using CommonServiceLocator;
 using showTracker.ViewModel.AboutPage;
 using showTracker.ViewModel.CustomControls;
+using showTracker.ViewModel.FavouritesPage;
+using showTracker.ViewModel.FavouritesSchedulePage;
 using showTracker.ViewModel.FavouritiesPage;
 using showTracker.ViewModel.FavouritiesSchedulePage;
 using showTracker.ViewModel.MainPage;

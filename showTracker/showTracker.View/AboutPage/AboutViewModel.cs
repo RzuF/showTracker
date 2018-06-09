@@ -10,7 +10,7 @@ namespace showTracker.ViewModel.AboutPage
             PageTitle = Constants.AboutPageTitle;
         }
 
-        public string AppName => Constants.ApplicationName;
+        public string AppName => $"{Constants.ApplicationName} {string.Join(".", Constants.Version)}";
         public string LogoIcon => Constants.LogoIconResourceId;
         public string Description => Constants.AppDescription;
         public string Authors => string.Join("\n", Constants.Authors);

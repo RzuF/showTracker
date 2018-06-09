@@ -3,6 +3,12 @@
     public static class Constants
     {
         public const string ApplicationName = "showTracker";
+        public static readonly int[] Version =
+        {
+            1,
+            0,
+            0
+        };
 
         public const string ApiUrl = "http://api.tvmaze.com/";
 

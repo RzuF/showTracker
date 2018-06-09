@@ -1,5 +1,6 @@
 ﻿using showTracker.ViewModel.AboutPage;
 using showTracker.ViewModel.CustomControls;
+using showTracker.ViewModel.FavouritesSchedulePage;
 using showTracker.ViewModel.FavouritiesSchedulePage;
 using showTracker.ViewModel.MainPage;
 using showTracker.ViewModel.SearchPage;
