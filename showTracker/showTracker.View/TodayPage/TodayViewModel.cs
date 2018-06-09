@@ -107,7 +107,7 @@ namespace showTracker.ViewModel.TodayPage
             Filters = GenerateDefaultFilters();
             DefaultFilters = GenerateDefaultFilters();
 
-            PageTitle = "Episodes for selected date";
+            PageTitle = Constants.TodayPageTitle;
             Episodes = new List<EpisodeDto>();
         }
 
@@ -187,28 +187,16 @@ namespace showTracker.ViewModel.TodayPage
             }
             catch (InvalidEpisodeException invalidEpisodeException)
             {
-                _stLogger.Log($"Exception: {invalidEpisodeException.Message}\n\nStackTrace: {invalidEpisodeException.StackTrace}");
-
-                PopupAlertTitle = Constants.WrongQuery;
-                PopupAlertMessage = Constants.ErrorDuringFetchingEpisode;
-                MessagingCenter.Send(this, Constants.PopupAlertKey);
+                NotifyAboutException(Constants.WrongQuery, Constants.ErrorDuringFetchingShow, invalidEpisodeException);
             }
             catch (HttpRequestException httpRequestException)
             {
-                _stLogger.Log($"Exception: {httpRequestException.Message}\n\nStackTrace: {httpRequestException.StackTrace}");
-
-                PopupAlertTitle = Constants.NoInternetConnection;
-                PopupAlertMessage = Constants.CheckYourInternetConnection;
-                MessagingCenter.Send(this, Constants.PopupAlertKey);
+                NotifyAboutException(Constants.NoInternetConnection, Constants.CheckYourInternetConnection, httpRequestException);
             }
 
             catch (Exception exception)
             {
-                _stLogger.Log($"Exception: {exception.Message}\n\nStackTrace: {exception.StackTrace}");
-
-                PopupAlertTitle = Constants.UndefinedError;
-                PopupAlertMessage = Constants.PleaseContactDeveloper;
-                MessagingCenter.Send(this, Constants.PopupAlertKey);
+                NotifyAboutException(Constants.UndefinedError, Constants.PleaseContactDeveloper, exception);
             }
             finally
             {
@@ -222,6 +210,15 @@ namespace showTracker.ViewModel.TodayPage
             {
                 GroupBy = GroupByEnum.AirTime
             };
+        }
+
+        private void NotifyAboutException(string title, string message, Exception exception)
+        {
+            _stLogger.Log($"Exception: {exception.Message}\n\nStackTrace: {exception.StackTrace}");
+
+            PopupAlertTitle = title;
+            PopupAlertMessage = message;
+            MessagingCenter.Send(this, Constants.PopupAlertKey);
         }
     }
 }

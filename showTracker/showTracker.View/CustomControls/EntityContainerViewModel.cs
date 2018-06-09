@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using showTracker.BusinessLayer.Interfaces;
 using Xamarin.Forms;
 
@@ -45,6 +46,17 @@ namespace showTracker.ViewModel.CustomControls
             }
         }
 
+        private bool _isRefreshing;
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set
+            {
+                _isRefreshing = value;
+                OnPropertyChanged();
+            }
+        }
+
         private Color _evenColor;
         public Color EvenColor
         {
@@ -74,6 +86,28 @@ namespace showTracker.ViewModel.CustomControls
             set
             {
                 _groupColor = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ICommand _refreshCommandWrapper;
+        public ICommand RefreshCommandWrapper
+        {
+            get => _refreshCommandWrapper;
+            set
+            {
+                _refreshCommandWrapper = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _refreshAvaliable;
+        public bool RefreshAvaliable
+        {
+            get => _refreshAvaliable;
+            set
+            {
+                _refreshAvaliable = value;
                 OnPropertyChanged();
             }
         }

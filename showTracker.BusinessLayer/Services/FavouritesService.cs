@@ -8,7 +8,7 @@ using showTracker.Model.Enum;
 
 namespace showTracker.BusinessLayer.Services
 {
-    public class FavouritiesService: IFavouritiesService
+    public class FavouritesService: IFavouritesService
     {        
         public bool AddShow(ShowDto show)
         {
@@ -55,13 +55,13 @@ namespace showTracker.BusinessLayer.Services
         private readonly IJsonSerializeService _jsonSerializeService;
         private readonly ISTLogger _logger;
 
-        public FavouritiesService(IJsonSerializeService jsonSerializeService, ISTLogger logger)
+        public FavouritesService(IJsonSerializeService jsonSerializeService, ISTLogger logger)
         {
             _jsonSerializeService = jsonSerializeService;
             _logger = logger;
         }
 
-        private ObservableCollection<ShowDto> GetShowCollectionFromSettings()
+        public ObservableCollection<ShowDto> GetShowCollectionFromSettings()
         {
             var serializedShows = CrossSettings.Current.GetValueOrDefault(Constants.SettingsFavouritiesCollectionName, string.Empty);
             _logger.Log($"Get: {serializedShows}");

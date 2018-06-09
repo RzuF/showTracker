@@ -20,8 +20,7 @@ namespace showTracker.ViewModel.CustomControls
                     var logger = ((EpisodeContainerItem)bindable)._logger;
                     var episode = (EpisodeDto)newValue;
 
-                    ((EpisodeContainerItem)bindable).IsFavourite = ((EpisodeContainerItem)bindable)._favouritiesService.IsFavourite(episode?.Show?.Id ?? -1);
-                    //logger.Log($"Show: {episode?.Show?.Name} ({episode?.Show?.Id}) - {((EpisodeContainerItem)bindable).IsFavourite}");
+                    ((EpisodeContainerItem)bindable).IsFavourite = ((EpisodeContainerItem)bindable)._favouritesService.IsFavourite(episode?.Show?.Id ?? -1);
                 });
 
         public EpisodeDto Episode
@@ -82,19 +81,19 @@ namespace showTracker.ViewModel.CustomControls
 
         public string FavouriteIcon => Constants.FavouriteIconResourceId;
         public string OkIcon => Constants.OkIconResourceId;
-        public string EpisodeName => $"Title: {Episode?.Name ?? "Unknown"}";
-        public string ShowName => $"Show: {Episode?.Show?.Name ?? "Unknown"}";
+        public string EpisodeName => $"{Constants.EpisodeTitle}: {Episode?.Name ?? Constants.Unknown}";
+        public string ShowName => $"{Constants.ShowName}: {Episode?.Show?.Name ?? Constants.Unknown}";
         public string NumberOfEpisode => $"S{(Episode?.Season ?? 0):D2}E{(Episode?.Number ?? 0):D2}";
 
-        private readonly IFavouritiesService _favouritiesService;
+        private readonly IFavouritesService _favouritesService;
         private readonly ISTLogger _logger;
         private ICommand _onNavigateRequested;
 
-        public string Runtime => $"{Episode?.Runtime?.ToString() ?? "??"} min";
+        public string Runtime => $"{Episode?.Runtime?.ToString() ?? "??"} {Constants.MinutesShort}";
 
         public EpisodeContainerItem()
         {
-            _favouritiesService = ServiceLocator.Current.GetInstance<IFavouritiesService>();
+            _favouritesService = ServiceLocator.Current.GetInstance<IFavouritesService>();
             _logger = ServiceLocator.Current.GetInstance<ISTLogger>();
             InitializeComponent();
         }
@@ -108,7 +107,7 @@ namespace showTracker.ViewModel.CustomControls
         {
             if (Episode != null)
             {
-                var action = _favouritiesService.AddOrDelete(Episode.Show);
+                var action = _favouritesService.AddOrDelete(Episode.Show);
                 _logger.Log($"{Episode?.Show?.Name}: {action}");
                 IsFavourite = action == FavouritiesAction.Add;
             }            

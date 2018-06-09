@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using showTracker.Model;
+using showTracker.ViewModel.FavouritesSchedulePage;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,7 +17,7 @@ namespace showTracker.ViewModel.FavouritiesSchedulePage
 		{
 			InitializeComponent ();
 
-		    MessagingCenter.Subscribe<FavouritiesScheduleViewModel>(this, Constants.PopupAlertKey,
+		    MessagingCenter.Subscribe<FavouritesScheduleViewModel>(this, Constants.PopupAlertKey,
 		        model => DisplayAlert(model.PopupAlertTitle, model.PopupAlertMessage, Constants.OkButtonText));
 
 
@@ -26,7 +27,7 @@ namespace showTracker.ViewModel.FavouritiesSchedulePage
 		    Task.Run(() =>
 		    {
 		        Task.Delay(10);
-		        ((FavouritiesScheduleViewModel)BindingContext)?.OnGenerateRequested?.Execute(null);
+		        ((FavouritesScheduleViewModel)BindingContext)?.OnGenerateRequested?.Execute(null);
             });		    
         }
 	}

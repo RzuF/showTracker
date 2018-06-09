@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using showTracker.Model;
+using showTracker.ViewModel.FavouritesPage;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,7 +22,7 @@ namespace showTracker.ViewModel.FavouritiesPage
 	    {
 	        base.OnAppearing();
 
-	        MessagingCenter.Subscribe<FavouritiesViewModel>(this, Constants.PopupAlertKey,
+	        MessagingCenter.Subscribe<FavouritesViewModel>(this, Constants.PopupAlertKey,
 	            model => DisplayAlert(model.PopupAlertTitle, model.PopupAlertMessage, Constants.OkButtonText));
         }
 	}

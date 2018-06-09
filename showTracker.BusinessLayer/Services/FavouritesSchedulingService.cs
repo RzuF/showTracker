@@ -7,25 +7,25 @@ using showTracker.Model.API.Dto;
 
 namespace showTracker.BusinessLayer.Services
 {
-    public class FavouritiesSchedulingService : IFavouritiesSchedulingService
+    public class FavouritesSchedulingService : IFavouritesSchedulingService
     {
-        private readonly IFavouritiesService _favouritiesService;
+        private readonly IFavouritesService _favouritesService;
         private readonly IApiClientService _apiClientService;
         private readonly ISTLogger _logger;
 
-        public FavouritiesSchedulingService(IFavouritiesService favouritiesService, IApiClientService apiClientService, ISTLogger logger)
+        public FavouritesSchedulingService(IFavouritesService favouritesService, IApiClientService apiClientService, ISTLogger logger)
         {
-            _favouritiesService = favouritiesService;
+            _favouritesService = favouritesService;
             _apiClientService = apiClientService;
             _logger = logger;
         }
 
         public async Task<IEnumerable<EpisodeDto>> GetScheduleForFavourities(DateTime startDate, DateTime endDate)
         {
-            var favoutitiesCollection = _favouritiesService.FavouritiesShowCollection;
+            var favoutitesCollection = _favouritesService.FavouritiesShowCollection;
 
             var scheduleEpisodeList = new List<EpisodeDto>();
-            foreach (var show in favoutitiesCollection)
+            foreach (var show in favoutitesCollection)
             {
                 var episodes = (await _apiClientService.GetEpisodes(show.Id)).Where(
                     x => x.AirDate.HasValue && x.AirDate.Value.Date >= startDate.Date && x.AirDate.Value.Date <= endDate.Date).ToList();

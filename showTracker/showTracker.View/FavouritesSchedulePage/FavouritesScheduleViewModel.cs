@@ -11,21 +11,21 @@ using showTracker.Model.API.Dto;
 using showTracker.Model.View;
 using Xamarin.Forms;
 
-namespace showTracker.ViewModel.FavouritiesSchedulePage
+namespace showTracker.ViewModel.FavouritesSchedulePage
 {
-    public class FavouritiesScheduleViewModel : BaseViewModel
+    public class FavouritesScheduleViewModel : BaseViewModel
     {
-        private readonly IFavouritiesSchedulingService _favouritiesSchedulingService;
+        private readonly IFavouritesSchedulingService _favouritiesSchedulingService;
         private readonly ISTLogger _logger;
 
-        public FavouritiesScheduleViewModel(IFavouritiesSchedulingService favouritiesSchedulingService, ISTLogger logger)
+        public FavouritesScheduleViewModel(IFavouritesSchedulingService favouritiesSchedulingService, ISTLogger logger)
         {
             _favouritiesSchedulingService = favouritiesSchedulingService;
             _logger = logger;
 
             OnGenerateRequested = new Command(GenerateRequested);
 
-            PageTitle = "Schedule of your shows";
+            PageTitle = Constants.FavouritesSchedulePageTitle;
             Episodes = new List<EpisodeDto>();
         }
 
@@ -63,8 +63,8 @@ namespace showTracker.ViewModel.FavouritiesSchedulePage
             {
                 if (StartDate > EndDate)
                 {
-                    PopupAlertTitle = "Invalid date range";
-                    PopupAlertMessage = "Selected date range cannot start after end date!";
+                    PopupAlertTitle = Constants.InvalidDateRangeTitle;
+                    PopupAlertMessage = Constants.InvalidDateRangeMessage;
                     MessagingCenter.Send(this, Constants.PopupAlertKey);
 
                     return;
@@ -75,35 +75,32 @@ namespace showTracker.ViewModel.FavouritiesSchedulePage
 
                 Episodes = episodes.AsQueryable().OrderBy("AirDate, AirTime").ToList();
             }
-            catch (HttpRequestException httpRequestException)
-            {
-                _logger.Log($"Exception: {httpRequestException.Message}\n\nStackTrace: {httpRequestException.StackTrace}");
-
-                PopupAlertTitle = Constants.NoInternetConnection;
-                PopupAlertMessage = Constants.CheckYourInternetConnection;
-                MessagingCenter.Send(this, Constants.PopupAlertKey);
-            }
             catch (IOException ioException)
             {
-                _logger.Log($"Exception: {ioException.Message}\n\nStackTrace: {ioException.StackTrace}");
-
-                PopupAlertTitle = Constants.NoInternetConnection;
-                PopupAlertMessage = Constants.CheckYourInternetConnection;
-                MessagingCenter.Send(this, Constants.PopupAlertKey);
+                NotifyAboutException(Constants.WrongQuery, Constants.ErrorDuringFetchingShow, ioException);
+            }
+            catch (HttpRequestException httpRequestException)
+            {
+                NotifyAboutException(Constants.NoInternetConnection, Constants.CheckYourInternetConnection, httpRequestException);
             }
 
             catch (Exception exception)
             {
-                _logger.Log($"Exception: {exception.Message}\n\nStackTrace: {exception.StackTrace}");
-
-                PopupAlertTitle = Constants.UndefinedError;
-                PopupAlertMessage = Constants.PleaseContactDeveloper;
-                MessagingCenter.Send(this, Constants.PopupAlertKey);
+                NotifyAboutException(Constants.UndefinedError, Constants.PleaseContactDeveloper, exception);
             }
             finally
             {
                 IsLoading = false;
-            }                       
+            }            
+        }
+
+        private void NotifyAboutException(string title, string message, Exception exception)
+        {
+            _logger.Log($"Exception: {exception.Message}\n\nStackTrace: {exception.StackTrace}");
+
+            PopupAlertTitle = title;
+            PopupAlertMessage = message;
+            MessagingCenter.Send(this, Constants.PopupAlertKey);
         }
     }
 }

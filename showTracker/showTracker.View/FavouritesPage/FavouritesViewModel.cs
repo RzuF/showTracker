@@ -13,16 +13,17 @@ using showTracker.Model.Filters;
 using showTracker.Model.View;
 using Xamarin.Forms;
 
-namespace showTracker.ViewModel.FavouritiesPage
+namespace showTracker.ViewModel.FavouritesPage
 {
-    public class FavouritiesViewModel : BaseViewModel
+    public class FavouritesViewModel : BaseViewModel
     {
         public ICommand ButtonClick { get; }
         public ICommand OnFiltersChanged { get; }
         public ICommand OnFiltersToggle { get; }
-        public string ButtonTitle => "Go to the Scheduler";
+        public ICommand RefreshShows { get; }
+        public string ButtonTitle => Constants.GoToScheduler;
 
-        private readonly IFavouritiesService _favouritiesService;
+        private readonly IFavouritesService _favouritesService;
         private readonly ISTLogger _logger;
         private readonly INavigationService _navigationService;
 
@@ -95,20 +96,21 @@ namespace showTracker.ViewModel.FavouritiesPage
             }
         }
 
-        public FavouritiesViewModel(IFavouritiesService favouritiesService, ISTLogger logger, INavigationService navigationService)
+        public FavouritesViewModel(IFavouritesService favouritesService, ISTLogger logger, INavigationService navigationService)
         {
-            _favouritiesService = favouritiesService;
+            _favouritesService = favouritesService;
             _logger = logger;
             _navigationService = navigationService;
 
             ButtonClick = new Command(FavouritiesScheduleNavigate);
             OnFiltersChanged = new Command(ApplyFilters);
             OnFiltersToggle = new Command(FiltersToggle);
+            RefreshShows = new Command(Refresh);
 
             Filters = GenerateDefaultFilters();
             DefaultFilters = GenerateDefaultFilters();
 
-            PageTitle = "List of your favourite shows";
+            PageTitle = Constants.FavouritesPageTitle;
             Shows = new List<ShowDto>();
 
             Task.Run(() =>
@@ -179,26 +181,44 @@ namespace showTracker.ViewModel.FavouritiesPage
             IsLoading = true;
             try
             {
-                var shows = _favouritiesService.FavouritiesShowCollection;
+                var shows = _favouritesService.FavouritiesShowCollection;
                 _logger.LogWithSerialization(shows);
 
                 Shows = shows.ToList();
             }
             catch (HttpRequestException httpRequestException)
             {
-                _logger.Log($"Exception: {httpRequestException.Message}\n\nStackTrace: {httpRequestException.StackTrace}");
-
-                PopupAlertTitle = Constants.NoInternetConnection;
-                PopupAlertMessage = Constants.CheckYourInternetConnection;
-                MessagingCenter.Send(this, Constants.PopupAlertKey);
+                NotifyAboutException(Constants.NoInternetConnection, Constants.CheckYourInternetConnection, httpRequestException);
             }
+
             catch (Exception exception)
             {
-                _logger.Log($"Exception: {exception.Message}\n\nStackTrace: {exception.StackTrace}");
+                NotifyAboutException(Constants.UndefinedError, Constants.PleaseContactDeveloper, exception);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
 
-                PopupAlertTitle = Constants.UndefinedError;
-                PopupAlertMessage = Constants.PleaseContactDeveloper;
-                MessagingCenter.Send(this, Constants.PopupAlertKey);
+        private void Refresh()
+        {
+            IsLoading = true;
+            try
+            {
+                var shows = _favouritesService.GetShowCollectionFromSettings();
+                _logger.LogWithSerialization(shows);
+
+                Shows = shows.ToList();
+            }
+            catch (HttpRequestException httpRequestException)
+            {
+                NotifyAboutException(Constants.NoInternetConnection, Constants.CheckYourInternetConnection, httpRequestException);
+            }
+
+            catch (Exception exception)
+            {
+                NotifyAboutException(Constants.UndefinedError, Constants.PleaseContactDeveloper, exception);
             }
             finally
             {
@@ -219,6 +239,15 @@ namespace showTracker.ViewModel.FavouritiesPage
                 GroupBy = GroupByEnum.Status,
                 OrderBy = OrderByEnum.Name
             };
+        }
+
+        private void NotifyAboutException(string title, string message, Exception exception)
+        {
+            _logger.Log($"Exception: {exception.Message}\n\nStackTrace: {exception.StackTrace}");
+
+            PopupAlertTitle = title;
+            PopupAlertMessage = message;
+            MessagingCenter.Send(this, Constants.PopupAlertKey);
         }
     }
 }

@@ -6,7 +6,7 @@ using showTracker.Model.API.Dto;
 
 namespace showTracker.BusinessLayer.Interfaces
 {
-    public interface IFavouritiesSchedulingService
+    public interface IFavouritesSchedulingService
     {
         Task<IEnumerable<EpisodeDto>> GetScheduleForFavourities(DateTime startDate, DateTime endDate);
     }

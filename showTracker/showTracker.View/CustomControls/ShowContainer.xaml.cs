@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Windows.Input;
 using CommonServiceLocator;
 using showTracker.BusinessLayer.Extensions;
 using showTracker.BusinessLayer.Interfaces;
@@ -61,6 +62,19 @@ namespace showTracker.ViewModel.CustomControls
 	        }
 	    }
 
+	    public static readonly BindableProperty RefreshCommandProperty =
+	        BindableProperty.Create(nameof(RefreshCommand), typeof(ICommand), typeof(ShowContainer), null,
+	            propertyChanged: (bindable, value, newValue) =>
+	            {
+	                ((ShowContainer) bindable).ViewModel.RefreshAvaliable = newValue != null;
+	            });
+
+	    public ICommand RefreshCommand
+	    {
+	        get => (ICommand) GetValue(RefreshCommandProperty);
+	        set => SetValue(RefreshCommandProperty, value);
+	    }
+
         #endregion
 
 	    public bool AnyShowsInCollection
@@ -69,7 +83,7 @@ namespace showTracker.ViewModel.CustomControls
 	        private set => ViewModel.AnyEntityInCollection = value;
 	    }
 
-	    public string NoItemsString => Constants.NoItemsInCollection;
+        public string NoItemsString => Constants.NoItemsInCollection;
         public EntityContainerViewModel ViewModel { get; }
 
 	    private readonly IJsonSerializeService _jsonSerializeService;
@@ -78,7 +92,11 @@ namespace showTracker.ViewModel.CustomControls
 		{
 		    _jsonSerializeService = ServiceLocator.Current.GetInstance<IJsonSerializeService>();
 		    _logger = ServiceLocator.Current.GetInstance<ISTLogger>();
-            ViewModel = new EntityContainerViewModel(_jsonSerializeService, _logger);
+
+		    ViewModel = new EntityContainerViewModel(_jsonSerializeService, _logger)
+		    {
+		        RefreshCommandWrapper = new Command(Refresh)
+		    };
 		    InitializeComponent ();
 		}
 
@@ -131,5 +149,14 @@ namespace showTracker.ViewModel.CustomControls
 
 	        ViewModel.IsGroupNameVisible = true;
         }
+
+	    private void Refresh()
+	    {
+	        ViewModel.IsRefreshing = true;
+
+            RefreshCommand?.Execute(null);
+
+	        ViewModel.IsRefreshing = false;
+	    }
     }
 }

@@ -4,7 +4,7 @@ using showTracker.Model.Enum;
 
 namespace showTracker.BusinessLayer.Interfaces
 {
-    public interface IFavouritiesService
+    public interface IFavouritesService
     {
         bool AddShow(ShowDto show);
         bool DeleteShow(ShowDto show);
@@ -12,5 +12,6 @@ namespace showTracker.BusinessLayer.Interfaces
         FavouritiesAction AddOrDelete(ShowDto show);
         ObservableCollection<ShowDto> FavouritiesShowCollection { get; }
         bool IsFavourite(int id);
+        ObservableCollection<ShowDto> GetShowCollectionFromSettings();
     }
 }

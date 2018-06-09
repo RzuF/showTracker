@@ -19,7 +19,8 @@
                 </StackLayout>
                 <customControls:ShowContainer ShowsCollection="{Binding FilteredShows}"
                                               VerticalOptions="FillAndExpand"
-                                              GroupBy="{Binding GroupBy}"/>
+                                              GroupBy="{Binding GroupBy}"
+                                              RefreshCommand="{Binding RefreshShows}"/>
             </StackLayout>
             <Grid IsVisible="{Binding IsLoading}">
                 <Grid BackgroundColor="Black" Opacity="0.5"/>

@@ -14,6 +14,7 @@
     <None Remove="Resources\Filter.svg" />
     <None Remove="Resources\FilterColored.svg" />
     <None Remove="Resources\Heart.svg" />
+    <None Remove="Resources\Logo.svg" />
     <None Remove="Resources\Ok.svg" />
     <None Remove="Resources\Search.svg" />
     <None Remove="Resources\Today.svg" />
@@ -33,6 +34,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Filter.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Logo.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Ok.svg">
@@ -75,6 +79,12 @@
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
       <DependentUpon>*.xaml</DependentUpon>
     </Compile>
+    <Compile Update="FavouritesPage\FavouritesPage.xaml.cs">
+      <DependentUpon>FavouritesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="FavouritesSchedulePage\FavouritesSchedulePage.xaml.cs">
+      <DependentUpon>FavouritesSchedulePage.xaml</DependentUpon>
+    </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="MainPage\MainPage.xaml.cs">
       <DependentUpon>*.xaml</DependentUpon>
     </Compile>
@@ -114,10 +124,10 @@
     <EmbeddedResource Update="CustomControls\TileControl.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="FavouritiesPage\FavouritiesPage.xaml">
+    <EmbeddedResource Update="FavouritesPage\FavouritesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="FavouritiesSchedulePage\FavouritiesSchedulePage.xaml">
+    <EmbeddedResource Update="FavouritesSchedulePage\FavouritesSchedulePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="SearchPage\SearchPage.xaml">

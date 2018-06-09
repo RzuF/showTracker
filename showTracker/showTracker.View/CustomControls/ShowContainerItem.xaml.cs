@@ -16,14 +16,9 @@ namespace showTracker.ViewModel.CustomControls
             BindableProperty.Create(nameof(Show), typeof(ShowDto), typeof(ShowContainerItem),
                 propertyChanged: (bindable, value, newValue) =>
                 {
-                    //var logger = ((ShowContainerItem) bindable)._logger;
-                    //logger.Log("Show set: ");
-                    //logger.LogWithSerialization(newValue);
-
                     var show = (ShowDto) newValue;
 
-                    ((ShowContainerItem)bindable).IsFavourite = ((ShowContainerItem)bindable)._favouritiesService.IsFavourite(show?.Id ?? -1);
-                    //logger.Log($"Show: {show?.Name} ({show?.Id}) - {((ShowContainerItem)bindable).IsFavourite}");
+                    ((ShowContainerItem)bindable).IsFavourite = ((ShowContainerItem)bindable)._favouritesService.IsFavourite(show?.Id ?? -1);
                 });
 
         public ShowDto Show
@@ -55,15 +50,15 @@ namespace showTracker.ViewModel.CustomControls
         public string FavouriteIcon => Constants.FavouriteIconResourceId;
         public string OkIcon => Constants.OkIconResourceId;
         public string Rating => $"{Show?.Rating?.ToString() ?? "??"}/{Constants.MaxRating}";
-        public string Premiered => Show?.Premiered?.Year.ToString() ?? "Unknown";
+        public string Premiered => Show?.Premiered?.Year.ToString() ?? Constants.Unknown;
 
-        private readonly IFavouritiesService _favouritiesService;
+        private readonly IFavouritesService _favouritesService;
         private readonly ISTLogger _logger;
         private readonly INavigationService _navigationService;
 
         public ShowContainerItem ()
 		{
-		    _favouritiesService = ServiceLocator.Current.GetInstance<IFavouritiesService>();
+		    _favouritesService = ServiceLocator.Current.GetInstance<IFavouritesService>();
             _logger = ServiceLocator.Current.GetInstance<ISTLogger>();
             _navigationService = ServiceLocator.Current.GetInstance<INavigationService>();
             InitializeComponent ();
@@ -71,7 +66,7 @@ namespace showTracker.ViewModel.CustomControls
 
         private void Favourite_Clicked(object sender, EventArgs e)
         {
-            var action = _favouritiesService.AddOrDelete(Show);
+            var action = _favouritesService.AddOrDelete(Show);
             _logger.Log($"{Show?.Name}: {action}");
             IsFavourite = action == FavouritiesAction.Add;
         }
