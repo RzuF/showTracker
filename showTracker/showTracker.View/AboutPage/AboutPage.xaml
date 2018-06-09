@@ -1,12 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="showTracker.ViewModel.AboutPage.AboutPage">
+             xmlns:svgXf="clr-namespace:SvgXF;assembly=showTracker.ViewModel"
+             x:Class="showTracker.ViewModel.AboutPage.AboutPage"
+             BindingContext="{Binding AboutViewModel, Source={StaticResource Locator}}"
+             Title="{Binding PageTitle}">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="About Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout Padding="20">
+                <Label Text="{Binding AppName}" FontSize="20" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                <svgXf:Icon ResourceId="{Binding LogoIcon}" 
+                            HorizontalOptions="FillAndExpand" 
+                            VerticalOptions="FillAndExpand"/>
+                <Label Text="{Binding Description}"/>
+                <Label Text="{Binding AuthorsLabel}"/>
+                <Label Text="{Binding Authors}" HorizontalTextAlignment="Center"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

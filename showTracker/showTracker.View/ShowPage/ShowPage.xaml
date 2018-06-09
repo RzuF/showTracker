@@ -12,7 +12,7 @@
         <Grid>
             <ScrollView>
                 <StackLayout>
-                    <Label Text="{Binding Show.Name}" FontSize="20" HorizontalTextAlignment="Center"/>
+                    <Label Text="{Binding Show.Name}" FontSize="20" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
                     <Grid VerticalOptions="Start">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>

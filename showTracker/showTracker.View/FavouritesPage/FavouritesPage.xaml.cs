@@ -21,7 +21,7 @@ namespace showTracker.ViewModel.FavouritiesPage
 	    {
 	        base.OnAppearing();
 
-	        MessagingCenter.Subscribe<FavouritiesViewModel>(this, Constants.PopupAlertKey,
+	        MessagingCenter.Subscribe<FavouritesViewModel>(this, Constants.PopupAlertKey,
 	            model => DisplayAlert(model.PopupAlertTitle, model.PopupAlertMessage, Constants.OkButtonText));
         }
 	}

@@ -37,5 +37,10 @@ namespace showTracker.BusinessLayer.Services
                 await Application.Current.MainPage.Navigation.PushAsync(validPage);
             }
         }
+
+        public async Task NavigateBack()
+        {
+            await Application.Current.MainPage.Navigation.PopAsync();
+        }
     }
 }

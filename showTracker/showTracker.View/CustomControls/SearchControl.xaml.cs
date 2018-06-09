@@ -13,7 +13,7 @@ namespace showTracker.ViewModel.CustomControls
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class SearchControl : Grid
 	{
-	    private const string DefaultPlaceholder = "Type search phrase...";
+	    private static string DefaultPlaceholder => Constants.DefaultSearchPlaceholder;
 
 	    public static readonly BindableProperty SearchPhraseProperty =
 	        BindableProperty.Create(nameof(SearchPhrase), typeof(string), typeof(SearchControl), "", BindingMode.TwoWay);

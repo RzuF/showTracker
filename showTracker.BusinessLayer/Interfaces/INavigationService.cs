@@ -10,5 +10,6 @@ namespace showTracker.BusinessLayer.Interfaces
     {
         Dictionary<ApplicationPageEnum, Type> PageDictionary { get; set; }
         Task Navigate(ApplicationPageEnum pageType, object message = null);
+        Task NavigateBack();
     }
 }

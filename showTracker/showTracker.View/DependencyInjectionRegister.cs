@@ -1,4 +1,5 @@
-﻿using showTracker.ViewModel.CustomControls;
+﻿using showTracker.ViewModel.AboutPage;
+using showTracker.ViewModel.CustomControls;
 using showTracker.ViewModel.FavouritiesSchedulePage;
 using showTracker.ViewModel.MainPage;
 using showTracker.ViewModel.SearchPage;
@@ -16,8 +17,9 @@ namespace showTracker.ViewModel
             unityContainer.RegisterInstance(typeof(SearchViewModel));
             unityContainer.RegisterInstance(typeof(TodayViewModel));
             unityContainer.RegisterInstance(typeof(EntityContainerViewModel));
-            unityContainer.RegisterInstance(typeof(FavouritiesScheduleViewModel));
+            unityContainer.RegisterInstance(typeof(FavouritesScheduleViewModel));
             unityContainer.RegisterInstance(typeof(ShowViewModel));
+            unityContainer.RegisterInstance(typeof(AboutViewModel));
 
             unityContainer.RegisterInstance(typeof(MainPage.MainPage));
             unityContainer.RegisterInstance(typeof(AboutPage.AboutPage));

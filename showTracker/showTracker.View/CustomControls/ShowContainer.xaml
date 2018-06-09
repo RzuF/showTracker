@@ -9,7 +9,10 @@
                              EvenColor="{Binding ViewModel.EvenColor, Source={x:Reference this}}"
                              OddColor="{Binding ViewModel.OddColor, Source={x:Reference this}}"
                              IsGroupingEnabled="{Binding ViewModel.IsGroupNameVisible, Source={x:Reference this}}"
-                             HasUnevenRows="True">
+                             HasUnevenRows="True"
+                             IsPullToRefreshEnabled="{Binding ViewModel.RefreshAvaliable, Source={x:Reference this}}"
+                             RefreshCommand="{Binding ViewModel.RefreshCommandWrapper, Source={x:Reference this}}"
+                             IsRefreshing="{Binding ViewModel.IsRefreshing, Source={x:Reference this}}">
         <control:ColoredListView.GroupHeaderTemplate>
             <DataTemplate>
                 <ViewCell>

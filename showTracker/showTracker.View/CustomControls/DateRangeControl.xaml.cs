@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using showTracker.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -35,9 +36,9 @@ namespace showTracker.ViewModel.CustomControls
 	        set => SetValue(GenerateRequestProperty, value);
 	    }
 
-	    public string GenerateLabel => "Generate";
-	    public string StartText => "Start:";
-	    public string EndText => "End:";
+	    public string GenerateLabel => Constants.GenerateLabel;
+	    public string StartText => Constants.StartText;
+	    public string EndText => Constants.EndText;
 	    public string DateFormat => "D";
         public DateRangeControl ()
 		{

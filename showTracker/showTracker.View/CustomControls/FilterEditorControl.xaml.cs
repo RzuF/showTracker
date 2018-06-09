@@ -97,7 +97,7 @@ namespace showTracker.ViewModel.CustomControls
 
 	    private void ClearRequested(object sender, EventArgs e)
 	    {
-	        Filters.Genre = DefaultFilters?.Genre ?? "";
+	        Filters.Genre = DefaultFilters?.Genre ?? string.Empty;
 	        Filters.GroupBy = DefaultFilters?.GroupBy ?? GroupByEnum.None;
 	        Filters.MinRating = DefaultFilters?.MinRating ?? 0;
 	        Filters.MinRuntime = DefaultFilters?.MinRuntime ?? 0;

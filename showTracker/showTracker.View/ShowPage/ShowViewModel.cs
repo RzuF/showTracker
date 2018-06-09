@@ -16,9 +16,9 @@ namespace showTracker.ViewModel.ShowPage
 {
     public class ShowViewModel : BaseViewModel
     {
-        public string SummaryTabLabel => "Summary";
-        public string CastTabLabel => "Cast";
-        public string EpisodesTabLabel => "Episodes";
+        public string SummaryTabLabel => Constants.SummaryTabLabel;
+        public string CastTabLabel => Constants.CastTabLabel;
+        public string EpisodesTabLabel => Constants.EpisodesTabLabel;
         public string FavouriteIcon => Constants.FavouriteIconResourceId;
         public string OkIcon => Constants.OkIconResourceId;
 
@@ -106,17 +106,19 @@ namespace showTracker.ViewModel.ShowPage
 
         private readonly ISTLogger _stLogger;
         private readonly IApiClientService _apiClientService;
-        private readonly IFavouritiesService _favouritiesService;
+        private readonly IFavouritesService _favouritesService;
+        private readonly INavigationService _navigationService;
 
-        public ShowViewModel(ISTLogger stLogger, IApiClientService apiClientService, IFavouritiesService favouritiesService)
+        public ShowViewModel(ISTLogger stLogger, IApiClientService apiClientService, IFavouritesService favouritesService, INavigationService navigationService)
         {
             _stLogger = stLogger;
             _apiClientService = apiClientService;
-            _favouritiesService = favouritiesService;
+            _favouritesService = favouritesService;
+            _navigationService = navigationService;
 
             OnFavouriteToggled = new Command(FavouriteToggled);
 
-            PageTitle = "Show is loading";
+            PageTitle = Constants.ShowPageTitle;
         }
 
         private async void GetShow(int id)
@@ -134,13 +136,13 @@ namespace showTracker.ViewModel.ShowPage
                     CachingEnabled = true,
                     Uri = new Uri(show.Image.MediumImgUrl)
                 };
-                IsFavourite = _favouritiesService.IsFavourite(show.Id);
+                IsFavourite = _favouritesService.IsFavourite(show.Id);
                 LoadFailed = false;
                 Task.Factory.StartNew(() =>
                 {
                     var seasons = show.Seasons.Select(season => new SeasonCarouselModel
                         {
-                            CarouselPageTitle = $"Season {season.Number.GetValueOrDefault()}",
+                            CarouselPageTitle = $"{Constants.Season} {season.Number.GetValueOrDefault()}",
                             Season = season,
                             Episodes = show.Episodes.ToList()
                                 .Where(x => x.Season.GetValueOrDefault() == season.Number)
@@ -159,31 +161,16 @@ namespace showTracker.ViewModel.ShowPage
             }
             catch (InvalidShowException invalidShowException)
             {
-                _stLogger.Log($"Exception: {invalidShowException.Message}\n\nStackTrace: {invalidShowException.StackTrace}");
-
-                PopupAlertTitle = Constants.WrongQuery;
-                PopupAlertMessage = Constants.ErrorDuringFetchingShow;
-                MessagingCenter.Send(this, Constants.PopupAlertKey);
-                LoadFailed = true;
+                NotifyAboutException(Constants.WrongQuery, Constants.ErrorDuringFetchingShow, invalidShowException);
             }
             catch (HttpRequestException httpRequestException)
             {
-                _stLogger.Log($"Exception: {httpRequestException.Message}\n\nStackTrace: {httpRequestException.StackTrace}");
-
-                PopupAlertTitle = Constants.NoInternetConnection;
-                PopupAlertMessage = Constants.CheckYourInternetConnection;
-                MessagingCenter.Send(this, Constants.PopupAlertKey);
-                LoadFailed = true;
+                NotifyAboutException(Constants.NoInternetConnection, Constants.CheckYourInternetConnection, httpRequestException);
             }
 
             catch (Exception exception)
             {
-                _stLogger.Log($"Exception: {exception.Message}\n\nStackTrace: {exception.StackTrace}");
-
-                PopupAlertTitle = Constants.UndefinedError;
-                PopupAlertMessage = Constants.PleaseContactDeveloper;
-                MessagingCenter.Send(this, Constants.PopupAlertKey);
-                LoadFailed = true;
+                NotifyAboutException(Constants.UndefinedError, Constants.PleaseContactDeveloper, exception);
             }
             finally
             {
@@ -193,9 +180,21 @@ namespace showTracker.ViewModel.ShowPage
 
         private void FavouriteToggled()
         {
-            var action = _favouritiesService.AddOrDelete(Show);
+            var action = _favouritesService.AddOrDelete(Show);
             _stLogger.Log($"{Show?.Name}: {action}");
             IsFavourite = action == FavouritiesAction.Add;
+        }
+
+        private void NotifyAboutException(string title, string message, Exception exception)
+        {
+            _stLogger.Log($"Exception: {exception.Message}\n\nStackTrace: {exception.StackTrace}");
+
+            PopupAlertTitle = title;
+            PopupAlertMessage = message;
+            MessagingCenter.Send(this, Constants.PopupAlertKey);
+            LoadFailed = true;
+
+            _navigationService.NavigateBack();
         }
     }
 }

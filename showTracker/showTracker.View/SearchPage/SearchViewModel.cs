@@ -107,7 +107,7 @@ namespace showTracker.ViewModel.SearchPage
             Filters = GenerateDefaultFilters();
             DefaultFilters = GenerateDefaultFilters();
 
-            PageTitle = "Search for shows";
+            PageTitle = Constants.SearchPageTitle;
             Shows = new List<ShowDto>();
         }
 
@@ -180,28 +180,16 @@ namespace showTracker.ViewModel.SearchPage
             }
             catch (InvalidShowException invalidShowException)
             {
-                _stLogger.Log($"Exception: {invalidShowException.Message}\n\nStackTrace: {invalidShowException.StackTrace}");
-
-                PopupAlertTitle = Constants.WrongQuery;
-                PopupAlertMessage = Constants.ErrorDuringFetchingShow;
-                MessagingCenter.Send(this, Constants.PopupAlertKey);
+                NotifyAboutException(Constants.WrongQuery, Constants.ErrorDuringFetchingShow, invalidShowException);
             }
             catch (HttpRequestException httpRequestException)
             {
-                _stLogger.Log($"Exception: {httpRequestException.Message}\n\nStackTrace: {httpRequestException.StackTrace}");
-
-                PopupAlertTitle = Constants.NoInternetConnection;
-                PopupAlertMessage = Constants.CheckYourInternetConnection;
-                MessagingCenter.Send(this, Constants.PopupAlertKey);
+                NotifyAboutException(Constants.NoInternetConnection, Constants.CheckYourInternetConnection, httpRequestException);
             }
 
             catch (Exception exception)
             {
-                _stLogger.Log($"Exception: {exception.Message}\n\nStackTrace: {exception.StackTrace}");
-
-                PopupAlertTitle = Constants.UndefinedError;
-                PopupAlertMessage = Constants.PleaseContactDeveloper;
-                MessagingCenter.Send(this, Constants.PopupAlertKey);
+                NotifyAboutException(Constants.UndefinedError, Constants.PleaseContactDeveloper, exception);
             }
             finally
             {
@@ -215,6 +203,15 @@ namespace showTracker.ViewModel.SearchPage
             {
                 
             };
+        }
+
+        private void NotifyAboutException(string title, string message, Exception exception)
+        {
+            _stLogger.Log($"Exception: {exception.Message}\n\nStackTrace: {exception.StackTrace}");
+
+            PopupAlertTitle = title;
+            PopupAlertMessage = message;
+            MessagingCenter.Send(this, Constants.PopupAlertKey);
         }
     }
 }
