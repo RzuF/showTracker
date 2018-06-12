@@ -104,6 +104,15 @@ namespace showTracker.ViewModel.ShowPage
             }
         }
 
+        public string TypeLabel => $"{Constants.Type}:";
+        public string LanguageLabel => $"{Constants.Language}:";
+        public string GenresLabel => $"{Constants.Genres}:";
+        public string SeasonsLabel => $"{Constants.Seasons}:";
+        public string NumberOfEpisodesLabel => $"{Constants.NumberOfEpisodes}:";
+        public string PremieredLabel => $"{Constants.Premiered}:";
+        public string EndedLabel => $"{Constants.Ended}:";
+        public string NetworkLabel => $"{Constants.Network}:";
+
         private readonly ISTLogger _stLogger;
         private readonly IApiClientService _apiClientService;
         private readonly IFavouritesService _favouritesService;

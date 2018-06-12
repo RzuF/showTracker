@@ -57,7 +57,7 @@
         public const string OkButtonText = "Ok";
 
         public const string NoInternetConnection = "No internet connection";
-        public const string CheckYourInternetConnection = "Check our internet connection and try again";
+        public const string CheckYourInternetConnection = "Check your internet connection and try again";
         public const string UndefinedError = "Something went bad";
         public const string PleaseContactDeveloper = "Please contact developer if you encounter this message";
         public const string WrongQuery = "Wrong query";
@@ -77,10 +77,19 @@
         public const string StartText = "Start:";
         public const string EndText = "End:";
 
-        public const string EpisodeTitle = "Title:";
-        public const string ShowName = "Show:";
+        public const string EpisodeTitle = "Title";
+        public const string ShowName = "Show";
         public const string Unknown = "Unknown";
         public const string MinutesShort = "min";
+
+        public const string Type = "Type";
+        public const string Language = "Language";
+        public const string Genres = "Genres";
+        public const string Seasons = "Seasons";
+        public const string NumberOfEpisodes = "Number of Episodes";
+        public const string Premiered = "Premiered";
+        public const string Ended = "Ended";
+        public const string Network = "Network";
 
         public const string DefaultSearchPlaceholder = "Type search phrase...";
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace showTracker.Model.API.Dto
@@ -19,6 +20,6 @@ namespace showTracker.Model.API.Dto
         public IEnumerable<AkaDto> Akas => Embedded?.Akas;
         public IEnumerable<CastDto> Cast => Embedded?.Cast;
         public IEnumerable<EpisodeDto> Episodes => Embedded?.Episodes;
-        public IEnumerable<SeasonDto> Seasons => Embedded?.Seasons;
+        public IList<SeasonDto> Seasons => Embedded?.Seasons?.ToList();
     }
 }

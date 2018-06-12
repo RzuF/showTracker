@@ -46,16 +46,20 @@
                         </Grid>
                         <StackLayout Grid.Row="1">
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Type:"/>
+                                <Label Text="{Binding TypeLabel}"/>
                                 <Label Text="{Binding Show.Type}"></Label>
                             </StackLayout>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Language:"/>
+                                <Label Text="{Binding LanguageLabel}"/>
                                 <Label Text="{Binding Show.Language}"></Label>
                             </StackLayout>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Genres:"/>
+                                <Label Text="{Binding GenresLabel}"/>
                                 <Label Text="{Binding Show.Genres, Converter={StaticResource StringArrayConverter}}"></Label>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding SeasonsLabel}"/>
+                                <Label Text="{Binding Show.Seasons.Count}"></Label>
                             </StackLayout>
                         </StackLayout>
                     </Grid>
@@ -97,19 +101,19 @@
                         <StackLayout>
                             <Label Text="{Binding CarouselPageTitle}" FontSize="24" HorizontalTextAlignment="Center"/>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Number of Episodes:"/>
+                                <Label Text="{Binding NumberOfEpisodesLabel}" BindingContext="{Binding ViewModel, Source={x:Reference TabbedPage}}"/>
                                 <Label Text="{Binding Season.EpisodeOrder}"></Label>
                             </StackLayout>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Premiered:"/>
+                                <Label Text="{Binding PremieredLabel}" BindingContext="{Binding ViewModel, Source={x:Reference TabbedPage}}"/>
                                 <Label Text="{Binding Season.PremiereDate, Converter={StaticResource DateConverter}}"></Label>
                             </StackLayout>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Ended:"/>
+                                <Label Text="{Binding EndedLabel}" BindingContext="{Binding ViewModel, Source={x:Reference TabbedPage}}"/>
                                 <Label Text="{Binding Season.EndDate, Converter={StaticResource DateConverter}}"></Label>
                             </StackLayout>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Network:"/>
+                                <Label Text="{Binding NetworkLabel}" BindingContext="{Binding ViewModel, Source={x:Reference TabbedPage}}"/>
                                 <Label Text="{Binding Season.Network.Name}"></Label>
                             </StackLayout>
                             <customControls:EpisodeContainer EpisodeCollection="{Binding Episodes}"
